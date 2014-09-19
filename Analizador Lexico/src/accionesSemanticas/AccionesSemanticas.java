@@ -9,6 +9,6 @@ public abstract class AccionesSemanticas {
 	protected String MsjError;
 	protected String tipo;
 	protected String identificador;
-	// comet eesta elia
+	// comet eesta eliana
 	public abstract Token ejecutar(); 
 }
