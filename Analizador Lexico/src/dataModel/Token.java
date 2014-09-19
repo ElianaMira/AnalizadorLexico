@@ -5,8 +5,8 @@ public class Token {
 	protected int idToken;
 	protected String atributo;
 	
-	public Token (int id, String attr){
-		idToken = id;
+	public Token (int idT, String attr){
+		idToken = idT;
 		atributo = attr;
 	}
 }
