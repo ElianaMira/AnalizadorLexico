@@ -22,40 +22,46 @@ public class Matriz
     {                
         Object celda = null;       
         
-        if (Character.isLetter(caracter)&& (eActual == 1 || eActual ==0) && (eActual !=5))
-            return get(eActual,1);    //Es una letra
-        else if (Character.isDigit(caracter) && (eActual !=5))
+        if (Character.isLetter(caracter))
+            	return get(eActual,1);    //Es una letra
+        else if (Character.isDigit(caracter) )
                 return get(eActual,2);//Es un digito
         else if (caracter ==  '#')
                 return get(eActual,12);
+        else if(Character.isWhitespace(caracter))
+                return get(eActual,10);
         else 
         	switch(caracter)
         	{
-        		case ':' :  celda = get(eActual,3); break;
-        		case '=' :  celda = get(eActual,4); break;
-        		case '{' :  celda = get(eActual,5); break;
-        		case '}' :  celda = get(eActual,5); break;
-        		case '[' :  celda = get(eActual,5); break;
-        		case ']' :  celda = get(eActual,5); break;
-        		case '(' :  celda = get(eActual,5); break;
-        		case ')' :  celda = get(eActual,5); break;
-        		case ',' :  celda = get(eActual,5); break;
-        		case ';' :  celda = get(eActual,5); break;
-        		case '/' :  celda = get(eActual,5); break;
-        		case '*' :  celda = get(eActual,5); break;
-        		case '<' :  celda = get(eActual,7); break;
-        		case '>' :  celda = get(eActual,8); break;                   	
-        		case ' ' :  celda = get(eActual,10);break; 
-        		case '\t':  celda = get(eActual,11);break;        	
-        		case '\'':  celda = get(eActual,14);break;
-        		case '.' :  celda = get(eActual,15);break;
-        		case 'F' :  celda = get(eActual,16);break; 
-        		case '+' :  celda = get(eActual,17);break;
-        		case '-' :  celda = get(eActual,17);break;
+        		case '$' :  celda = get(eActual,3); break;
+        		case '_' :  celda = get(eActual,3); break;
+        		case '&' :  celda = get(eActual,3); break;
+        		case '.' :  celda = get(eActual,4); break;
+        		case 'F' :  celda = get(eActual,5); break;
+        		case '+' :  celda = get(eActual,6); break;
+        		case '-' :  celda = get(eActual,7); break;        		        		
+        		case ':' :  celda = get(eActual,8); break;
+        		case '=' :  celda = get(eActual,9); break;
+        		case '>' :  celda = get(eActual,10);break;
+        		case '<' :  celda = get(eActual,11);break;
+        		case '^' :  celda = get(eActual,12);break;
+        		case '{' :  celda = get(eActual,13);break;
+        		case '}' :  celda = get(eActual,13);break; 
+        		case '(' :  celda = get(eActual,13);break;
+        		case ')' :  celda = get(eActual,13);break;
+        		case '/' :  celda = get(eActual,13);break;
+        		case '*' :  celda = get(eActual,13);break;
+        		case ',' :  celda = get(eActual,13);break;
+        		case ';' :  celda = get(eActual,13);break;       		
+           		case '[' :  celda = get(eActual,14);break;
+        		case ']' :  celda = get(eActual,15);break;
+        		case '"' :  celda = get(eActual,16);break;
+        		case ' ' :  celda = get(eActual,17);break;         		       	
+        		case '\'':  celda = get(eActual,18);break;
+        		case '\t':  celda = get(eActual,19);break;        		
+        		
         	}        
-        if(Character.isWhitespace(caracter))
-            celda = get(eActual,10);
-        if(celda == null)
+        if(celda == null) // eof
             celda = get(eActual, 0);
         return celda;
     }
