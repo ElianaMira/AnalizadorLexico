@@ -3,7 +3,12 @@ package accionesSemanticas;
 import dataModel.Token;
 
 public class AccionSemantica2 extends AccionesSemanticas {
-
+	
+	 public AccionSemantica2(String m){
+	        super(m);
+	        
+	    }
+	
 	@Override
 	public Token ejecutar() {
 		// TODO Auto-generated method stub
