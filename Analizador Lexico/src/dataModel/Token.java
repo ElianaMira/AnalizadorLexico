@@ -1,12 +1,33 @@
 package dataModel;
 
-public class Token {
+public class Token 
+{
+    private String tipo;
+	private Simbolo simb;
 	
-	protected int idToken;
-	protected String atributo;
-	
-	public Token (int idT, String attr){
-		idToken = idT;
-		atributo = attr;
+	public Token(String t,Simbolo s)
+	{
+		tipo = t;
+	    simb = s;
 	}
+	    
+	public Simbolo getPuntero()
+	{
+	        return simb;
+	}
+	
+	public String getTipo()
+	{
+		return tipo;
+	}
+	
+	public void setPuntero(Simbolo s) 
+	{
+		this.simb = s;
+	}
+	
+	public void setTipo(String tipo) 
+	{
+		this.tipo = tipo;
+	}	    
 }
