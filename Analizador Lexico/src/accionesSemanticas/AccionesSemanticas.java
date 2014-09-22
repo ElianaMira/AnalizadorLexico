@@ -1,5 +1,6 @@
 package accionesSemanticas;
 
+import dataModel.TablaSimbolo;
 import dataModel.Token;
 
 public abstract class AccionesSemanticas {
@@ -33,6 +34,6 @@ public abstract class AccionesSemanticas {
 	 public String getIdentificador(){
 		 return identificador;
 	 }
-	
-	public abstract Token ejecutar(); 
+	 // retorna un String con el lexema que va formando en caso contrario lo devuelve vacío.	     
+	public abstract Token ejecutar(StringBuffer lexema,char caracter,TablaSimbolo tablaS,int linea);  
 }
