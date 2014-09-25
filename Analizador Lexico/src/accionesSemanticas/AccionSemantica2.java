@@ -10,9 +10,12 @@ import dataModel.Token;
 */
 public class AccionSemantica2 extends AccionesSemanticas 
 {
-	 public AccionSemantica2(String m)
+	private PalabrasReservadas reservadas;
+	
+	public AccionSemantica2(String m)
 	 {
 		 super(m);
+		 reservadas = new PalabrasReservadas();
 	 }
 	 
 	@Override
@@ -20,7 +23,7 @@ public class AccionSemantica2 extends AccionesSemanticas
 	{
 		Simbolo s = null;
 			 
-	    if (PalabrasReservadas.esPalabraReservada(lexema.toString()))	     
+	    if (reservadas.esPalabraReservada(lexema.toString()))	     
 	    	s = new Simbolo(lexema,lexema.toString().toUpperCase());
 	    else
 	    {

@@ -18,7 +18,8 @@ public class AccionSemantica11 extends AccionesSemanticas
 		
 		Simbolo s = new Simbolo(lexema,"VECTOR");
         Token t = new Token(s.getTipo(),s);
-        ts.Simbolo(s);	 
+        ts.addSimbolo(s);
+        return t;
 	}
 
 }

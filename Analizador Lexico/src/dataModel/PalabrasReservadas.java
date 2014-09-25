@@ -23,7 +23,7 @@ public class PalabrasReservadas
 		return this.palabras; 
 	}
 	
-	public boolean esPalabraReservada(StringBuffer Palabra)
+	public boolean esPalabraReservada(String Palabra)
 	{ 
 		if (palabras.contains(Palabra))
 		{ 
