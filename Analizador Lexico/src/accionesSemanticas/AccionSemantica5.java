@@ -3,7 +3,7 @@ import dataModel.Simbolo;
 import dataModel.TablaSimbolo;
 import dataModel.Token;
 
-/* Devuelve el lexema para los token de comparacion y asignacion*/
+/* Devuelve el lexema para los caracteres >= <= != :=   */
 public class AccionSemantica5 extends AccionesSemanticas 
 {
 
@@ -17,28 +17,9 @@ public class AccionSemantica5 extends AccionesSemanticas
 	{
 		String tipo = "";
 		lexema.append(caracter);
-		
-		switch(lexema.toString())
-		{
-			case ">=":
-				tipo = "MAYOR_IGUAL";
-				break;
-			case "<=":
-				tipo = "MENOR_IGUAL";
-				break;
-			case "^=":
-				tipo = "DISTINTO";
-				break;
-			case ":=":
-				tipo = "ASIGNACION";
-				break;
-	   }
-       Simbolo s = new Simbolo(lexema, tipo);
-       ts.addSimbolo(s);
-       Token t = new Token(s.getTipo(), s);
-       return t;
+		Simbolo s = new Simbolo(lexema,lexema.toString());
+		ts.addSimbolo(s);
+		Token t = new Token(s.getTipo(), s);
+		return t;
 	}
-	
-	
-	
 }

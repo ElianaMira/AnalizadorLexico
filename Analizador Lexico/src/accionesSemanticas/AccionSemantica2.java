@@ -20,7 +20,7 @@ public class AccionSemantica2 extends AccionesSemanticas
 	{
 		Simbolo s = null;
 			 
-	    if (PalabrasReservadas.esPalabraReservada(lexema))	     
+	    if (PalabrasReservadas.esPalabraReservada(lexema.toString()))	     
 	    	s = new Simbolo(lexema,lexema.toString().toUpperCase());
 	    else
 	    {

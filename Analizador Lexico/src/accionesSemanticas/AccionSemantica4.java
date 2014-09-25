@@ -3,7 +3,7 @@ import dataModel.Simbolo;
 import dataModel.TablaSimbolo;
 import dataModel.Token;
 
-/* Verifica el float que no exceda el rango*/
+/* Verifica el float que no exceda el rango, retorna ultimo caracter leido*/
 public class AccionSemantica4 extends AccionesSemanticas
 {
 	public AccionSemantica4(String m)
@@ -25,7 +25,7 @@ public class AccionSemantica4 extends AccionesSemanticas
 		}
 		else
 		{
-			Simbolo s = new Simbolo(lexema,"NUMERO");
+			Simbolo s = new Simbolo(lexema,"FLOAT");
 			t = new Token(s.getTipo(),s);
 	        ts.addSimbolo(s);
 	    }

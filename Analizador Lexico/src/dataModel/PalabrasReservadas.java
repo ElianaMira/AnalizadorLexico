@@ -15,7 +15,7 @@ public class PalabrasReservadas
 		palabras.set(0, 3, "float");		 
 	}             
     
-	public boolean esPalabraReservada(StringBuffer Palabra)
+	public boolean esPalabraReservada(String Palabra)
 	{		
 		for (int i = 0; i < MaxCol; i++) 
 		{
