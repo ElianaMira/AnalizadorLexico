@@ -1,28 +1,34 @@
 package dataModel;
+import java.util.ArrayList;
 
 public class PalabrasReservadas 
 {
-	private Matriz palabras;
-	private int MaxFil = 2;
-	private int MaxCol = 5;
-	
+	private ArrayList<String> palabras; 
 	public PalabrasReservadas()
 	{
-		palabras = new Matriz(MaxFil,MaxCol);
-		palabras.set(0, 0, "if");
-		palabras.set(0, 1, "else");
-		palabras.set(0, 2, "print");
-		palabras.set(0, 3, "float");		 
-	}             
-    
-	public boolean esPalabraReservada(String Palabra)
-	{		
-		for (int i = 0; i < MaxCol; i++) 
-		{
-			if (palabras.get(0, i).equals(Palabra))
-				return true;			
-		} 
-		return false;
+		palabras = new ArrayList<String>();
+		palabras.add("If");
+		palabras.add("Then");
+		palabras.add("Else");
+		palabras.add("Print");
+		palabras.add("Int");
+		palabras.add("Flotante");
+		palabras.add("Para");
+		palabras.add("Vector");
+		palabras.add("De");
 	}
-
+	
+	public ArrayList<String> getReservadas()
+	{
+		return this.palabras; 
+	}
+	
+	public boolean esPalabraReservada(StringBuffer Palabra)
+	{ 
+		if (palabras.contains(Palabra))
+		{ 
+			return true; 
+		}
+		return false; 
+	}
 }
