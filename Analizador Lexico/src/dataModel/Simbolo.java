@@ -8,7 +8,7 @@ public class Simbolo
     public Simbolo(StringBuffer v, String t)
     {
         this.valor = new StringBuffer();
-        this.valor.append(v);
+        this.valor.append(v); //con el append se cambia el contenido del stringbuffer
         tipo = t ;
     }
 

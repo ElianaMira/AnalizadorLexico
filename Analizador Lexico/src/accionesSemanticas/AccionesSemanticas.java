@@ -31,9 +31,26 @@ public abstract class AccionesSemanticas {
 		 return tipo;
 	 }
 	    
+	 public void setIdentificador(String id){
+		 identificador = id;
+	 }
+	 public void setMsjError(String msj){
+		 msjError = msj;
+	 }
+	
+	 public void setError(Boolean e){
+		 error = e;
+	 }
+
+	 public void setTipo(String t) {
+		 tipo = t;
+	 }
+	    
 	 public String getIdentificador(){
 		 return identificador;
 	 }
+	 
+	 
 	 // retorna un String con el lexema que va formando en caso contrario lo devuelve vacío.	     
 	public abstract Token ejecutar(StringBuffer lexema,char caracter,TablaSimbolo tablaS,int linea);  
 }

@@ -9,19 +9,36 @@ public class Log
 	private ArrayList<String> lineas;
     private String direccion;
 
-    public Log(String dir) 
-    {
+    public Log(String dir) {
         lineas = new ArrayList<String>();
         direccion = dir;
     }
 
-    public void addLog(String linea) 
-    {
+    public void addLog(String linea) {
         lineas.add(linea);
     }
+    
+    public void generar(){
+        // abrir el archivo
+	  System.out.println("Se encontraron "+lineas.size()+" entradas");
+	  try {
+	      FileWriter archivo = new FileWriter(direccion);
+	      
+	      String resultado;
+	      for (int i = 0; i < lineas.size(); i++) {
+	          resultado = lineas.get(i);
+	          archivo.write(resultado + "\r\n");
+	      }
+	      archivo.close();
+	
+	  } catch (Exception ex) {
+	      ex.printStackTrace();
+	  }
+	
+	}
 
-    public void imprimir() 
-    {
+
+    public void imprimir() {
         // abrir el archivo
         System.out.println("");
         try 

@@ -5,14 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LectorArchivo
-{
+public class LectorArchivo{
 		
 	private int nroLinea,pos;
 	private ArrayList<String> fuente;
 	
-	public LectorArchivo(String ruta)
-	{        
+	public LectorArchivo(String ruta){        
         fuente = new ArrayList<String>();
         nroLinea = 0;
         pos = 0;  
