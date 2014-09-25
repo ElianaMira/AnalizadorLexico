@@ -95,18 +95,18 @@ public class AnalizadorLexico {
                 logErrores.addLog(acc.getMsjError());
                 acc.setError(false);
             }
-            /* ver que onda con el retroceder porque no lo estamos agregando al token
+
              if (acc.getRetroceder()) {
-                l.retrocederPosicion();
+                lector.retrocederPosicion();
                 acc.setRetroceder(false);
-                eSiguiente = (Integer) estados.getCelda(caracter, eActual);
+                eSig = (Integer) estados.getCelda(caracter, eActual);
             }
-            eActual = eSiguiente;
+            eActual = eSig;
 			//System.out.println("sig:" + eSiguiente);
 			//System.out.println("---------------");
-            if (eActual == 14) {
+            if (eActual == 16) {
                 lexema = new StringBuffer().append("");
-            }*/
+            }
         }
         return token;
     }

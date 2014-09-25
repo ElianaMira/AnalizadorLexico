@@ -48,9 +48,18 @@ public abstract class AccionesSemanticas {
 	    
 	 public String getIdentificador(){
 		 return identificador;
+	 }	 
+	 
+	 public Boolean getRetroceder() 
+	 {
+		return retroceder;
 	 }
-	 
-	 
-	 // retorna un String con el lexema que va formando en caso contrario lo devuelve vacío.	     
+
+	public void setRetroceder(Boolean retroceder)
+	{
+		this.retroceder = retroceder;
+	}
+
+	// retorna un String con el lexema que va formando en caso contrario lo devuelve vacío.	     
 	public abstract Token ejecutar(StringBuffer lexema,char caracter,TablaSimbolo tablaS,int linea);  
 }
