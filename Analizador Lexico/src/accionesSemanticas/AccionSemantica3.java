@@ -13,7 +13,7 @@ public class AccionSemantica3 extends AccionesSemanticas{
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {		
 		Token t = null;		
 	    Integer number = Integer.valueOf(lexema.toString()).intValue();  
-	    if ((number < -32768) && (number > 32767)) {
+	    if ((number > -32768) && (number < 32767)) {
 	            Simbolo s = new Simbolo(lexema,"INT");
 	            t = new Token(s.getTipo(),s);
 	            ts.addSimbolo(s);	            
