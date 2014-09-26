@@ -39,20 +39,15 @@ public class Log
 
 
     public void imprimir() {
-        // abrir el archivo
-        System.out.println("");
         try 
         {
-        	//creo archivo
             FileWriter fichero = new FileWriter(direccion);
-            //Muestro el log
             for (int i = 0; i < lineas.size(); i++)
             {
                 String resultado = lineas.get(i);
                 System.out.println(resultado);
                 fichero.write(resultado + "\r\n");
             }
-            //cerramos el fichero
             fichero.close();
         } 
         catch (Exception ex) 

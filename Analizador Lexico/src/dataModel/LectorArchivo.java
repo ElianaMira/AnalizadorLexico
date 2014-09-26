@@ -32,33 +32,31 @@ public class LectorArchivo{
       }			        
     }
      
-    public char getCaracter()
-    {
+    public char getCaracter(){
         char c = 0;     
-        if (nroLinea < fuente.size())
-        {         
-            if (pos < fuente.get(nroLinea).length())
-            {
+        if (nroLinea < fuente.size()){         
+            if (pos < fuente.get(nroLinea).length()){
                 c = fuente.get(nroLinea).charAt(pos);
                 pos++;
             }
-            else
-            {
+            else{
             	c = '@';
                 nroLinea++;
                 pos = 0;
             }
        }
-       else
+       else {
            c='#';
-        return c; 
+       }
+       return c; 
     }
     
     public void retrocederPosicion()
     {
-        if (pos != 0)
+        if (pos != 0){
             pos = pos -1;
-        else{
+        }
+        else {
             if (nroLinea != 0){
             	nroLinea = nroLinea - 1;
                 pos = fuente.get(nroLinea).length(); 

@@ -1,5 +1,7 @@
 package dataModel;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import accionesSemanticas.AccionesSemanticas;
@@ -78,38 +80,37 @@ public class AnalizadorLexico {
         Token token = new Token();
         char caracter = ' ';
         while (caracter != '#' && eSig != 16) {
-            //System.out.println("Entro");
             caracter = lector.getCaracter();
-            AccionesSemanticas acc = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);
+            AccionesSemanticas accion = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);
             eSig = (Integer) estados.getCelda(caracter, eActual);
-            //System.out.println("act:" + eActual);
-            //System.out.println(acc.getIdentificador());
-
-            token = acc.ejecutar(lexema, caracter, tablaS, lector.getLine());
+            token = accion.ejecutar(lexema, caracter, tablaS, lector.getLine());
             if (token != null){
                 token.setLinea(lector.getLine()+1);
             }
 
-            if (acc.getError() == true) {
-                errores.add(acc.getMsjError());
-                logErrores.addLog(acc.getMsjError());
-                acc.setError(false);
+            if (accion.getError() == true) {
+                errores.add(accion.getMsjError());
+                logErrores.addLog(accion.getMsjError());
+                accion.setError(false);
             }
 
-             if (acc.getRetroceder()) {
+             if (accion.getRetroceder()) {
                 lector.retrocederPosicion();
-                acc.setRetroceder(false);
+                accion.setRetroceder(false);
                 eSig = (Integer) estados.getCelda(caracter, eActual);
             }
             eActual = eSig;
-			//System.out.println("sig:" + eSiguiente);
-			//System.out.println("---------------");
             if (eActual == 16) {
                 lexema = new StringBuffer().append("");
             }
         }
         return token;
     }
+    
+    public int yylex() throws FileNotFoundException, IOException {
+		return 0;
+    	
+    } 
     
 	
 }

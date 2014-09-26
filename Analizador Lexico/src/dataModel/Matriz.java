@@ -56,7 +56,7 @@ public class Matriz
            		case '[' :  celda = get(eActual,13);break;
         		case ']' :  celda = get(eActual,10);break;
         		case '"' :  celda = get(eActual,14);break;
-        		case ' ' :  celda = get(eActual,15);break;         		       	
+        		case ' ' :  celda = get(eActual,15);break;        		       	
         		case '\'':  celda = get(eActual,16);break;
         		case '\t':  celda = get(eActual,17);break;        		
         		

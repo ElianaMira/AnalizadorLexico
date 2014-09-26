@@ -27,8 +27,8 @@ public class Compilador {
             c.addTablaSimbolo();
             c.recorrerPolaca(p.getPolaca());
             c.imprimir();
-        }else
-        {
+        }
+        else{
             System.out.println("");
             System.out.println("Su codigo posee errores");
             System.out.println("");
