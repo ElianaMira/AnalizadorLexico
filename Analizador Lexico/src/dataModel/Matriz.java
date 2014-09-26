@@ -55,9 +55,8 @@ public class Matriz
         		case ';' :  celda = get(eActual,5);break;       		
            		case '[' :  celda = get(eActual,13);break;
         		case ']' :  celda = get(eActual,10);break;
-        		case '"' :  celda = get(eActual,14);break;
-        		case ' ' :  celda = get(eActual,15);break;        		       	
-        		case '\'':  celda = get(eActual,16);break;
+        		case '"' :  celda = get(eActual,14);break;        		       	
+        		case '%':  celda = get(eActual,16);break;
         		case '\t':  celda = get(eActual,17);break;        		
         		
         	}        
@@ -83,10 +82,12 @@ public class Matriz
     public Object get(int fila, int columna) 
     {
         // Verifico que no me vaya de rango
-        if (fila < this.fila & columna < this.columna)
-        	return this.celdas[fila][columna];        
+        if (fila < this.fila & columna < this.columna){
+        	return this.celdas[fila][columna];
+        }
         Logger.getLogger(getClass().getName()).log(Level.WARNING, "La posicion "+fila+":"+columna+" se encuentra fuera de rango ");
         return null;
+        
     }
         
 }

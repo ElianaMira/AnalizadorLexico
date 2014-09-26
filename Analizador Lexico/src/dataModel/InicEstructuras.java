@@ -3,6 +3,9 @@ package dataModel;
 import accionesSemanticas.AccionSemantica0;
 import accionesSemanticas.AccionSemantica1;
 import accionesSemanticas.AccionSemantica10;
+import accionesSemanticas.AccionSemantica11;
+import accionesSemanticas.AccionSemantica12;
+import accionesSemanticas.AccionSemantica13;
 import accionesSemanticas.AccionSemantica2;
 import accionesSemanticas.AccionSemantica3;
 import accionesSemanticas.AccionSemantica4;
@@ -18,7 +21,7 @@ public class InicEstructuras {
 	
 	public Matriz inicializarAcciones(){
 		
-		Matriz acciones = new Matriz(9,20);
+		Matriz acciones = new Matriz(16,19);
 		
 		 //acciones semanticas
 		AccionesSemanticas accionSemantica0 = new AccionSemantica0("accion0");
@@ -32,8 +35,9 @@ public class InicEstructuras {
         AccionesSemanticas accionSemantica8 = new AccionSemantica8("accion8");
         AccionesSemanticas accionSemantica9 = new AccionSemantica9("accion9");
         AccionesSemanticas accionSemantica10 = new AccionSemantica10("accion10");
-        AccionesSemanticas accionSemantica11 = new AccionSemantica10("accion11");
-        AccionesSemanticas accionSemantica12 = new AccionSemantica10("accion12");
+        AccionesSemanticas accionSemantica11 = new AccionSemantica11("accion11");
+        AccionesSemanticas accionSemantica12 = new AccionSemantica12("accion12");
+        AccionesSemanticas accionSemantica13 = new AccionSemantica13("accion13");
         
         //FILA0 Estado 0
         acciones.set(0, 0, accionSemantica0);
@@ -344,9 +348,9 @@ public class InicEstructuras {
         acciones.set(14, 11, accionSemantica1);
         acciones.set(14, 12, accionSemantica1);
         acciones.set(14, 13, accionSemantica1);
-        acciones.set(14, 14, accionSemantica8);
+        acciones.set(14, 14, accionSemantica13);
         acciones.set(14, 15, accionSemantica1);
-        acciones.set(14, 16, accionSemantica0);
+        acciones.set(14, 16, accionSemantica1);
         acciones.set(14, 17, accionSemantica1);
         acciones.set(14, 18, accionSemantica1);
         
@@ -380,7 +384,7 @@ public class InicEstructuras {
 	
 	public Matriz InicializarEstados(){
 		
-		Matriz estados = new Matriz(15,19);
+		Matriz estados = new Matriz(16,19);
 		
 		
 		//FILA0 Estado 0
@@ -693,9 +697,9 @@ public class InicEstructuras {
         estados.set(14, 11, 14);
         estados.set(14, 12, 14);
         estados.set(14, 13, 14);
-        estados.set(14, 14, 0);
+        estados.set(14, 14, 16);
         estados.set(14, 15, 14);
-        estados.set(14, 16, 0);
+        estados.set(14, 16, 14);
         estados.set(14, 17, 14);
         estados.set(14, 18, 14);
         

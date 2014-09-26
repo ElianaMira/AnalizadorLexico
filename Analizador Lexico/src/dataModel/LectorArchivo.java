@@ -22,7 +22,7 @@ public class LectorArchivo{
             String sCadena = "";
             while ((sCadena = bf.readLine())!= null)                        
                 fuente.add(sCadena + "@");              
-            sCadena = "$";
+            sCadena = "#";
             fuente.add(sCadena); 
             bf.close();
          }
