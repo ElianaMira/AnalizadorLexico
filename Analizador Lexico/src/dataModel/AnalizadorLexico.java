@@ -18,8 +18,8 @@ public class AnalizadorLexico {
 		lector = new LectorArchivo(ruta);
 		tablaS = new TablaSimbolo();
 		errores = new ArrayList<String>();
-		estados = new Matriz(15,19);
-		accionesSemanticas = new Matriz(15,19);
+		estados = new Matriz(16,19);
+		accionesSemanticas = new Matriz(16,19);
 		
 		InicEstructuras inicia = new InicEstructuras();
 		accionesSemanticas = inicia.inicializarAcciones();
@@ -47,7 +47,7 @@ public class AnalizadorLexico {
     }
 	
 	public void imprimirEstados() {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 16; i++) {
             System.out.print("F:" + i);
             for (int j = 0; j < 19; j++) {
                 System.out.print(" C" + j + ":" + estados.get(i, j));
@@ -57,7 +57,7 @@ public class AnalizadorLexico {
     }
 
     public void imprimirAcciones() {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 16; i++) {
             System.out.print("F:" + i);
             for (int j = 0; j < 19; j++) {
                 if (accionesSemanticas.get(i, j) != null) {
@@ -77,7 +77,7 @@ public class AnalizadorLexico {
         Integer eSig = 0;
         Token token = new Token();
         char caracter = ' ';
-        while (caracter != '#' && eSig != 15) {
+        while (caracter != '#' && eSig != 16) {
             //System.out.println("Entro");
             caracter = lector.getCaracter();
             AccionesSemanticas acc = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);

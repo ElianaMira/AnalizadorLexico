@@ -32,6 +32,8 @@ public class InicEstructuras {
         AccionesSemanticas accionSemantica8 = new AccionSemantica8("accion8");
         AccionesSemanticas accionSemantica9 = new AccionSemantica9("accion9");
         AccionesSemanticas accionSemantica10 = new AccionSemantica10("accion10");
+        AccionesSemanticas accionSemantica11 = new AccionSemantica10("accion11");
+        AccionesSemanticas accionSemantica12 = new AccionSemantica10("accion12");
         
         //FILA0 Estado 0
         acciones.set(0, 0, accionSemantica0);
@@ -140,8 +142,8 @@ public class InicEstructuras {
         
         //FILA5 Estado 5
         acciones.set(5, 0, accionSemantica0);
-        acciones.set(5, 1, accionSemantica1);
-        acciones.set(5, 2, accionSemantica0);
+        acciones.set(5, 1, accionSemantica0);
+        acciones.set(5, 2, accionSemantica1);
         acciones.set(5, 3, accionSemantica0);
         acciones.set(5, 4, accionSemantica0);
         acciones.set(5, 5, accionSemantica0);
@@ -161,8 +163,8 @@ public class InicEstructuras {
         
         //FILA6 Estado 6
         acciones.set(6, 0, accionSemantica4);
-        acciones.set(6, 1, accionSemantica1);
-        acciones.set(6, 2, accionSemantica4);
+        acciones.set(6, 1, accionSemantica4);
+        acciones.set(6, 2, accionSemantica1);
         acciones.set(6, 3, accionSemantica4);
         acciones.set(6, 4, accionSemantica4);
         acciones.set(6, 5, accionSemantica4);
@@ -187,9 +189,9 @@ public class InicEstructuras {
         acciones.set(7, 3, accionSemantica0);
         acciones.set(7, 4, accionSemantica0);
         acciones.set(7, 5, accionSemantica0);
-        acciones.set(7, 6, accionSemantica0);
+        acciones.set(7, 6, accionSemantica5);
         acciones.set(7, 7, accionSemantica0);
-        acciones.set(7, 8, accionSemantica5);
+        acciones.set(7, 8, accionSemantica0);
         acciones.set(7, 9, accionSemantica0);
         acciones.set(7, 10, accionSemantica0);
         acciones.set(7, 11, accionSemantica0);
@@ -208,9 +210,9 @@ public class InicEstructuras {
         acciones.set(8, 3, accionSemantica6);
         acciones.set(8, 4, accionSemantica6);
         acciones.set(8, 5, accionSemantica6);
-        acciones.set(8, 6, accionSemantica6);
+        acciones.set(8, 6, accionSemantica5);
         acciones.set(8, 7, accionSemantica6);
-        acciones.set(8, 8, accionSemantica5);
+        acciones.set(8, 8, accionSemantica6);
         acciones.set(8, 9, accionSemantica6);
         acciones.set(8, 10, accionSemantica6);
         acciones.set(8, 11, accionSemantica6);
@@ -229,9 +231,9 @@ public class InicEstructuras {
         acciones.set(9, 3, accionSemantica6);
         acciones.set(9, 4, accionSemantica6);
         acciones.set(9, 5, accionSemantica6);
-        acciones.set(9, 6, accionSemantica6);
+        acciones.set(9, 6, accionSemantica5);
         acciones.set(9, 7, accionSemantica6);
-        acciones.set(9, 8, accionSemantica5);
+        acciones.set(9, 8, accionSemantica6);
         acciones.set(9, 9, accionSemantica6);
         acciones.set(9, 10, accionSemantica6);
         acciones.set(9, 11, accionSemantica6);
@@ -244,25 +246,25 @@ public class InicEstructuras {
         acciones.set(9, 18, accionSemantica6);
         
         //FILA10 Estado 10
-        acciones.set(10, 0, accionSemantica6);
-        acciones.set(10, 1, accionSemantica6);
-        acciones.set(10, 2, accionSemantica6);
-        acciones.set(10, 3, accionSemantica6);
-        acciones.set(10, 4, accionSemantica6);
-        acciones.set(10, 5, accionSemantica6);
-        acciones.set(10, 6, accionSemantica6);
-        acciones.set(10, 7, accionSemantica6);
-        acciones.set(10, 8, accionSemantica6);
-        acciones.set(10, 9, accionSemantica6);
-        acciones.set(10, 10, accionSemantica6);
-        acciones.set(10, 11, accionSemantica6);
-        acciones.set(10, 12, accionSemantica6);
-        acciones.set(10, 13, accionSemantica6);
-        acciones.set(10, 14, accionSemantica6);
-        acciones.set(10, 15, accionSemantica6);
-        acciones.set(10, 16, accionSemantica6);
-        acciones.set(10, 17, accionSemantica6);
-        acciones.set(10, 18, accionSemantica6);
+        acciones.set(10, 0, accionSemantica0);
+        acciones.set(10, 1, accionSemantica0);
+        acciones.set(10, 2, accionSemantica0);
+        acciones.set(10, 3, accionSemantica0);
+        acciones.set(10, 4, accionSemantica0);
+        acciones.set(10, 5, accionSemantica0);
+        acciones.set(10, 6, accionSemantica5);
+        acciones.set(10, 7, accionSemantica0);
+        acciones.set(10, 8, accionSemantica0);
+        acciones.set(10, 9, accionSemantica0);
+        acciones.set(10, 10, accionSemantica0);
+        acciones.set(10, 11, accionSemantica0);
+        acciones.set(10, 12, accionSemantica0);
+        acciones.set(10, 13, accionSemantica0);
+        acciones.set(10, 14, accionSemantica0);
+        acciones.set(10, 15, accionSemantica0);
+        acciones.set(10, 16, accionSemantica0);
+        acciones.set(10, 17, accionSemantica0);
+        acciones.set(10, 18, accionSemantica0);
         
         //FILA11 Estado 11
         acciones.set(11, 0, accionSemantica6);
@@ -271,13 +273,13 @@ public class InicEstructuras {
         acciones.set(11, 3, accionSemantica6);
         acciones.set(11, 4, accionSemantica6);
         acciones.set(11, 5, accionSemantica6);
-        acciones.set(11, 6, accionSemantica1);
+        acciones.set(11, 6, accionSemantica6);
         acciones.set(11, 7, accionSemantica6);
         acciones.set(11, 8, accionSemantica6);
         acciones.set(11, 9, accionSemantica6);
         acciones.set(11, 10, accionSemantica6);
         acciones.set(11, 11, accionSemantica6);
-        acciones.set(11, 12, accionSemantica6);
+        acciones.set(11, 12, accionSemantica1);
         acciones.set(11, 13, accionSemantica6);
         acciones.set(11, 14, accionSemantica6);
         acciones.set(11, 15, accionSemantica6);
@@ -317,11 +319,11 @@ public class InicEstructuras {
         acciones.set(13, 7, accionSemantica0);
         acciones.set(13, 8, accionSemantica0);
         acciones.set(13, 9, accionSemantica0);
-        acciones.set(13, 10, accionSemantica0);
+        acciones.set(13, 10, accionSemantica8);
         acciones.set(13, 11, accionSemantica0);
         acciones.set(13, 12, accionSemantica0);
         acciones.set(13, 13, accionSemantica0);
-        acciones.set(13, 14, accionSemantica7);
+        acciones.set(13, 14, accionSemantica0);
         acciones.set(13, 15, accionSemantica0);
         acciones.set(13, 16, accionSemantica0);
         acciones.set(13, 17, accionSemantica0);
@@ -342,12 +344,33 @@ public class InicEstructuras {
         acciones.set(14, 11, accionSemantica1);
         acciones.set(14, 12, accionSemantica1);
         acciones.set(14, 13, accionSemantica1);
-        acciones.set(14, 14, accionSemantica1);
+        acciones.set(14, 14, accionSemantica8);
         acciones.set(14, 15, accionSemantica1);
-        acciones.set(14, 16, accionSemantica1);
-        acciones.set(14, 17, accionSemantica0);
+        acciones.set(14, 16, accionSemantica0);
+        acciones.set(14, 17, accionSemantica1);
         acciones.set(14, 18, accionSemantica1);
         
+        
+        //FILA15 Estado 15
+        acciones.set(15, 0, accionSemantica1);
+        acciones.set(15, 1, accionSemantica1);
+        acciones.set(15, 2, accionSemantica1);
+        acciones.set(15, 3, accionSemantica1);
+        acciones.set(15, 4, accionSemantica1);
+        acciones.set(15, 5, accionSemantica1);
+        acciones.set(15, 6, accionSemantica1);
+        acciones.set(15, 7, accionSemantica1);
+        acciones.set(15, 8, accionSemantica1);
+        acciones.set(15, 9, accionSemantica1);
+        acciones.set(15, 10, accionSemantica11);
+        acciones.set(15, 11, accionSemantica1);
+        acciones.set(15, 12, accionSemantica1);
+        acciones.set(15, 13, accionSemantica1);
+        acciones.set(15, 14, accionSemantica1);
+        acciones.set(15, 15, accionSemantica1);
+        acciones.set(15, 16, accionSemantica1);
+        acciones.set(15, 17, accionSemantica1);
+        acciones.set(15, 18, accionSemantica1);
         
         
         return acciones;
@@ -361,22 +384,22 @@ public class InicEstructuras {
 		
 		
 		//FILA0 Estado 0
-        estados.set(0, 0, 1);
+        estados.set(0, 0, 0);
         estados.set(0, 1, 1);
-        estados.set(0, 2, 0);
+        estados.set(0, 2, 2);
         estados.set(0, 3, 3);
         estados.set(0, 4, 1);
-        estados.set(0, 5, 10);
-        estados.set(0, 6, 10);
+        estados.set(0, 5, 16);
+        estados.set(0, 6, 16);
         estados.set(0, 7, 7);
-        estados.set(0, 8, 10);
-        estados.set(0, 9, 8);
-        estados.set(0, 10, 9);
-        estados.set(0, 11, 9);
-        estados.set(0, 12, 10);
+        estados.set(0, 8, 8);
+        estados.set(0, 9, 9);
+        estados.set(0, 10, 16);
+        estados.set(0, 11, 16);
+        estados.set(0, 12, 16);
         estados.set(0, 13, 11);
-        estados.set(0, 14, 10);
-        estados.set(0, 15, 14);
+        estados.set(0, 14, 14);
+        estados.set(0, 15, 0);
         estados.set(0, 16, 0);
         estados.set(0, 17, 0);
         estados.set(0, 18, 0);
@@ -385,79 +408,79 @@ public class InicEstructuras {
         estados.set(1, 0, 1);
         estados.set(1, 1, 1);
         estados.set(1, 2, 1);
-        estados.set(1, 3, 15);
-        estados.set(1, 4, 15);
-        estados.set(1, 5, 15);
-        estados.set(1, 6, 15);
-        estados.set(1, 7, 15);
-        estados.set(1, 8, 15);
-        estados.set(1, 9, 15);
-        estados.set(1, 10, 15);
-        estados.set(1, 11, 15);
-        estados.set(1, 12, 15);
-        estados.set(1, 13, 15);
-        estados.set(1, 14, 15);
-        estados.set(1, 15, 15);
-        estados.set(1, 16, 15);
-        estados.set(1, 17, 15);
-        estados.set(1, 18, 15);
+        estados.set(1, 3, 16);
+        estados.set(1, 4, 16);
+        estados.set(1, 5, 16);
+        estados.set(1, 6, 16);
+        estados.set(1, 7, 16);
+        estados.set(1, 8, 16);
+        estados.set(1, 9, 16);
+        estados.set(1, 10, 16);
+        estados.set(1, 11, 16);
+        estados.set(1, 12, 16);
+        estados.set(1, 13, 16);
+        estados.set(1, 14, 16);
+        estados.set(1, 15, 16);
+        estados.set(1, 16, 16);
+        estados.set(1, 17, 16);
+        estados.set(1, 18, 16);
         
         //FILA2 Estado 2
-        estados.set(2, 0, 15);
-        estados.set(2, 1, 2);
-        estados.set(2, 2, 15);
+        estados.set(2, 0, 16);
+        estados.set(2, 1, 16);
+        estados.set(2, 2, 2);
         estados.set(2, 3, 3);
         estados.set(2, 4, 4);
-        estados.set(2, 5, 15);
-        estados.set(2, 6, 15);
-        estados.set(2, 7, 15);
-        estados.set(2, 8, 15);
-        estados.set(2, 9, 15);
-        estados.set(2, 10, 15);
-        estados.set(2, 11, 15);
-        estados.set(2, 12, 15);
-        estados.set(2, 13, 15);
-        estados.set(2, 14, 15);
-        estados.set(2, 15, 15);
-        estados.set(2, 16, 15);
-        estados.set(2, 17, 15);
-        estados.set(2, 18, 15);
+        estados.set(2, 5, 16);
+        estados.set(2, 6, 16);
+        estados.set(2, 7, 16);
+        estados.set(2, 8, 16);
+        estados.set(2, 9, 16);
+        estados.set(2, 10, 16);
+        estados.set(2, 11, 16);
+        estados.set(2, 12, 16);
+        estados.set(2, 13, 16);
+        estados.set(2, 14, 16);
+        estados.set(2, 15, 16);
+        estados.set(2, 16, 16);
+        estados.set(2, 17, 16);
+        estados.set(2, 18, 16);
 
         //FILA3 Estado 3
-        estados.set(3, 0, 15);
-        estados.set(3, 1, 3);
-        estados.set(3, 2, 15);
-        estados.set(3, 3, 15);
-        estados.set(3, 4, 15);
-        estados.set(3, 5, 15);
-        estados.set(3, 6, 15);
-        estados.set(3, 7, 15);
-        estados.set(3, 8, 15);
-        estados.set(3, 9, 15);
-        estados.set(3, 10, 15);
-        estados.set(3, 11, 15);
-        estados.set(3, 12, 15);
-        estados.set(3, 13, 15);
-        estados.set(3, 14, 15);
-        estados.set(3, 15, 15);
-        estados.set(3, 16, 15);
-        estados.set(3, 17, 15);
-        estados.set(3, 18, 15);
+        estados.set(3, 0, 16);
+        estados.set(3, 1, 16);
+        estados.set(3, 2, 3);
+        estados.set(3, 3, 16);
+        estados.set(3, 4, 4);
+        estados.set(3, 5, 16);
+        estados.set(3, 6, 16);
+        estados.set(3, 7, 16);
+        estados.set(3, 8, 16);
+        estados.set(3, 9, 16);
+        estados.set(3, 10, 16);
+        estados.set(3, 11, 16);
+        estados.set(3, 12, 16);
+        estados.set(3, 13, 16);
+        estados.set(3, 14, 16);
+        estados.set(3, 15, 16);
+        estados.set(3, 16, 16);
+        estados.set(3, 17, 16);
+        estados.set(3, 18, 16);
         
         //FILA4 Estado 4
         estados.set(4, 0, 0);
-        estados.set(4, 1, 6);
-        estados.set(4, 2, 0);
+        estados.set(4, 1, 0);
+        estados.set(4, 2, 6);
         estados.set(4, 3, 0);
         estados.set(4, 4, 0);
-        estados.set(4, 5, 5);
-        estados.set(4, 6, 5);
+        estados.set(4, 5, 0);
+        estados.set(4, 6, 0);
         estados.set(4, 7, 0);
         estados.set(4, 8, 0);
         estados.set(4, 9, 0);
         estados.set(4, 10, 0);
-        estados.set(4, 11, 0);
-        estados.set(4, 12, 0);
+        estados.set(4, 11, 5);
+        estados.set(4, 12, 5);
         estados.set(4, 13, 0);
         estados.set(4, 14, 0);
         estados.set(4, 15, 0);
@@ -467,12 +490,12 @@ public class InicEstructuras {
         
         //FILA5 Estado 5
         estados.set(5, 0, 0);
-        estados.set(5, 1, 6);
-        estados.set(5, 2, 0);
+        estados.set(5, 1, 0);
+        estados.set(5, 2, 6);
         estados.set(5, 3, 0);
         estados.set(5, 4, 0);
-        estados.set(5, 5, 5);
-        estados.set(5, 6, 5);
+        estados.set(5, 5, 0);
+        estados.set(5, 6, 0);
         estados.set(5, 7, 0);
         estados.set(5, 8, 0);
         estados.set(5, 9, 0);
@@ -487,25 +510,25 @@ public class InicEstructuras {
         estados.set(5, 18, 0);
         
         //FILA6 Estado 6
-        estados.set(6, 0, 15);
-        estados.set(6, 1, 6);
-        estados.set(6, 2, 15);
-        estados.set(6, 3, 15);
-        estados.set(6, 4, 15);
-        estados.set(6, 5, 15);
-        estados.set(6, 6, 15);
-        estados.set(6, 7, 15);
-        estados.set(6, 8, 15);
-        estados.set(6, 9, 15);
-        estados.set(6, 10, 15);
-        estados.set(6, 11, 15);
-        estados.set(6, 12, 15);
-        estados.set(6, 13, 15);
-        estados.set(6, 14, 15);
-        estados.set(6, 15, 15);
-        estados.set(6, 16, 15);
-        estados.set(6, 17, 15);
-        estados.set(6, 18, 15);
+        estados.set(6, 0, 16);
+        estados.set(6, 1, 16);
+        estados.set(6, 2, 6);
+        estados.set(6, 3, 16);
+        estados.set(6, 4, 16);
+        estados.set(6, 5, 16);
+        estados.set(6, 6, 16);
+        estados.set(6, 7, 16);
+        estados.set(6, 8, 16);
+        estados.set(6, 9, 16);
+        estados.set(6, 10, 16);
+        estados.set(6, 11, 16);
+        estados.set(6, 12, 16);
+        estados.set(6, 13, 16);
+        estados.set(6, 14, 16);
+        estados.set(6, 15, 16);
+        estados.set(6, 16, 16);
+        estados.set(6, 17, 16);
+        estados.set(6, 18, 16);
         
         //FILA7 Estado 7
         estados.set(7, 0, 0);
@@ -514,9 +537,9 @@ public class InicEstructuras {
         estados.set(7, 3, 0);
         estados.set(7, 4, 0);
         estados.set(7, 5, 0);
-        estados.set(7, 6, 0);
+        estados.set(7, 6, 16);
         estados.set(7, 7, 0);
-        estados.set(7, 8, 15);
+        estados.set(7, 8, 0);
         estados.set(7, 9, 0);
         estados.set(7, 10, 0);
         estados.set(7, 11, 0);
@@ -529,94 +552,94 @@ public class InicEstructuras {
         estados.set(7, 18, 0);
         
         //FILA8 Estado 8
-        estados.set(8, 0, 15);
-        estados.set(8, 1, 15);
-        estados.set(8, 2, 15);
-        estados.set(8, 3, 15);
-        estados.set(8, 4, 15);
-        estados.set(8, 5, 15);
-        estados.set(8, 6, 15);
-        estados.set(8, 7, 15);
-        estados.set(8, 8, 15);
-        estados.set(8, 9, 15);
-        estados.set(8, 10, 15);
-        estados.set(8, 11, 15);
-        estados.set(8, 12, 15);
-        estados.set(8, 12, 15);
-        estados.set(8, 13, 15);
-        estados.set(8, 14, 15);
-        estados.set(8, 15, 15);
-        estados.set(8, 16, 15);
-        estados.set(8, 17, 15);
-        estados.set(8, 18, 15);
+        estados.set(8, 0, 16);
+        estados.set(8, 1, 16);
+        estados.set(8, 2, 16);
+        estados.set(8, 3, 16);
+        estados.set(8, 4, 16);
+        estados.set(8, 5, 16);
+        estados.set(8, 6, 16);
+        estados.set(8, 7, 16);
+        estados.set(8, 8, 16);
+        estados.set(8, 9, 16);
+        estados.set(8, 10, 16);
+        estados.set(8, 11, 16);
+        estados.set(8, 12, 16);
+        estados.set(8, 12, 16);
+        estados.set(8, 13, 16);
+        estados.set(8, 14, 16);
+        estados.set(8, 15, 16);
+        estados.set(8, 16, 16);
+        estados.set(8, 17, 16);
+        estados.set(8, 18, 16);
         
         //FILA9 Estado 9
-        estados.set(9, 0, 15);
-        estados.set(9, 1, 15);
-        estados.set(9, 2, 15);
-        estados.set(9, 3, 15);
-        estados.set(9, 4, 15);
-        estados.set(9, 5, 15);
-        estados.set(9, 6, 15);
-        estados.set(9, 7, 15);
-        estados.set(9, 8, 15);
-        estados.set(9, 9, 15);
-        estados.set(9, 10, 15);
-        estados.set(9, 11, 15);
-        estados.set(9, 12, 15);
-        estados.set(9, 13, 15);
-        estados.set(9, 14, 15);
-        estados.set(9, 15, 15);
-        estados.set(9, 16, 15);
-        estados.set(9, 17, 15);
-        estados.set(9, 18, 15);
+        estados.set(9, 0, 16);
+        estados.set(9, 1, 16);
+        estados.set(9, 2, 16);
+        estados.set(9, 3, 16);
+        estados.set(9, 4, 16);
+        estados.set(9, 5, 16);
+        estados.set(9, 6, 16);
+        estados.set(9, 7, 16);
+        estados.set(9, 8, 16);
+        estados.set(9, 9, 16);
+        estados.set(9, 10, 16);
+        estados.set(9, 11, 16);
+        estados.set(9, 12, 16);
+        estados.set(9, 13, 16);
+        estados.set(9, 14, 16);
+        estados.set(9, 15, 16);
+        estados.set(9, 16, 16);
+        estados.set(9, 17, 16);
+        estados.set(9, 18, 16);
 		
         //FILA10 Estado 10
-        estados.set(10, 0, 15);
-        estados.set(10, 1, 15);
-        estados.set(10, 2, 15);
-        estados.set(10, 3, 15);
-        estados.set(10, 4, 15);
-        estados.set(10, 5, 15);
-        estados.set(10, 6, 15);
-        estados.set(10, 7, 15);
-        estados.set(10, 8, 15);
-        estados.set(10, 9, 15);
-        estados.set(10, 10, 15);
-        estados.set(10, 11, 15);
-        estados.set(10, 12, 15);
-        estados.set(10, 13, 15);
-        estados.set(10, 14, 15);
-        estados.set(10, 15, 15);
-        estados.set(10, 16, 15);
-        estados.set(10, 17, 15);
-        estados.set(10, 18, 15);
+        estados.set(10, 0, 0);
+        estados.set(10, 1, 0);
+        estados.set(10, 2, 0);
+        estados.set(10, 3, 0);
+        estados.set(10, 4, 0);
+        estados.set(10, 5, 0);
+        estados.set(10, 6, 16);
+        estados.set(10, 7, 0);
+        estados.set(10, 8, 0);
+        estados.set(10, 9, 0);
+        estados.set(10, 10, 0);
+        estados.set(10, 11, 0);
+        estados.set(10, 12, 0);
+        estados.set(10, 13, 0);
+        estados.set(10, 14, 0);
+        estados.set(10, 15, 0);
+        estados.set(10, 16, 0);
+        estados.set(10, 17, 0);
+        estados.set(10, 18, 0);
         
         //FILA11 Estado 11
-        estados.set(11, 0, 15);
-        estados.set(11, 1, 15);
-        estados.set(11, 2, 15);
-        estados.set(11, 3, 15);
-        estados.set(11, 4, 15);
-        estados.set(11, 5, 15);
-        estados.set(11, 6, 12);
-        estados.set(11, 7, 15);
-        estados.set(11, 8, 15);
-        estados.set(11, 9, 15);
-        estados.set(11, 10, 15);
-        estados.set(11, 11, 15);
-        estados.set(11, 12, 15);
-        estados.set(11, 13, 15);
-        estados.set(11, 14, 15);
-        estados.set(11, 15, 15);
-        estados.set(11, 16, 15);
-        estados.set(11, 17, 15);
-        estados.set(11, 18, 15);
+        estados.set(11, 0, 16);
+        estados.set(11, 1, 16);
+        estados.set(11, 2, 16);
+        estados.set(11, 3, 16);
+        estados.set(11, 4, 16);
+        estados.set(11, 5, 16);
+        estados.set(11, 6, 16);
+        estados.set(11, 7, 16);
+        estados.set(11, 8, 16);
+        estados.set(11, 9, 16);
+        estados.set(11, 10, 16);
+        estados.set(11, 11, 16);
+        estados.set(11, 12, 12);
+        estados.set(11, 13, 16);
+        estados.set(11, 14, 16);
+        estados.set(11, 15, 16);
+        estados.set(11, 16, 16);
+        estados.set(11, 17, 16);
+        estados.set(11, 18, 16);
         
         //FILA12 Estado 12
         estados.set(12, 0, 12);
         estados.set(12, 1, 12);
-        estados.set(12, 2, 13);
+        estados.set(12, 2, 12);
         estados.set(12, 3, 12);
         estados.set(12, 4, 12);
         estados.set(12, 5, 12);
@@ -626,13 +649,13 @@ public class InicEstructuras {
         estados.set(12, 9, 12);
         estados.set(12, 10, 12);
         estados.set(12, 11, 12);
-        estados.set(12, 12, 12);
+        estados.set(12, 12, 13);
         estados.set(12, 13, 12);
         estados.set(12, 14, 12);
         estados.set(12, 15, 12);
         estados.set(12, 16, 12);
         estados.set(12, 17, 12);
-        estados.set(12, 18, 12);
+        estados.set(12, 18, 16);
         
         //FILA13 Estado 13
         estados.set(13, 0, 0);
@@ -649,7 +672,7 @@ public class InicEstructuras {
         estados.set(13, 11, 0);
         estados.set(13, 12, 0);
         estados.set(13, 13, 0);
-        estados.set(13, 14, 15);
+        estados.set(13, 14, 0);
         estados.set(13, 15, 0);
         estados.set(13, 16, 0);
         estados.set(13, 17, 0);
@@ -670,11 +693,32 @@ public class InicEstructuras {
         estados.set(14, 11, 14);
         estados.set(14, 12, 14);
         estados.set(14, 13, 14);
-        estados.set(14, 14, 15);
+        estados.set(14, 14, 0);
         estados.set(14, 15, 14);
-        estados.set(14, 16, 14);
+        estados.set(14, 16, 0);
         estados.set(14, 17, 14);
         estados.set(14, 18, 14);
+        
+        //FILA15 Estado 15
+        estados.set(15, 0, 15);
+        estados.set(15, 1, 15);
+        estados.set(15, 2, 15);
+        estados.set(15, 3, 15);
+        estados.set(15, 4, 15);
+        estados.set(15, 5, 15);
+        estados.set(15, 6, 15);
+        estados.set(15, 7, 15);
+        estados.set(15, 8, 15);
+        estados.set(15, 9, 15);
+        estados.set(15, 10, 16);
+        estados.set(15, 11, 15);
+        estados.set(15, 12, 15);
+        estados.set(15, 13, 15);
+        estados.set(15, 14, 15);
+        estados.set(15, 15, 15);
+        estados.set(15, 16, 15);
+        estados.set(15, 17, 15);
+        estados.set(15, 18, 15);
         
 		
         
