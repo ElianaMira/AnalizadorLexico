@@ -35,12 +35,6 @@ public class TablaSimbolo {
         	tablaSimbolo.remove(s);
         }
     }
-
-    /* No se para que escribir lo mismo, lo dejo para acordarme que estaba
-     * public boolean contains(Simbolo s) {
-        return tablaSimbolo.contains(s);
-    }*/
-
     
     public void imprimirTabla() {
         Log logSimbolos = new Log("tablaSimbolo.log");
@@ -52,21 +46,4 @@ public class TablaSimbolo {
         logSimbolos.imprimir();
     }
 
-    /*esto lo hace por los numeros!! ver si es necesario hablarlo con juli
-     public void addTipo(String valor, String variableTipo, Logger log , int linea,String tam) {
-      Simbolo s = existeSimbolo(new Simbolo(new StringBuffer(valor), ""));
-        if (s.esVacio()) {
-            s.setTipoVariable(variableTipo);
-            s.setDeclarado(true);
-            s.setTamanio(tam);
-        } else {
-            //System.out.println("ERROR ya se encuentra declarada esta variable");
-            log.addLogger("ERROR sintactico en linea: "+linea+  " ya se encuentra declarada esta variable");
-        }
-
-    }
-    public boolean existeTipoVariable(String iden,String tipo){
-        Simbolo s = existeSimbolo(new Simbolo(new StringBuffer(iden), ""));
-        return s.isDeclarado() && tipo.equals(s.getTipoVariable());
-    }*/
 }

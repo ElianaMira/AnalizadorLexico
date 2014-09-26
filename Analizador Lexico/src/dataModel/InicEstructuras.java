@@ -34,26 +34,25 @@ public class InicEstructuras {
         AccionesSemanticas accionSemantica10 = new AccionSemantica10("accion10");
         
         //FILA0 Estado 0
-        acciones.set(0, 0, accionSemantica1);
+        acciones.set(0, 0, accionSemantica0);
         acciones.set(0, 1, accionSemantica1);
-        acciones.set(0, 2, accionSemantica0);
+        acciones.set(0, 2, accionSemantica1);
         acciones.set(0, 3, accionSemantica1);
         acciones.set(0, 4, accionSemantica1);
-        acciones.set(0, 5, accionSemantica1);
-        acciones.set(0, 5, accionSemantica1);
-        acciones.set(0, 6, accionSemantica1);
+        acciones.set(0, 5, accionSemantica7);
+        acciones.set(0, 6, accionSemantica7);
         acciones.set(0, 7, accionSemantica1);
         acciones.set(0, 8, accionSemantica1);
         acciones.set(0, 9, accionSemantica1);
-        acciones.set(0, 10, accionSemantica1);
-        acciones.set(0, 11, accionSemantica1);
-        acciones.set(0, 12, accionSemantica1);
+        acciones.set(0, 10,accionSemantica7);
+        acciones.set(0, 11, accionSemantica7);
+        acciones.set(0, 12, accionSemantica7);
         acciones.set(0, 13, accionSemantica1);
         acciones.set(0, 14, accionSemantica1);
-        acciones.set(0, 15, accionSemantica1);
-        acciones.set(0, 16, accionSemantica10);
-        acciones.set(0, 17, accionSemantica10);
-        acciones.set(0, 18, accionSemantica10);
+        acciones.set(0, 15, accionSemantica9);
+        acciones.set(0, 16, accionSemantica9);
+        acciones.set(0, 17, accionSemantica9);
+        acciones.set(0, 18, accionSemantica1);
         
         //FILA1 Estado 1
         acciones.set(1, 0, accionSemantica1);
@@ -78,8 +77,8 @@ public class InicEstructuras {
         
         //FILA2 Estado 2
         acciones.set(2, 0, accionSemantica3);
-        acciones.set(2, 1, accionSemantica1);
-        acciones.set(2, 2, accionSemantica3);
+        acciones.set(2, 1, accionSemantica3);
+        acciones.set(2, 2, accionSemantica1);
         acciones.set(2, 3, accionSemantica1);
         acciones.set(2, 4, accionSemantica1);
         acciones.set(2, 5, accionSemantica3);
@@ -99,8 +98,8 @@ public class InicEstructuras {
         
         //FILA3 Estado 3
         acciones.set(3, 0, accionSemantica4);
-        acciones.set(3, 1, accionSemantica1);
-        acciones.set(3, 2, accionSemantica4);
+        acciones.set(3, 1, accionSemantica4);
+        acciones.set(3, 2, accionSemantica1);
         acciones.set(3, 3, accionSemantica4);
         acciones.set(3, 4, accionSemantica1);
         acciones.set(3, 5, accionSemantica4);
@@ -120,18 +119,18 @@ public class InicEstructuras {
         
         //FILA4 Estado 4
         acciones.set(4, 0, accionSemantica0);
-        acciones.set(4, 1, accionSemantica1);
-        acciones.set(4, 2, accionSemantica0);
+        acciones.set(4, 1, accionSemantica0);
+        acciones.set(4, 2, accionSemantica1);
         acciones.set(4, 3, accionSemantica0);
         acciones.set(4, 4, accionSemantica0);
-        acciones.set(4, 5, accionSemantica1);
-        acciones.set(4, 6, accionSemantica1);
+        acciones.set(4, 5, accionSemantica0);
+        acciones.set(4, 6, accionSemantica0);
         acciones.set(4, 7, accionSemantica0);
         acciones.set(4, 8, accionSemantica0);
         acciones.set(4, 9, accionSemantica0);
         acciones.set(4, 10, accionSemantica0);
-        acciones.set(4, 11, accionSemantica0);
-        acciones.set(4, 12, accionSemantica0);
+        acciones.set(4, 11, accionSemantica1);
+        acciones.set(4, 12, accionSemantica1);
         acciones.set(4, 13, accionSemantica0);
         acciones.set(4, 14, accionSemantica0);
         acciones.set(4, 15, accionSemantica0);
@@ -363,7 +362,7 @@ public class InicEstructuras {
 		
 		//FILA0 Estado 0
         estados.set(0, 0, 1);
-        estados.set(0, 1, 2);
+        estados.set(0, 1, 1);
         estados.set(0, 2, 0);
         estados.set(0, 3, 3);
         estados.set(0, 4, 1);
