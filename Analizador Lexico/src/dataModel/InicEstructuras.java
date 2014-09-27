@@ -406,7 +406,7 @@ public class InicEstructuras {
         estados.set(0, 15, 0);
         estados.set(0, 16, 0);
         estados.set(0, 17, 0);
-        estados.set(0, 18, 0);
+        estados.set(0, 18, 10);
         
         //FILA1 Estado 1
         estados.set(1, 0, 1);

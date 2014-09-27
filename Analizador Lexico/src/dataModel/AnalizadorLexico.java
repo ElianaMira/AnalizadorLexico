@@ -83,6 +83,7 @@ public class AnalizadorLexico {
             caracter = lector.getCaracter();
             AccionesSemanticas accion = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);
             eSig = (Integer) estados.getCelda(caracter, eActual);
+           System.out.println(caracter+" "+eActual+" "+eSig+" "+accion);
             token = accion.ejecutar(lexema, caracter, tablaS, lector.getLine());
             if (token != null){
                 token.setLinea(lector.getLine()+1);
