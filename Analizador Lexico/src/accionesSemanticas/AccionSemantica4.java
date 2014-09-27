@@ -15,6 +15,9 @@ public class AccionSemantica4 extends AccionesSemanticas
 	{
 		Float a;
 		Token t = null;
+		int index = (lexema.indexOf("f") != -1) ? lexema.indexOf("f") : lexema.indexOf("F"); 
+		if( index >= 0)				
+			lexema.replace(index, index+1,"e");
 		Float f = Float.valueOf(lexema.toString()).floatValue();
 		
 		if (f.compareTo(new Float(1.17549435e-38))== -1 || f.compareTo(new Float(3.40282347e+38)) == 1)

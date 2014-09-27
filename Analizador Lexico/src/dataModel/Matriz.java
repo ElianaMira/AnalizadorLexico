@@ -22,7 +22,7 @@ public class Matriz
     {                
         Object celda = null;       
         
-        if (Character.isLetter(caracter))
+        if (Character.isLetter(caracter) && !(((eActual == 2)||(eActual == 3)) && (caracter == 'f' ||caracter == 'F')))
             	return get(eActual,1);    //Es una letra
         else if (Character.isDigit(caracter) )
                 return get(eActual,2);//Es un digito
