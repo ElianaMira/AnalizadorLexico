@@ -302,7 +302,7 @@ public class InicEstructuras {
         acciones.set(12, 7, accionSemantica1);
         acciones.set(12, 8, accionSemantica1);
         acciones.set(12, 9, accionSemantica1);
-        acciones.set(12, 10, accionSemantica1);
+        acciones.set(12, 10, accionSemantica0);
         acciones.set(12, 11, accionSemantica1);
         acciones.set(12, 12, accionSemantica1);
         acciones.set(12, 13, accionSemantica1);
@@ -651,7 +651,7 @@ public class InicEstructuras {
         estados.set(12, 7, 12);
         estados.set(12, 8, 12);
         estados.set(12, 9, 12);
-        estados.set(12, 10, 12);
+        estados.set(12, 10, 16);
         estados.set(12, 11, 12);
         estados.set(12, 12, 13);
         estados.set(12, 13, 12);

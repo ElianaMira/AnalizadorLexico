@@ -15,12 +15,20 @@ public class AccionSemantica0 extends AccionesSemanticas
 	{
 		linea++;
         if(caracter == '@')
-            this.msjError = "Error lexico en linea "+linea+ " salto de línea inesperado";
-        else
+            this.msjError = "Error lexico en linea "+linea+ " salto de linea inesperado";
+        else{
             if  (caracter == '#')
                 this.msjError = "Error lexico en linea "+linea+" se esperaba un cierre de cadena";
-            else
-                this.msjError = "Error lexico en linea "+linea+" caracter no valido "+caracter;
+            else{
+            	if (caracter == ']'){
+            		this.msjError = "Error lexico en linea "+linea+", comentario invalido";
+            	}
+            	else{
+            		this.msjError = "Error lexico en linea "+linea+" caracter no valido "+caracter;
+            	}
+            }
+              
+        }
         this.error = true;
         return null;		
 	}

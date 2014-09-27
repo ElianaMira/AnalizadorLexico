@@ -7,7 +7,6 @@ public class Compilador {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
-		LectorArchivo lector = new LectorArchivo("C:/Users/Elita/programa.txt");
         AnalizadorLexico analizadorL = new AnalizadorLexico("C:/Users/Elita/programa.txt");
         System.out.println("Analizador Sintactico");
         //PolacaInversa pi = new PolacaInversa();
