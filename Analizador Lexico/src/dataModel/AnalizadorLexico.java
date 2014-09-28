@@ -15,6 +15,8 @@ public class AnalizadorLexico {
 	private ArrayList<String> errores;
 	private Log logErrores = new Log("errores_lexico.log");
 	private Log logToken = new Log("token.log");
+	private Token token;
+	private int nroLinea;
 	
 	public AnalizadorLexico(String ruta){
 		lector = new LectorArchivo(ruta);
@@ -73,7 +75,7 @@ public class AnalizadorLexico {
         }
     }
     
-    public Token obtenerTokens() {
+    public Token obtenerToken() {
         StringBuffer lexema = new StringBuffer();
         Integer eActual = 0;
         Integer eSig = 0;
@@ -83,7 +85,6 @@ public class AnalizadorLexico {
             caracter = lector.getCaracter();
             AccionesSemanticas accion = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);
             eSig = (Integer) estados.getCelda(caracter, eActual);
-           System.out.println(caracter+" "+eActual+" "+eSig+" "+accion);
             token = accion.ejecutar(lexema, caracter, tablaS, lector.getLine());
             if (token != null){
                 token.setLinea(lector.getLine()+1);
@@ -109,9 +110,52 @@ public class AnalizadorLexico {
     }
     
     public int yylex() throws FileNotFoundException, IOException {
-		return 0;
+    	 int numero = 0;
+    	 nroLinea = lector.getLine();
+         token = obtenerToken();
+         if (token != null) {
+             logToken.addLog("<"+token.getLinea() +","+ token.getTipo() + "," + token.getPuntero().getValor() + ">");
+
+             /*if (token.getTipo().equals("INT")) {
+                 numero = Parser.INT;
+             }
+             if (token.getTipo().equals("FLOAT")) {
+                 numero = Parser.FLOAT;
+             } else if (token.getTipo().equals(":=")) {
+                 numero = Parser.ASIG;
+             } else if (token.getTipo().equals("!=")) {
+                 numero = Parser.DISTINTO;
+             } else if (token.getTipo().equals("<=")) {
+                 numero = Parser.MENOR_IGUAL;
+             } else if (token.getTipo().equals(">=")) {
+                 numero = Parser.MAYOR_IGUAL;
+             } else if (token.getTipo().equals("IF")) {
+                 numero = Parser.IF;
+             } else if (token.getTipo().equals("DE")) {
+                 numero = Parser.DE;
+             } else if (token.getTipo().equals("PARA")) {
+                 numero = Parser.PARA;
+             } else if (token.getTipo().equals("THEN")) {
+                 numero = Parser.THEN;
+             } else if (token.getTipo().equals("ELSE")) {
+                 numero = Parser.ELSE;
+             } else if (token.getTipo().equals("PRINT")) {
+                 numero = Parser.PRINT;
+             } else if (token.getTipo().equals("VECTOR")) {
+                 numero = Parser.VECTOR;
+             } else if (token.getTipo().equals("CADENA")) {
+                 numero = Parser.CADENA;
+             } else if (token.getTipo().equals("IDENTIFICADOR")) {
+                 numero = Parser.IDENTIFICADOR;
+             } else if (token.getPuntero().getValor().length() == 1) {
+                 numero = token.getPuntero().getValor().charAt(0);
+             }
+             //System.out.println("Pidio un token!");
+             //System.out.println("el tipo  \""+token.getTipo()+"\"");
+             p = new ParserVal(token.getPuntero().getValor().toString());*/
+         }
+         return numero;
+     }
     	
     } 
     
-	
-}

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 %}
 
-%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR
+%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,PARA, DE
 
 %start programa
 
@@ -92,7 +92,7 @@ impresion:
 	|PRINT';' error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	FOR '(' INT IDENTIFICADOR '=' INT ; iIDENTIFICADOR COMPARADOR EXPRESION ; IDENTIFICADOR ++ ')' '{' sentencias '}';
+	PARA '(' INT IDENTIFICADOR '=' INT ; iIDENTIFICADOR COMPARADOR EXPRESION ; IDENTIFICADOR ++ ')' '{' sentencias '}';
 
 %%
   private Logger logSintactico = new Logger("sintactico.log");

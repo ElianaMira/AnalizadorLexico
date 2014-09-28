@@ -7,13 +7,13 @@ public class Compilador {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
-        AnalizadorLexico analizadorL = new AnalizadorLexico("C:\\Users\\Julieta\\programa.txt");
+        AnalizadorLexico analizadorL = new AnalizadorLexico("C:/Users/Elita/programa.txt");
         System.out.println("Analizador Sintactico");
         //PolacaInversa pi = new PolacaInversa();
         //Parser p = new Parser(analizadorL);
         //p.run();
         
-        analizadorL.obtenerTokens();
+        //analizadorL.obtenerTokens();
         analizadorL.crearToken();
         analizadorL.getTablaSimbolos().imprimirTabla();
         analizadorL.crearLexico();
