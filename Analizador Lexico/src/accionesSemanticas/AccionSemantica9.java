@@ -12,9 +12,7 @@ public class AccionSemantica9  extends AccionesSemanticas
 	}
 	
 	@Override
-	public Token ejecutar(StringBuffer lexema, char caracter,
-			TablaSimbolo tablaS, int linea) {
-		
+	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo tablaS, int linea) {
 		return null;
 	}
 

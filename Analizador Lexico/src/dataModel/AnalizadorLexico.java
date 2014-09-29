@@ -17,6 +17,7 @@ public class AnalizadorLexico {
 	private Log logToken = new Log("token.log");
 	private Token token;
 	private int nroLinea;
+	private ParserVal parserVal;
 	
 	public AnalizadorLexico(String ruta){
 		lector = new LectorArchivo(ruta);
@@ -116,7 +117,7 @@ public class AnalizadorLexico {
          if (token != null) {
              logToken.addLog("<"+token.getLinea() +","+ token.getTipo() + "," + token.getPuntero().getValor() + ">");
 
-             /*if (token.getTipo().equals("INT")) {
+             if (token.getTipo().equals("INT")) {
                  numero = Parser.INT;
              }
              if (token.getTipo().equals("FLOAT")) {
@@ -152,10 +153,21 @@ public class AnalizadorLexico {
              }
              //System.out.println("Pidio un token!");
              //System.out.println("el tipo  \""+token.getTipo()+"\"");
-             p = new ParserVal(token.getPuntero().getValor().toString());*/
+             parserVal = new ParserVal(token.getPuntero().getValor().toString());
          }
          return numero;
      }
-    	
-    } 
+    
+    public boolean masTokens() {
+        return (!lector.finArchivo());
+    }
+    
+    public ParserVal getValorSimbolo() {
+        return parserVal;
+    }
+    
+    public int getLineas(){
+    	return lector.getLine();
+    }
+ } 
     
