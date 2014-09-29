@@ -13,7 +13,7 @@ public class PalabrasReservadas
 		palabras.add("Print");
 		palabras.add("Int");
 		palabras.add("Flotante");
-		palabras.add("Para");
+		palabras.add("For");
 		palabras.add("Vector");
 		palabras.add("De");
 	}

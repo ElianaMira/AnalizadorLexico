@@ -133,8 +133,8 @@ public class AnalizadorLexico {
                  numero = Parser.IF;
              } else if (token.getTipo().equals("DE")) {
                  numero = Parser.DE;
-             } else if (token.getTipo().equals("PARA")) {
-                 numero = Parser.PARA;
+             } else if (token.getTipo().equals("FOR")) {
+                 numero = Parser.FOR;
              } else if (token.getTipo().equals("THEN")) {
                  numero = Parser.THEN;
              } else if (token.getTipo().equals("ELSE")) {
