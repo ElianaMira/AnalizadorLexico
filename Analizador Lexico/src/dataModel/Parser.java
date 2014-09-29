@@ -330,8 +330,7 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,"IF","THEN","ELSE","PRINT",
 "IDENTIFICADOR","VECTOR","CADENA","INT","FLOAT","FOR","MAYOR_IGUAL",
-"MENOR_IGUAL","ASIG","DISTINTO","DE","\"MENOR_IGUAL\"","\"MAYOR_IGUAL\"",
-"\"DISTINTO\"",
+"MENOR_IGUAL","ASIG","DISTINTO","DE",
 };
 final static String yyrule[] = {
 "$accept : programa",

@@ -1,6 +1,6 @@
 %{
 
-package utils;
+package dataModel;
 import java.io.IOException;
 
 %}

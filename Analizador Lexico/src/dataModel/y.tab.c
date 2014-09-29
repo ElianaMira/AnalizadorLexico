@@ -4,7 +4,7 @@ static char yysccsid[] = "@(#)yaccpar	1.8 (Berkeley) 01/20/90";
 #define YYBYACC 1
 #line 2 "gramatica.y"
 
-package utils;
+package dataModel;
 import java.io.IOException;
 
 #line 11 "y.tab.c"

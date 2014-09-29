@@ -27,8 +27,8 @@
   18            | variables ',' IDENTIFICADOR
   19            | error
 
-  20  asignacion : IDENTIFICADOR ":=" expresion
-  21             | IDENTIFICADOR '[' expresion ']' ":=" expresion
+  20  asignacion : IDENTIFICADOR ASIG expresion
+  21             | IDENTIFICADOR '[' expresion ']' ASIG expresion
 
   22  expresion : numero
   23            | operacionAritmetica
@@ -46,11 +46,11 @@
   32           | IDENTIFICADOR '[' expresion ']'
 
   33  operador : '<'
-  34           | "<="
+  34           | "MENOR_IGUAL"
   35           | '>'
-  36           | ">="
+  36           | "MAYOR_IGUAL"
   37           | '='
-  38           | "^="
+  38           | "DISTINTO"
   39           | error
 
   40  seleccion : IF '(' condicion ')' THEN '{' sentencias '}'
@@ -105,10 +105,10 @@ state 1
 
 
 state 2
-	asignacion : IDENTIFICADOR . ":=" expresion  (20)
-	asignacion : IDENTIFICADOR . '[' expresion ']' ":=" expresion  (21)
+	asignacion : IDENTIFICADOR . ASIG expresion  (20)
+	asignacion : IDENTIFICADOR . '[' expresion ']' ASIG expresion  (21)
 
-	":="  shift 17
+	ASIG  shift 17
 	'['  shift 18
 	.  error
 
@@ -238,7 +238,7 @@ state 16
 
 
 state 17
-	asignacion : IDENTIFICADOR ":=" . expresion  (20)
+	asignacion : IDENTIFICADOR ASIG . expresion  (20)
 
 	IDENTIFICADOR  shift 36
 	INT  shift 37
@@ -252,7 +252,7 @@ state 17
 
 
 state 18
-	asignacion : IDENTIFICADOR '[' . expresion ']' ":=" expresion  (21)
+	asignacion : IDENTIFICADOR '[' . expresion ']' ASIG expresion  (21)
 
 	IDENTIFICADOR  shift 36
 	INT  shift 37
@@ -391,14 +391,14 @@ state 36
 	'['  shift 54
 	error  reduce 31
 	IDENTIFICADOR  reduce 31
-	">="  reduce 31
-	"<="  reduce 31
 	';'  reduce 31
 	']'  reduce 31
 	'<'  reduce 31
+	"MENOR_IGUAL"  reduce 31
 	'>'  reduce 31
+	"MAYOR_IGUAL"  reduce 31
 	'='  reduce 31
-	"^="  reduce 31
+	"DISTINTO"  reduce 31
 	')'  reduce 31
 
 
@@ -415,30 +415,30 @@ state 38
 
 
 state 39
-	asignacion : IDENTIFICADOR ":=" expresion .  (20)
+	asignacion : IDENTIFICADOR ASIG expresion .  (20)
 
 	.  reduce 20
 
 
 40: shift/reduce conflict (shift 55, reduce 22) on error
-40: shift/reduce conflict (shift 56, reduce 22) on ">="
-40: shift/reduce conflict (shift 57, reduce 22) on "<="
-40: shift/reduce conflict (shift 58, reduce 22) on '<'
-40: shift/reduce conflict (shift 59, reduce 22) on '>'
+40: shift/reduce conflict (shift 56, reduce 22) on '<'
+40: shift/reduce conflict (shift 57, reduce 22) on "MENOR_IGUAL"
+40: shift/reduce conflict (shift 58, reduce 22) on '>'
+40: shift/reduce conflict (shift 59, reduce 22) on "MAYOR_IGUAL"
 40: shift/reduce conflict (shift 60, reduce 22) on '='
-40: shift/reduce conflict (shift 61, reduce 22) on "^="
+40: shift/reduce conflict (shift 61, reduce 22) on "DISTINTO"
 state 40
 	expresion : numero .  (22)
 	operacionAritmetica : numero . operador variable  (29)
 	operacionAritmetica : numero . operador numero  (30)
 
 	error  shift 55
-	">="  shift 56
-	"<="  shift 57
-	'<'  shift 58
-	'>'  shift 59
+	'<'  shift 56
+	"MENOR_IGUAL"  shift 57
+	'>'  shift 58
+	"MAYOR_IGUAL"  shift 59
 	'='  shift 60
-	"^="  shift 61
+	"DISTINTO"  shift 61
 	IDENTIFICADOR  reduce 22
 	';'  reduce 22
 	']'  reduce 22
@@ -454,24 +454,24 @@ state 41
 
 
 42: shift/reduce conflict (shift 55, reduce 24) on error
-42: shift/reduce conflict (shift 56, reduce 24) on ">="
-42: shift/reduce conflict (shift 57, reduce 24) on "<="
-42: shift/reduce conflict (shift 58, reduce 24) on '<'
-42: shift/reduce conflict (shift 59, reduce 24) on '>'
+42: shift/reduce conflict (shift 56, reduce 24) on '<'
+42: shift/reduce conflict (shift 57, reduce 24) on "MENOR_IGUAL"
+42: shift/reduce conflict (shift 58, reduce 24) on '>'
+42: shift/reduce conflict (shift 59, reduce 24) on "MAYOR_IGUAL"
 42: shift/reduce conflict (shift 60, reduce 24) on '='
-42: shift/reduce conflict (shift 61, reduce 24) on "^="
+42: shift/reduce conflict (shift 61, reduce 24) on "DISTINTO"
 state 42
 	expresion : variable .  (24)
 	operacionAritmetica : variable . operador variable  (27)
 	operacionAritmetica : variable . operador numero  (28)
 
 	error  shift 55
-	">="  shift 56
-	"<="  shift 57
-	'<'  shift 58
-	'>'  shift 59
+	'<'  shift 56
+	"MENOR_IGUAL"  shift 57
+	'>'  shift 58
+	"MAYOR_IGUAL"  shift 59
 	'='  shift 60
-	"^="  shift 61
+	"DISTINTO"  shift 61
 	IDENTIFICADOR  reduce 24
 	';'  reduce 24
 	']'  reduce 24
@@ -481,7 +481,7 @@ state 42
 
 
 state 43
-	asignacion : IDENTIFICADOR '[' expresion . ']' ":=" expresion  (21)
+	asignacion : IDENTIFICADOR '[' expresion . ']' ASIG expresion  (21)
 
 	']'  shift 64
 	.  error
@@ -595,27 +595,27 @@ state 55
 
 
 state 56
-	operador : ">=" .  (36)
-
-	.  reduce 36
-
-
-state 57
-	operador : "<=" .  (34)
-
-	.  reduce 34
-
-
-state 58
 	operador : '<' .  (33)
 
 	.  reduce 33
 
 
-state 59
+state 57
+	operador : "MENOR_IGUAL" .  (34)
+
+	.  reduce 34
+
+
+state 58
 	operador : '>' .  (35)
 
 	.  reduce 35
+
+
+state 59
+	operador : "MAYOR_IGUAL" .  (36)
+
+	.  reduce 36
 
 
 state 60
@@ -625,7 +625,7 @@ state 60
 
 
 state 61
-	operador : "^=" .  (38)
+	operador : "DISTINTO" .  (38)
 
 	.  reduce 38
 
@@ -657,9 +657,9 @@ state 63
 
 
 state 64
-	asignacion : IDENTIFICADOR '[' expresion ']' . ":=" expresion  (21)
+	asignacion : IDENTIFICADOR '[' expresion ']' . ASIG expresion  (21)
 
-	":="  shift 78
+	ASIG  shift 78
 	.  error
 
 
@@ -693,12 +693,12 @@ state 69
 	condicion : expresion . operador expresion  (46)
 
 	error  shift 55
-	">="  shift 56
-	"<="  shift 57
-	'<'  shift 58
-	'>'  shift 59
+	'<'  shift 56
+	"MENOR_IGUAL"  shift 57
+	'>'  shift 58
+	"MAYOR_IGUAL"  shift 59
 	'='  shift 60
-	"^="  shift 61
+	"DISTINTO"  shift 61
 	.  error
 
 	operador  goto 81
@@ -759,7 +759,7 @@ state 77
 
 
 state 78
-	asignacion : IDENTIFICADOR '[' expresion ']' ":=" . expresion  (21)
+	asignacion : IDENTIFICADOR '[' expresion ']' ASIG . expresion  (21)
 
 	IDENTIFICADOR  shift 36
 	INT  shift 37
@@ -818,7 +818,7 @@ state 83
 
 
 state 84
-	asignacion : IDENTIFICADOR '[' expresion ']' ":=" expresion .  (21)
+	asignacion : IDENTIFICADOR '[' expresion ']' ASIG expresion .  (21)
 
 	.  reduce 21
 
@@ -881,12 +881,12 @@ state 89
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT IDENTIFICADOR . operador expresion IDENTIFICADOR ')' '{' sentencias '}'  (52)
 
 	error  shift 55
-	">="  shift 56
-	"<="  shift 57
-	'<'  shift 58
-	'>'  shift 59
+	'<'  shift 56
+	"MENOR_IGUAL"  shift 57
+	'>'  shift 58
+	"MAYOR_IGUAL"  shift 59
 	'='  shift 60
-	"^="  shift 61
+	"DISTINTO"  shift 61
 	.  error
 
 	operador  goto 92
@@ -1153,5 +1153,5 @@ State 40 contains 7 shift/reduce conflicts.
 State 42 contains 7 shift/reduce conflicts.
 
 
-29 terminals, 18 nonterminals
+31 terminals, 18 nonterminals
 53 grammar rules, 107 states

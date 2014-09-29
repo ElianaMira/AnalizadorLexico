@@ -73,7 +73,7 @@ public class LectorArchivo{
     }
     
     public boolean finArchivo(){
-        return (nroLinea == fuente.size()-1 && pos == fuente.get(nroLinea).length());
+        return ((nroLinea == fuente.size()-1) && (pos == fuente.get(nroLinea).length()));
     }
   
 }
