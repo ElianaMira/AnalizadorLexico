@@ -5,7 +5,7 @@ import java.io.IOException;
 
 %}
 
-%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR,MAYOR_IGUAL,MENOR_IGUAL,ASIG,DISTINTO, DE
+%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR
 
 %start programa
 
@@ -65,11 +65,11 @@ variable:
 
 operador:
 	'<'
-	|'MENOR_IGUAL'
+	|'<='
 	|'>'
-	|'MAYOR_IGUAL'
+	|'>='
 	|'='
-	|'DISTINTO'
+	|'^='
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": no es posible resolver la comparacion");}
 ;		
 
@@ -82,7 +82,7 @@ seleccion:
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion no valida");};
 
 condicion: 
-	expresion operador expresion 
+	expresion comparador expresion 
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": condicion no valida");};
 
 impresion: 
@@ -92,7 +92,7 @@ impresion:
 	|PRINT';' error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	FOR '(' INT IDENTIFICADOR '=' INT ; IDENTIFICADOR operador expresion ; IDENTIFICADOR ')' '{' sentencias '}';
+	FOR '(' INT IDENTIFICADOR '=' INT ; iIDENTIFICADOR COMPARADOR EXPRESION ; IDENTIFICADOR ++ ')' '{' sentencias '}';
 
 %%
   private Logger logSintactico = new Logger("sintactico.log");
