@@ -14,7 +14,7 @@ public class AccionSemantica13 extends AccionesSemanticas {
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {
 		 
 		 lexema.append(caracter);
-		 if (lexema.toString().contains("%")){
+		 if (lexema.toString().contains("@")){
 			 this.msjError = "Error lexico en linea "+linea+", cadena de mas de una linea";
 			 this.error = true;
 			 lexema.delete(0, lexema.length());

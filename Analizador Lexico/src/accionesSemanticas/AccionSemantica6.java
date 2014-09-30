@@ -1,5 +1,4 @@
 package accionesSemanticas;
-import dataModel.LectorArchivo;
 import dataModel.Simbolo;
 import dataModel.TablaSimbolo;
 import dataModel.Token;

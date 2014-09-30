@@ -19,14 +19,12 @@ public class AccionSemantica2 extends AccionesSemanticas
 	 }
 	 
 	@Override
-	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) 
-	{
+	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {
 		Simbolo s = null;
-			 
-	    if (reservadas.esPalabraReservada(lexema.toString()))	     
+		
+		if (reservadas.esPalabraReservada(lexema.toString()))     
 	    	s = new Simbolo(lexema,lexema.toString().toUpperCase());
-	    else
-	    {
+		else{
 	    	if (lexema.length() > 12) 
 	    	{
 	    		lexema = lexema.delete(12, lexema.length()); // trunco el string
@@ -39,6 +37,8 @@ public class AccionSemantica2 extends AccionesSemanticas
 	    Token t = new Token(s.getTipo(),s);
 	    retroceder = true;
 	    return t;
-	}	
+		
+	}
+	    	
 
 }

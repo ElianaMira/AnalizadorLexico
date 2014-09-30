@@ -13,7 +13,6 @@ public class AccionSemantica4 extends AccionesSemanticas
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) 
 	{
-		Float a;
 		Token t = null;
 		int index = (lexema.indexOf("f") != -1) ? lexema.indexOf("f") : lexema.indexOf("F"); 
 		if( index >= 0)				

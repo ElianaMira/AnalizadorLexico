@@ -2,7 +2,6 @@ package dataModel;
 
 import accionesSemanticas.AccionSemantica0;
 import accionesSemanticas.AccionSemantica1;
-import accionesSemanticas.AccionSemantica10;
 import accionesSemanticas.AccionSemantica11;
 import accionesSemanticas.AccionSemantica12;
 import accionesSemanticas.AccionSemantica13;
@@ -34,7 +33,6 @@ public class InicEstructuras {
         AccionesSemanticas accionSemantica7 = new AccionSemantica7("accion7");
         AccionesSemanticas accionSemantica8 = new AccionSemantica8("accion8");
         AccionesSemanticas accionSemantica9 = new AccionSemantica9("accion9");
-        AccionesSemanticas accionSemantica10 = new AccionSemantica10("accion10");
         AccionesSemanticas accionSemantica11 = new AccionSemantica11("accion11");
         AccionesSemanticas accionSemantica12 = new AccionSemantica12("accion12");
         AccionesSemanticas accionSemantica13 = new AccionSemantica13("accion13");
