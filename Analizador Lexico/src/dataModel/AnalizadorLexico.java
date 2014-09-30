@@ -162,9 +162,9 @@ public class AnalizadorLexico {
         return (!lector.finArchivo());
     }
     
-    /*public ParserVal getValorSimbolo() {
-        return parserVal;
-    }*/
+    //public ParserVal getValorSimbolo() {
+        //return parserVal;
+    //}
     
     public int getLineas(){
     	return lector.getLine();

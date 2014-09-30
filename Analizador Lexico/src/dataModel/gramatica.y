@@ -2,10 +2,12 @@
 
 package dataModel;
 import java.io.IOException;
+import java.util.Vector;
+import java.util.Stack;
 
 %}
 
-%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR
+%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR,ASIG
 
 %start programa
 
@@ -82,7 +84,7 @@ seleccion:
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion no valida");};
 
 condicion: 
-	expresion comparador expresion 
+	expresion operador expresion 
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": condicion no valida");};
 
 impresion: 
@@ -92,7 +94,7 @@ impresion:
 	|PRINT';' error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	FOR '(' INT IDENTIFICADOR '=' INT ; iIDENTIFICADOR COMPARADOR EXPRESION ; IDENTIFICADOR ++ ')' '{' sentencias '}';
+	FOR '(' INT IDENTIFICADOR '=' INT ; IDENTIFICADOR operador expresion ; IDENTIFICADOR')' '{' sentencias '}';
 
 %%
   private Logger logSintactico = new Logger("sintactico.log");
