@@ -9,15 +9,21 @@ import java.util.Stack;
 
 %token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR,ASIG
 
-%start programa
+%start main
 
 %%
+
+main:
+	'{'programa 	{Imprimir("Fin de programa.");}	'}'
+	 |'{'programa   {Imprimir("Falta cerrar llave de Programa.");}
+	 | {Imprimir("Falta abrir llave de Programa.");} programa '}' 
+	 |'{'error {Imprimir("El programa finalizó con errores.");};
 
 programa: sentencias { logSintactico.addLogger("El programa finalizo correctamente"); };
 
 sentencias:
 	 sentencia  
-	 |sentencias sentencia ;
+	 |sentencia sentencias  ;
 
 sentencia:	
 	declaracion 
@@ -66,6 +72,12 @@ variable:
 	|IDENTIFICADOR '[' expresion ']';
 
 operador:
+	'+'
+	|'-'
+	|'*'
+	|'/';
+	
+comparador:
 	'<'
 	|'<='
 	|'>'
@@ -84,7 +96,7 @@ seleccion:
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion no valida");};
 
 condicion: 
-	expresion operador expresion 
+	expresion comprador expresion 
 	|error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": condicion no valida");};
 
 impresion: 
@@ -94,7 +106,7 @@ impresion:
 	|PRINT';' error {logSintactico.addLogger("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	FOR '(' INT IDENTIFICADOR '=' INT ; IDENTIFICADOR operador expresion ; IDENTIFICADOR')' '{' sentencias '}';
+	FOR '(' INT IDENTIFICADOR '=' INT ; IDENTIFICADOR comparador expresion ; IDENTIFICADOR')' '{' sentencias '}';
 
 %%
   private Logger logSintactico = new Logger("sintactico.log");
