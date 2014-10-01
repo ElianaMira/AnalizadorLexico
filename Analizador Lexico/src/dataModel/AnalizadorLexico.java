@@ -17,7 +17,7 @@ public class AnalizadorLexico {
 	private Log logToken = new Log("token.log");
 	private Token token;
 	private int nroLinea;
-	//private ParserVal parserVal;
+	private ParserVal parserVal;
 	
 	public AnalizadorLexico(String ruta){
 		lector = new LectorArchivo(ruta);
@@ -117,7 +117,7 @@ public class AnalizadorLexico {
          if (token != null) {
              logToken.addLog("<"+token.getLinea() +","+ token.getTipo() + "," + token.getPuntero().getValor() + ">");
 
-             /*if (token.getTipo().equals("INT")) {
+             if (token.getTipo().equals("INT")) {
                  numero = Parser.INT;
              }
              if (token.getTipo().equals("FLOAT")) {
@@ -129,12 +129,15 @@ public class AnalizadorLexico {
              } else if (token.getTipo().equals("<=")) {
                  numero = Parser.MENOR_IGUAL;
              } else if (token.getTipo().equals(">=")) {
-                 numero = Parser.MAYOR_IGUAL;
-             } else if (token.getTipo().equals("IF")) {
+                 numero = Parser.MAYOR_IGUAL;*/
+         //    }
+         else if (token.getTipo().equals("IF")) {
                  numero = Parser.IF;
-             } else if (token.getTipo().equals("DE")) {
-                 numero = Parser.DE;
-             } else if (token.getTipo().equals("FOR")) {
+             } 
+             //else if (token.getTipo().equals("DE")) {
+                // numero = Parser.DE;
+               //         }
+             else if (token.getTipo().equals("FOR")) {
                  numero = Parser.FOR;
              } else if (token.getTipo().equals("THEN")) {
                  numero = Parser.THEN;
@@ -153,7 +156,7 @@ public class AnalizadorLexico {
              } 
              //System.out.println("Pidio un token!");
              //System.out.println("el tipo  \""+token.getTipo()+"\"");
-             parserVal = new ParserVal(token.getPuntero().getValor().toString());*/
+             parserVal = new ParserVal(token.getPuntero().getValor().toString());
          }
          return numero;
      }
@@ -162,9 +165,9 @@ public class AnalizadorLexico {
         return (!lector.finArchivo());
     }
     
-   // public ParserVal getValorSimbolo() {
-    //    return parserVal;
-    //}
+    public ParserVal getValorSimbolo() {
+        return parserVal;
+    }
     
     public int getLineas(){
     	return lector.getLine();
