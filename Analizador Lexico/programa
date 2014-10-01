@@ -1,0 +1,68 @@
+For( Int i = 1 ; i < 5 ; i++ ){
+   a:=b;
+}
+
+ 
+Int a ;
+{
+
+Int  i, j, k, l, m;
+Float a, b, c, d, e, f;
+
+Print("comienzo de programa");
+
+[- Esto es
+un comentario
+largo -]
+
+i := 65535;
+j := 65536;
+k := 70000;
+
+// float
+
+a:=3.40282347e38;
+b:=3.40282347e39;
+c:=1.17549435e-38;
+c:=1.17549435e-39;
+e:=5.;
+e:=-5.;
+e:=-6.;
+e:=-7.;
+e:=7.;
+
+{ Int a, b;
+  c:-a+b*j;
+}
+if (a>b)
+  i:-(242-3)+8;
+ else
+  x[20]:-a;
+
+{ int i, j;
+if(i <= 10)
+      	{
+       	if (i<>0)
+        	if i=3)
+             		c:-2;
+               	else
+		{
+               		c:-1;
+       			g:-g+10;
+       			e:-(a+e)*2;
+			d:-(c+b)*(d-1)/(e+a*5);
+		}
+	else
+	;
+else
+for( i :- 1 ; i < 5 ; 1 )
+  {
+   a:=b-c-d;
+  }
+}
+
+*( Otro comentario
+// otro comentario
+" otra cadena
+' otra cadena
+}

@@ -119,7 +119,7 @@ public class AnalizadorLexico {
 
              if (token.getTipo().equals("INT")) {
                  numero = Parser.INT;
-             }
+             }else
              if (token.getTipo().equals("FLOAT")) {
                  numero = Parser.FLOAT;
              } else if (token.getTipo().equals(":=")) {

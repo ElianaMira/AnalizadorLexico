@@ -22,7 +22,7 @@ sentencias:
 
 sentencia:	
 	declaracion 
-	|asignacion';'			
+	|asignacion			
 	|{logSintactico.addLog("Linea "+lexico.getLineas()+": Seleccion");} seleccion
 	|bucle
 	|impresion 
@@ -45,8 +45,8 @@ variables:
 	|error {logSintactico.addLog("ERROR sintactica en la linea"+lexico.getLineas()+": declaracion de variables");} ;
 
 asignacion: 
-	IDENTIFICADOR ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
-	|IDENTIFICADOR '[' expresion ']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");};
+	IDENTIFICADOR ASIG expresion ';'  {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+	|IDENTIFICADOR '[' expresion ']' ASIG expresion ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");};
 
 expresion:
 	numero {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}

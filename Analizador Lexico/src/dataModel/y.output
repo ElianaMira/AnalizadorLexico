@@ -6,7 +6,7 @@
    3             | sentencia sentencias
 
    4  sentencia : declaracion
-   5            | asignacion ';'
+   5            | asignacion
 
    6  $$1 :
 
@@ -28,8 +28,8 @@
   19            | variables ',' IDENTIFICADOR
   20            | error
 
-  21  asignacion : IDENTIFICADOR ASIG expresion
-  22             | IDENTIFICADOR '[' expresion ']' ASIG expresion
+  21  asignacion : getLineas IDENTIFICADOR ASIG expresion ';'
+  22             | IDENTIFICADOR '[' expresion ']' ASIG expresion ';'
 
   23  expresion : numero
   24            | operacionAritmetica
@@ -87,17 +87,18 @@ state 0
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	error  reduce 6
 	IF  reduce 6
 
-	programa  goto 8
-	sentencias  goto 9
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
+	programa  goto 9
+	sentencias  goto 10
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
 state 1
@@ -106,16 +107,14 @@ state 1
 	impresion : PRINT . '(' ';' error  (55)
 	impresion : PRINT . ';' error  (56)
 
-	';'  shift 16
-	'('  shift 17
+	';'  shift 17
+	'('  shift 18
 	.  error
 
 
 state 2
-	asignacion : IDENTIFICADOR . ASIG expresion  (21)
-	asignacion : IDENTIFICADOR . '[' expresion ']' ASIG expresion  (22)
+	asignacion : IDENTIFICADOR . '[' expresion ']' ASIG expresion ';'  (22)
 
-	ASIG  shift 18
 	'['  shift 19
 	.  error
 
@@ -168,18 +167,25 @@ state 7
 
 
 state 8
+	asignacion : getLineas . IDENTIFICADOR ASIG expresion ';'  (21)
+
+	IDENTIFICADOR  shift 30
+	.  error
+
+
+state 9
 	$accept : programa . $end  (0)
 
 	$end  accept
 
 
-state 9
+state 10
 	programa : sentencias .  (1)
 
 	.  reduce 1
 
 
-state 10
+state 11
 	sentencias : sentencia .  (2)
 	sentencias : sentencia . sentencias  (3)
 	$$1 : .  (6)
@@ -191,34 +197,34 @@ state 10
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	$end  reduce 2
 	error  reduce 6
 	IF  reduce 6
 	'}'  reduce 2
 
-	sentencias  goto 30
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
+	sentencias  goto 31
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
-state 11
+state 12
 	sentencia : declaracion .  (4)
 
 	.  reduce 4
 
 
-state 12
-	sentencia : asignacion . ';'  (5)
-
-	';'  shift 31
-	.  error
-
-
 state 13
+	sentencia : asignacion .  (5)
+
+	.  reduce 5
+
+
+state 14
 	sentencia : $$1 . seleccion  (7)
 
 	error  shift 32
@@ -228,26 +234,26 @@ state 13
 	seleccion  goto 34
 
 
-state 14
+state 15
 	sentencia : bucle .  (8)
 
 	.  reduce 8
 
 
-state 15
+state 16
 	sentencia : impresion .  (9)
 
 	.  reduce 9
 
 
-state 16
+state 17
 	impresion : PRINT ';' . error  (56)
 
 	error  shift 35
 	.  error
 
 
-state 17
+state 18
 	impresion : PRINT '(' . CADENA ')' ';'  (53)
 	impresion : PRINT '(' . CADENA ')' error  (54)
 	impresion : PRINT '(' . ';' error  (55)
@@ -257,8 +263,8 @@ state 17
 	.  error
 
 
-state 18
-	asignacion : IDENTIFICADOR ASIG . expresion  (21)
+state 19
+	asignacion : IDENTIFICADOR '[' . expresion ']' ASIG expresion ';'  (22)
 
 	IDENTIFICADOR  shift 38
 	INT  shift 39
@@ -266,20 +272,6 @@ state 18
 	.  error
 
 	expresion  goto 41
-	numero  goto 42
-	operacionAritmetica  goto 43
-	variable  goto 44
-
-
-state 19
-	asignacion : IDENTIFICADOR '[' . expresion ']' ASIG expresion  (22)
-
-	IDENTIFICADOR  shift 38
-	INT  shift 39
-	FLOAT  shift 40
-	.  error
-
-	expresion  goto 45
 	numero  goto 42
 	operacionAritmetica  goto 43
 	variable  goto 44
@@ -294,7 +286,7 @@ state 20
 state 21
 	vector : IDENTIFICADOR . '[' expresion ']'  (16)
 
-	'['  shift 46
+	'['  shift 45
 	.  error
 
 
@@ -302,8 +294,8 @@ state 22
 	declaracion : VECTOR vector . ';'  (14)
 	declaracion : VECTOR vector . error  (15)
 
-	error  shift 47
-	';'  shift 48
+	error  shift 46
+	';'  shift 47
 	.  error
 
 
@@ -323,15 +315,15 @@ state 25
 	declaracion : INT variables . ';'  (13)
 	variables : variables . ',' IDENTIFICADOR  (19)
 
-	';'  shift 49
-	','  shift 50
+	';'  shift 48
+	','  shift 49
 	.  error
 
 
 state 26
 	declaracion : FLOAT ';' . error  (12)
 
-	error  shift 51
+	error  shift 50
 	.  error
 
 
@@ -339,15 +331,15 @@ state 27
 	declaracion : FLOAT variables . ';'  (11)
 	variables : variables . ',' IDENTIFICADOR  (19)
 
-	';'  shift 52
-	','  shift 50
+	';'  shift 51
+	','  shift 49
 	.  error
 
 
 state 28
 	bucle : FOR '(' . INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
-	INT  shift 53
+	INT  shift 52
 	.  error
 
 
@@ -358,15 +350,16 @@ state 29
 
 
 state 30
-	sentencias : sentencia sentencias .  (3)
+	asignacion : getLineas IDENTIFICADOR . ASIG expresion ';'  (21)
 
-	.  reduce 3
+	ASIG  shift 53
+	.  error
 
 
 state 31
-	sentencia : asignacion ';' .  (5)
+	sentencias : sentencia sentencias .  (3)
 
-	.  reduce 5
+	.  reduce 3
 
 
 state 32
@@ -447,9 +440,10 @@ state 40
 
 
 state 41
-	asignacion : IDENTIFICADOR ASIG expresion .  (21)
+	asignacion : IDENTIFICADOR '[' expresion . ']' ASIG expresion ';'  (22)
 
-	.  reduce 21
+	']'  shift 58
+	.  error
 
 
 state 42
@@ -457,10 +451,10 @@ state 42
 	operacionAritmetica : numero . operador variable  (30)
 	operacionAritmetica : numero . operador numero  (31)
 
-	'+'  shift 58
-	'-'  shift 59
-	'*'  shift 60
-	'/'  shift 61
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 61
+	'/'  shift 62
 	error  reduce 23
 	';'  reduce 23
 	']'  reduce 23
@@ -472,7 +466,7 @@ state 42
 	"^="  reduce 23
 	')'  reduce 23
 
-	operador  goto 62
+	operador  goto 63
 
 
 state 43
@@ -486,10 +480,10 @@ state 44
 	operacionAritmetica : variable . operador variable  (28)
 	operacionAritmetica : variable . operador numero  (29)
 
-	'+'  shift 58
-	'-'  shift 59
-	'*'  shift 60
-	'/'  shift 61
+	'+'  shift 59
+	'-'  shift 60
+	'*'  shift 61
+	'/'  shift 62
 	error  reduce 25
 	';'  reduce 25
 	']'  reduce 25
@@ -501,17 +495,10 @@ state 44
 	"^="  reduce 25
 	')'  reduce 25
 
-	operador  goto 63
+	operador  goto 64
 
 
 state 45
-	asignacion : IDENTIFICADOR '[' expresion . ']' ASIG expresion  (22)
-
-	']'  shift 64
-	.  error
-
-
-state 46
 	vector : IDENTIFICADOR '[' . expresion ']'  (16)
 
 	IDENTIFICADOR  shift 38
@@ -525,48 +512,62 @@ state 46
 	variable  goto 44
 
 
-state 47
+state 46
 	declaracion : VECTOR vector error .  (15)
 
 	.  reduce 15
 
 
-state 48
+state 47
 	declaracion : VECTOR vector ';' .  (14)
 
 	.  reduce 14
 
 
-state 49
+state 48
 	declaracion : INT variables ';' .  (13)
 
 	.  reduce 13
 
 
-state 50
+state 49
 	variables : variables ',' . IDENTIFICADOR  (19)
 
 	IDENTIFICADOR  shift 66
 	.  error
 
 
-state 51
+state 50
 	declaracion : FLOAT ';' error .  (12)
 
 	.  reduce 12
 
 
-state 52
+state 51
 	declaracion : FLOAT variables ';' .  (11)
 
 	.  reduce 11
 
 
-state 53
+state 52
 	bucle : FOR '(' INT . IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
 	IDENTIFICADOR  shift 67
 	.  error
+
+
+state 53
+	asignacion : getLineas IDENTIFICADOR ASIG . expresion ';'  (21)
+
+	IDENTIFICADOR  shift 38
+	INT  shift 39
+	FLOAT  shift 40
+	.  error
+
+	expresion  goto 68
+	numero  goto 42
+	operacionAritmetica  goto 43
+	variable  goto 44
 
 
 state 54
@@ -576,25 +577,25 @@ state 54
 	seleccion : IF '(' . condicion ')' '{' sentencias '}' ELSE  (48)
 	seleccion : IF '(' . condicion ')' THEN  (49)
 
-	error  shift 68
+	error  shift 69
 	IDENTIFICADOR  shift 38
 	INT  shift 39
 	FLOAT  shift 40
 	.  error
 
-	expresion  goto 69
+	expresion  goto 70
 	numero  goto 42
 	operacionAritmetica  goto 43
 	variable  goto 44
-	condicion  goto 70
+	condicion  goto 71
 
 
 state 55
 	impresion : PRINT '(' CADENA ')' . ';'  (53)
 	impresion : PRINT '(' CADENA ')' . error  (54)
 
-	error  shift 71
-	';'  shift 72
+	error  shift 72
+	';'  shift 73
 	.  error
 
 
@@ -612,52 +613,46 @@ state 57
 	FLOAT  shift 40
 	.  error
 
-	expresion  goto 73
+	expresion  goto 74
 	numero  goto 42
 	operacionAritmetica  goto 43
 	variable  goto 44
 
 
 state 58
+	asignacion : IDENTIFICADOR '[' expresion ']' . ASIG expresion ';'  (22)
+
+	ASIG  shift 75
+	.  error
+
+
+state 59
 	operador : '+' .  (34)
 
 	.  reduce 34
 
 
-state 59
+state 60
 	operador : '-' .  (35)
 
 	.  reduce 35
 
 
-state 60
+state 61
 	operador : '*' .  (36)
 
 	.  reduce 36
 
 
-state 61
+state 62
 	operador : '/' .  (37)
 
 	.  reduce 37
 
 
-state 62
+state 63
 	operacionAritmetica : numero operador . variable  (30)
 	operacionAritmetica : numero operador . numero  (31)
-
-	IDENTIFICADOR  shift 38
-	INT  shift 39
-	FLOAT  shift 40
-	.  error
-
-	numero  goto 74
-	variable  goto 75
-
-
-state 63
-	operacionAritmetica : variable operador . variable  (28)
-	operacionAritmetica : variable operador . numero  (29)
 
 	IDENTIFICADOR  shift 38
 	INT  shift 39
@@ -669,16 +664,22 @@ state 63
 
 
 state 64
-	asignacion : IDENTIFICADOR '[' expresion ']' . ASIG expresion  (22)
+	operacionAritmetica : variable operador . variable  (28)
+	operacionAritmetica : variable operador . numero  (29)
 
-	ASIG  shift 78
+	IDENTIFICADOR  shift 38
+	INT  shift 39
+	FLOAT  shift 40
 	.  error
+
+	numero  goto 78
+	variable  goto 79
 
 
 state 65
 	vector : IDENTIFICADOR '[' expresion . ']'  (16)
 
-	']'  shift 79
+	']'  shift 80
 	.  error
 
 
@@ -691,156 +692,70 @@ state 66
 state 67
 	bucle : FOR '(' INT IDENTIFICADOR . '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
-	'='  shift 80
+	'='  shift 81
 	.  error
 
 
 state 68
+	asignacion : getLineas IDENTIFICADOR ASIG expresion . ';'  (21)
+
+	';'  shift 82
+	.  error
+
+
+state 69
 	condicion : error .  (52)
 
 	.  reduce 52
 
 
-state 69
+state 70
 	condicion : expresion . comparador expresion  (51)
 
-	error  shift 81
-	'<'  shift 82
-	"<="  shift 83
-	'>'  shift 84
-	">="  shift 85
-	'='  shift 86
-	"^="  shift 87
+	error  shift 83
+	'<'  shift 84
+	"<="  shift 85
+	'>'  shift 86
+	">="  shift 87
+	'='  shift 88
+	"^="  shift 89
 	.  error
 
-	comparador  goto 88
+	comparador  goto 90
 
 
-state 70
+state 71
 	seleccion : IF '(' condicion . ')' THEN '{' sentencias '}'  (45)
 	seleccion : IF '(' condicion . ')' THEN '{' sentencias '}' ELSE '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion . ')' THEN '{' sentencias '}' ELSE  (47)
 	seleccion : IF '(' condicion . ')' '{' sentencias '}' ELSE  (48)
 	seleccion : IF '(' condicion . ')' THEN  (49)
 
-	')'  shift 89
+	')'  shift 91
 	.  error
 
 
-state 71
+state 72
 	impresion : PRINT '(' CADENA ')' error .  (54)
 
 	.  reduce 54
 
 
-state 72
+state 73
 	impresion : PRINT '(' CADENA ')' ';' .  (53)
 
 	.  reduce 53
 
 
-state 73
+state 74
 	variable : IDENTIFICADOR '[' expresion . ']'  (33)
 
-	']'  shift 90
+	']'  shift 92
 	.  error
-
-
-state 74
-	operacionAritmetica : numero operador numero .  (31)
-
-	.  reduce 31
 
 
 state 75
-	operacionAritmetica : numero operador variable .  (30)
-
-	.  reduce 30
-
-
-state 76
-	operacionAritmetica : variable operador numero .  (29)
-
-	.  reduce 29
-
-
-state 77
-	operacionAritmetica : variable operador variable .  (28)
-
-	.  reduce 28
-
-
-state 78
-	asignacion : IDENTIFICADOR '[' expresion ']' ASIG . expresion  (22)
-
-	IDENTIFICADOR  shift 38
-	INT  shift 39
-	FLOAT  shift 40
-	.  error
-
-	expresion  goto 91
-	numero  goto 42
-	operacionAritmetica  goto 43
-	variable  goto 44
-
-
-state 79
-	vector : IDENTIFICADOR '[' expresion ']' .  (16)
-
-	.  reduce 16
-
-
-state 80
-	bucle : FOR '(' INT IDENTIFICADOR '=' . INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
-
-	INT  shift 92
-	.  error
-
-
-state 81
-	comparador : error .  (44)
-
-	.  reduce 44
-
-
-state 82
-	comparador : '<' .  (38)
-
-	.  reduce 38
-
-
-state 83
-	comparador : "<=" .  (39)
-
-	.  reduce 39
-
-
-state 84
-	comparador : '>' .  (40)
-
-	.  reduce 40
-
-
-state 85
-	comparador : ">=" .  (41)
-
-	.  reduce 41
-
-
-state 86
-	comparador : '=' .  (42)
-
-	.  reduce 42
-
-
-state 87
-	comparador : "^=" .  (43)
-
-	.  reduce 43
-
-
-state 88
-	condicion : expresion comparador . expresion  (51)
+	asignacion : IDENTIFICADOR '[' expresion ']' ASIG . expresion ';'  (22)
 
 	IDENTIFICADOR  shift 38
 	INT  shift 39
@@ -853,50 +768,150 @@ state 88
 	variable  goto 44
 
 
+state 76
+	operacionAritmetica : numero operador numero .  (31)
+
+	.  reduce 31
+
+
+state 77
+	operacionAritmetica : numero operador variable .  (30)
+
+	.  reduce 30
+
+
+state 78
+	operacionAritmetica : variable operador numero .  (29)
+
+	.  reduce 29
+
+
+state 79
+	operacionAritmetica : variable operador variable .  (28)
+
+	.  reduce 28
+
+
+state 80
+	vector : IDENTIFICADOR '[' expresion ']' .  (16)
+
+	.  reduce 16
+
+
+state 81
+	bucle : FOR '(' INT IDENTIFICADOR '=' . INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
+
+	INT  shift 94
+	.  error
+
+
+state 82
+	asignacion : getLineas IDENTIFICADOR ASIG expresion ';' .  (21)
+
+	.  reduce 21
+
+
+state 83
+	comparador : error .  (44)
+
+	.  reduce 44
+
+
+state 84
+	comparador : '<' .  (38)
+
+	.  reduce 38
+
+
+state 85
+	comparador : "<=" .  (39)
+
+	.  reduce 39
+
+
+state 86
+	comparador : '>' .  (40)
+
+	.  reduce 40
+
+
+state 87
+	comparador : ">=" .  (41)
+
+	.  reduce 41
+
+
+state 88
+	comparador : '=' .  (42)
+
+	.  reduce 42
+
+
 state 89
+	comparador : "^=" .  (43)
+
+	.  reduce 43
+
+
+state 90
+	condicion : expresion comparador . expresion  (51)
+
+	IDENTIFICADOR  shift 38
+	INT  shift 39
+	FLOAT  shift 40
+	.  error
+
+	expresion  goto 95
+	numero  goto 42
+	operacionAritmetica  goto 43
+	variable  goto 44
+
+
+state 91
 	seleccion : IF '(' condicion ')' . THEN '{' sentencias '}'  (45)
 	seleccion : IF '(' condicion ')' . THEN '{' sentencias '}' ELSE '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion ')' . THEN '{' sentencias '}' ELSE  (47)
 	seleccion : IF '(' condicion ')' . '{' sentencias '}' ELSE  (48)
 	seleccion : IF '(' condicion ')' . THEN  (49)
 
-	THEN  shift 94
-	'{'  shift 95
+	THEN  shift 96
+	'{'  shift 97
 	.  error
 
 
-state 90
+state 92
 	variable : IDENTIFICADOR '[' expresion ']' .  (33)
 
 	.  reduce 33
 
 
-state 91
-	asignacion : IDENTIFICADOR '[' expresion ']' ASIG expresion .  (22)
+state 93
+	asignacion : IDENTIFICADOR '[' expresion ']' ASIG expresion . ';'  (22)
 
-	.  reduce 22
-
-
-state 92
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT . ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
-
-	';'  shift 96
+	';'  shift 98
 	.  error
 
 
-state 93
+state 94
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT . ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
+
+	';'  shift 99
+	.  error
+
+
+state 95
 	condicion : expresion comparador expresion .  (51)
 
 	.  reduce 51
 
 
-state 94
+state 96
 	seleccion : IF '(' condicion ')' THEN . '{' sentencias '}'  (45)
 	seleccion : IF '(' condicion ')' THEN . '{' sentencias '}' ELSE '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion ')' THEN . '{' sentencias '}' ELSE  (47)
 	seleccion : IF '(' condicion ')' THEN .  (49)
 
-	'{'  shift 97
+	'{'  shift 100
 	$end  reduce 49
 	error  reduce 49
 	IF  reduce 49
@@ -907,10 +922,11 @@ state 94
 	FLOAT  reduce 49
 	FOR  reduce 49
 	';'  reduce 49
+	getLineas  reduce 49
 	'}'  reduce 49
 
 
-state 95
+state 97
 	seleccion : IF '(' condicion ')' '{' . sentencias '}' ELSE  (48)
 	$$1 : .  (6)
 
@@ -921,26 +937,33 @@ state 95
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	error  reduce 6
 	IF  reduce 6
 
-	sentencias  goto 98
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
+	sentencias  goto 101
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
-state 96
+state 98
+	asignacion : IDENTIFICADOR '[' expresion ']' ASIG expresion ';' .  (22)
+
+	.  reduce 22
+
+
+state 99
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' . IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
-	IDENTIFICADOR  shift 99
+	IDENTIFICADOR  shift 102
 	.  error
 
 
-state 97
+state 100
 	seleccion : IF '(' condicion ')' THEN '{' . sentencias '}'  (45)
 	seleccion : IF '(' condicion ')' THEN '{' . sentencias '}' ELSE '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion ')' THEN '{' . sentencias '}' ELSE  (47)
@@ -953,57 +976,58 @@ state 97
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	error  reduce 6
 	IF  reduce 6
 
-	sentencias  goto 100
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
-
-
-state 98
-	seleccion : IF '(' condicion ')' '{' sentencias . '}' ELSE  (48)
-
-	'}'  shift 101
-	.  error
-
-
-state 99
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR . comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
-
-	error  shift 81
-	'<'  shift 82
-	"<="  shift 83
-	'>'  shift 84
-	">="  shift 85
-	'='  shift 86
-	"^="  shift 87
-	.  error
-
-	comparador  goto 102
-
-
-state 100
-	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}'  (45)
-	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}' ELSE '{' sentencias '}'  (46)
-	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}' ELSE  (47)
-
-	'}'  shift 103
-	.  error
+	sentencias  goto 103
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
 state 101
-	seleccion : IF '(' condicion ')' '{' sentencias '}' . ELSE  (48)
+	seleccion : IF '(' condicion ')' '{' sentencias . '}' ELSE  (48)
 
-	ELSE  shift 104
+	'}'  shift 104
 	.  error
 
 
 state 102
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR . comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
+
+	error  shift 83
+	'<'  shift 84
+	"<="  shift 85
+	'>'  shift 86
+	">="  shift 87
+	'='  shift 88
+	"^="  shift 89
+	.  error
+
+	comparador  goto 105
+
+
+state 103
+	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}'  (45)
+	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}' ELSE '{' sentencias '}'  (46)
+	seleccion : IF '(' condicion ')' THEN '{' sentencias . '}' ELSE  (47)
+
+	'}'  shift 106
+	.  error
+
+
+state 104
+	seleccion : IF '(' condicion ')' '{' sentencias '}' . ELSE  (48)
+
+	ELSE  shift 107
+	.  error
+
+
+state 105
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador . expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
 	IDENTIFICADOR  shift 38
@@ -1011,18 +1035,18 @@ state 102
 	FLOAT  shift 40
 	.  error
 
-	expresion  goto 105
+	expresion  goto 108
 	numero  goto 42
 	operacionAritmetica  goto 43
 	variable  goto 44
 
 
-state 103
+state 106
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' .  (45)
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' . ELSE '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' . ELSE  (47)
 
-	ELSE  shift 106
+	ELSE  shift 109
 	$end  reduce 45
 	error  reduce 45
 	IF  reduce 45
@@ -1033,27 +1057,28 @@ state 103
 	FLOAT  reduce 45
 	FOR  reduce 45
 	';'  reduce 45
+	getLineas  reduce 45
 	'}'  reduce 45
 
 
-state 104
+state 107
 	seleccion : IF '(' condicion ')' '{' sentencias '}' ELSE .  (48)
 
 	.  reduce 48
 
 
-state 105
+state 108
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion . ';' IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
-	';'  shift 107
+	';'  shift 110
 	.  error
 
 
-state 106
+state 109
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE . '{' sentencias '}'  (46)
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE .  (47)
 
-	'{'  shift 108
+	'{'  shift 111
 	$end  reduce 47
 	error  reduce 47
 	IF  reduce 47
@@ -1064,17 +1089,18 @@ state 106
 	FLOAT  reduce 47
 	FOR  reduce 47
 	';'  reduce 47
+	getLineas  reduce 47
 	'}'  reduce 47
 
 
-state 107
+state 110
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' . IDENTIFICADOR ')' '{' sentencias '}'  (57)
 
-	IDENTIFICADOR  shift 109
+	IDENTIFICADOR  shift 112
 	.  error
 
 
-state 108
+state 111
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE '{' . sentencias '}'  (46)
 	$$1 : .  (6)
 
@@ -1085,46 +1111,47 @@ state 108
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	error  reduce 6
 	IF  reduce 6
 
-	sentencias  goto 110
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
-
-
-state 109
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR . ')' '{' sentencias '}'  (57)
-
-	')'  shift 111
-	.  error
-
-
-state 110
-	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE '{' sentencias . '}'  (46)
-
-	'}'  shift 112
-	.  error
-
-
-state 111
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' . '{' sentencias '}'  (57)
-
-	'{'  shift 113
-	.  error
+	sentencias  goto 113
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
 state 112
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR . ')' '{' sentencias '}'  (57)
+
+	')'  shift 114
+	.  error
+
+
+state 113
+	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE '{' sentencias . '}'  (46)
+
+	'}'  shift 115
+	.  error
+
+
+state 114
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' . '{' sentencias '}'  (57)
+
+	'{'  shift 116
+	.  error
+
+
+state 115
 	seleccion : IF '(' condicion ')' THEN '{' sentencias '}' ELSE '{' sentencias '}' .  (46)
 
 	.  reduce 46
 
 
-state 113
+state 116
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' . sentencias '}'  (57)
 	$$1 : .  (6)
 
@@ -1135,30 +1162,31 @@ state 113
 	FLOAT  shift 5
 	FOR  shift 6
 	';'  shift 7
+	getLineas  shift 8
 	error  reduce 6
 	IF  reduce 6
 
-	sentencias  goto 114
-	sentencia  goto 10
-	declaracion  goto 11
-	asignacion  goto 12
-	$$1  goto 13
-	bucle  goto 14
-	impresion  goto 15
+	sentencias  goto 117
+	sentencia  goto 11
+	declaracion  goto 12
+	asignacion  goto 13
+	$$1  goto 14
+	bucle  goto 15
+	impresion  goto 16
 
 
-state 114
+state 117
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias . '}'  (57)
 
-	'}'  shift 115
+	'}'  shift 118
 	.  error
 
 
-state 115
+state 118
 	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}' .  (57)
 
 	.  reduce 57
 
 
-31 terminals, 19 nonterminals
-58 grammar rules, 116 states
+32 terminals, 19 nonterminals
+58 grammar rules, 119 states
