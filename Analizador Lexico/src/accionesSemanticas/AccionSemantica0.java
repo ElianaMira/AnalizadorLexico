@@ -16,11 +16,11 @@ public class AccionSemantica0 extends AccionesSemanticas
 		linea++;
         if(caracter == '@')
             this.msjError = "Error lexico en linea "+linea+ " salto de linea inesperado";
-        else{
+		else{
             if  (caracter == '#')
                 this.msjError = "Error lexico en linea "+linea+" se esperaba un cierre de cadena";
             else{
-            	if (caracter == ']'){
+            	if (caracter == ';'){
             		this.msjError = "Error lexico en linea "+linea+", comentario invalido";
             	}
             	else{

@@ -51,7 +51,8 @@ asignacion:
 expresion:
 	numero {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
   	|operacionAritmetica {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
-	| variable  {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");};
+	|variable  {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
+	|error{logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": entero inexistente");};
 	
 numero:
 	FLOAT

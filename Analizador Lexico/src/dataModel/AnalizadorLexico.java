@@ -119,43 +119,35 @@ public class AnalizadorLexico {
 
              if (token.getTipo().equals("INT")) {
                  numero = Parser.INT;
-             }else
-             if (token.getTipo().equals("FLOAT")) {
+             }
+             else{ 
+            	 if (token.getTipo().equals("FLOAT")) {
                  numero = Parser.FLOAT;
-             } else if (token.getTipo().equals(":=")) {
-                 numero = Parser.ASIG;
-             } /*else if (token.getTipo().equals("!=")) {
-                 numero = Parser.DISTINTO;
-             } else if (token.getTipo().equals("<=")) {
-                 numero = Parser.MENOR_IGUAL;
-             } else if (token.getTipo().equals(">=")) {
-                 numero = Parser.MAYOR_IGUAL;*/
-         //    }
-         else if (token.getTipo().equals("IF")) {
-                 numero = Parser.IF;
-             } 
-             //else if (token.getTipo().equals("DE")) {
-                // numero = Parser.DE;
-               //         }
-             else if (token.getTipo().equals("FOR")) {
-                 numero = Parser.FOR;
-             } else if (token.getTipo().equals("THEN")) {
-                 numero = Parser.THEN;
-             } else if (token.getTipo().equals("ELSE")) {
-                 numero = Parser.ELSE;
-             } else if (token.getTipo().equals("PRINT")) {
-                 numero = Parser.PRINT;
-             } else if (token.getTipo().equals("VECTOR")) {
-                 numero = Parser.VECTOR;
-             } else if (token.getTipo().equals("CADENA")) {
-                 numero = Parser.CADENA;
-             } else if (token.getTipo().equals("IDENTIFICADOR")) {
-                 numero = Parser.IDENTIFICADOR;
-             } else if (token.getPuntero().getValor().length() == 1) {
-                 numero = token.getPuntero().getValor().charAt(0);
-             } 
-             //System.out.println("Pidio un token!");
-             //System.out.println("el tipo  \""+token.getTipo()+"\"");
+	             } else if (token.getTipo().equals(":=")) {
+	                 numero = Parser.ASIG;
+	             } else if (token.getTipo().equals("IF")) {
+	                 numero = Parser.IF;
+	             }/*else if (token.getTipo().equals("OF")) {
+	                 numero = Parser.OF;
+	             }*/
+	               else if (token.getTipo().equals("FOR")) {
+	                 numero = Parser.FOR;
+	             } else if (token.getTipo().equals("THEN")) {
+	                 numero = Parser.THEN;
+	             } else if (token.getTipo().equals("ELSE")) {
+	                 numero = Parser.ELSE;
+	             } else if (token.getTipo().equals("PRINT")) {
+	                 numero = Parser.PRINT;
+	             } else if (token.getTipo().equals("VECTOR")) {
+	                 numero = Parser.VECTOR;
+	             } else if (token.getTipo().equals("CADENA")) {
+	                 numero = Parser.CADENA;
+	             } else if (token.getTipo().equals("IDENTIFICADOR")) {
+	                 numero = Parser.IDENTIFICADOR;
+	             } else if (token.getPuntero().getValor().length() == 1) {
+	                 numero = token.getPuntero().getValor().charAt(0);
+	             } 
+             }
              parserVal = new ParserVal(token.getPuntero().getValor().toString());
          }
          return numero;

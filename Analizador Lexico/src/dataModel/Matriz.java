@@ -38,6 +38,7 @@ public class Matriz
         		case '&' :  celda = get(eActual,0); break;
         		case '.' :  celda = get(eActual,3); break;
         		case 'F' :  celda = get(eActual,4); break;
+        		case 'f' :  celda = get(eActual,4); break;
         		case '+' :  celda = get(eActual,11); break;
         		case '-' :  celda = get(eActual,12); break;        		        		
         		case ':' :  celda = get(eActual,7); break;
@@ -56,7 +57,7 @@ public class Matriz
            		case '[' :  celda = get(eActual,13);break;
         		case ']' :  celda = get(eActual,10);break;
         		case '"' :  celda = get(eActual,14);break;        		       	
-        		case '%':  celda = get(eActual,16);break;
+        		case '\n':  celda = get(eActual,16);break;
         		case '\t':  celda = get(eActual,17);break;        		
         		
         	}        
