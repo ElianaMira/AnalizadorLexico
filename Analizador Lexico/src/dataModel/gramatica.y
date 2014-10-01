@@ -96,7 +96,7 @@ condicion:
 	|error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": condicion no valida");};
 
 impresion: 
-	PRINT'('CADENA')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
+	PRINT'(' CADENA ')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
     |PRINT'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
 	|PRINT'('';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una cadena");};
 	|PRINT';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
