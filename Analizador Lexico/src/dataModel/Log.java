@@ -20,7 +20,6 @@ public class Log
     
     public void generar(){
         // abrir el archivo
-	  System.out.println("Se encontraron "+lineas.size()+" entradas");
 	  try {
 	      FileWriter archivo = new FileWriter(direccion);
 	      
@@ -45,7 +44,6 @@ public class Log
             for (int i = 0; i < lineas.size(); i++)
             {
                 String resultado = lineas.get(i);
-                System.out.println(resultado);
                 fichero.write(resultado + "\r\n");
             }
             fichero.close();
