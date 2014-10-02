@@ -16,8 +16,7 @@ public class AccionSemantica5 extends AccionesSemanticas
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea)
 	{
 		lexema.append(caracter);
-		Simbolo s = new Simbolo(lexema,lexema.toString());
-		ts.addSimbolo(s);
+		Simbolo s = new Simbolo(lexema,lexema.toString());		
 		Token t = new Token(s.getTipo(), s);
 		return t;
 	}

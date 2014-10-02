@@ -1,4 +1,26 @@
-[- Esto es
-un comentario
-largo -;
-a:=3.40282347f38;
+
+int identificadorlargo;
+float nu$mer&ito_;
+vector vec of float;
+vector a[6] := 100;
+vector z[w] := a[2];
+vector x[0] : a[4+3];
+
+a := 1;
+b := c;
+d := 3*4;
+
+print("habia una vez un circo ..");
+
+[- este es un comentario -]
+
+if (a > 10 ) then { cant:= a + 1; mult := mult*a;} 
+
+if (3 = a) then { float f; f:= a;} else {print('error ojito');}
+
+int a := 123;
+
+a > b;
+
+for ( int i = 1 ; i < MAX ; i ++) { v[4] := 5}
+

@@ -14,8 +14,7 @@ public class AccionSemantica6 extends AccionesSemanticas
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) 
 	{			
-		 Simbolo s = new Simbolo(lexema, lexema.toString());
-	     ts.addSimbolo(s);
+		 Simbolo s = new Simbolo(lexema, lexema.toString());	   
 	     Token t = new Token(s.getTipo(), s);
 	     retroceder = true;
 	     return t;

@@ -113,7 +113,7 @@ public class AnalizadorLexico {
     public int yylex() throws FileNotFoundException, IOException {
     	 int numero = 0;
     	 nroLinea = lector.getLine();
-         token = obtenerToken();
+		token = obtenerToken();
          if (token != null) {
              logToken.addLog("<"+token.getLinea() +","+ token.getTipo() + "," + token.getPuntero().getValor() + ">");
 
@@ -127,9 +127,9 @@ public class AnalizadorLexico {
 	                 numero = Parser.ASIG;
 	             } else if (token.getTipo().equals("IF")) {
 	                 numero = Parser.IF;
-	             }/*else if (token.getTipo().equals("OF")) {
+	             }else if (token.getTipo().equals("OF")) {
 	                 numero = Parser.OF;
-	             }*/
+	             }
 	               else if (token.getTipo().equals("FOR")) {
 	                 numero = Parser.FOR;
 	             } else if (token.getTipo().equals("THEN")) {

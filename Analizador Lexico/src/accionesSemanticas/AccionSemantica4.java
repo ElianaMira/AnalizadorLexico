@@ -19,22 +19,19 @@ public class AccionSemantica4 extends AccionesSemanticas
 			lexema.replace(index, index+1,"e");
 		Float f = Float.valueOf(lexema.toString()).floatValue();
 		
+		Simbolo s = new Simbolo(lexema,"FLOAT");
+		t = new Token(s.getTipo(),s);
+        
 		if (f.compareTo(new Float(1.17549435e-38))== -1 || f.compareTo(new Float(3.40282347e+38)) == 1)
 		{
 			this.error = true;
 			linea++;
 			this.msjError= "ERROR Float fuera de rango linea "+linea;
-			Simbolo s = new Simbolo(lexema,"FLOAT");
-			t = new Token(s.getTipo(),s);
-	        ts.addSimbolo(s);
-		}
-		else
+			
+		}else
 		{
-			Simbolo s = new Simbolo(lexema,"FLOAT");
-			t = new Token(s.getTipo(),s);
-	        ts.addSimbolo(s);
-	    }
-		
+			ts.addSimbolo(s);
+		}
 		lexema = new StringBuffer();               
 	    retroceder = true;
         return t;

@@ -7,7 +7,7 @@ import java.util.Stack;
 
 %}
 
-%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, CADENA, INT,FLOAT,FOR,ASIG
+%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, OF,CADENA, INT,FLOAT,FOR,ASIG
 
 %start programa
 
@@ -32,7 +32,7 @@ declaracion:
 	FLOAT variables';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
 	|FLOAT';' error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
   	|INT variables ';'
-  	|VECTOR vector ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
+  	|VECTOR vector OF numero ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
 	|VECTOR vector error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 vector: 
