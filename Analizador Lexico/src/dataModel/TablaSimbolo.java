@@ -39,9 +39,9 @@ public class TablaSimbolo {
     public void imprimirTabla() {
         Log logSimbolos = new Log("tablaSimbolo.log");
         System.out.println("TABLA DE SIMBOLOS");
-        System.out.println("TIPO    VALOR");
+        System.out.println("TIPO          VALOR");
         for (int i = 0; i < tablaSimbolo.size(); i++) {
-            logSimbolos.addLog(tablaSimbolo.get(i).getTipo() + " " + tablaSimbolo.get(i).getValor());
+            logSimbolos.addLog(tablaSimbolo.get(i).getTipo() + "        " + tablaSimbolo.get(i).getValor());
         }
         logSimbolos.imprimir();
     }

@@ -37,7 +37,7 @@ declaracion:
 
 vector: 
 	IDENTIFICADOR '[' expresion ']' 
-	|error {logSintactico.addLog("ERROR sintactica en la linea "+lexico.getLineas()+": sintactico en el arreglo");};
+	|error {logSintactico.addLog("ERROR sintactica en la linea "+lexico.getLineas()+": sintactico en el vector");};
 
 variables: 
 	IDENTIFICADOR 

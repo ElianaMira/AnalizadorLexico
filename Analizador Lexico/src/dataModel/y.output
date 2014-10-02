@@ -75,7 +75,7 @@
   56            | PRINT '(' ';' error
   57            | PRINT ';' error
 
-  58  bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'
+  58  bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'
 
 state 0
 	$accept : . programa $end  (0)
@@ -155,7 +155,7 @@ state 5
 
 
 state 6
-	bucle : FOR . '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR . '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	'('  shift 28
 	.  error
@@ -180,7 +180,6 @@ state 9
 	.  reduce 1
 
 
-10: shift/reduce conflict (shift 7, reduce 2) on ';'
 state 10
 	sentencias : sentencia .  (2)
 	sentencias : sentencia . sentencias  (3)
@@ -348,7 +347,7 @@ state 27
 
 
 state 28
-	bucle : FOR '(' . INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' . INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	INT  shift 53
 	.  error
@@ -572,7 +571,7 @@ state 52
 
 
 state 53
-	bucle : FOR '(' INT . IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT . IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	IDENTIFICADOR  shift 69
 	.  error
@@ -712,7 +711,7 @@ state 68
 
 
 state 69
-	bucle : FOR '(' INT IDENTIFICADOR . '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR . '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	'='  shift 83
 	.  error
@@ -829,7 +828,7 @@ state 82
 
 
 state 83
-	bucle : FOR '(' INT IDENTIFICADOR '=' . INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' . INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	INT  shift 95
 	.  error
@@ -918,7 +917,7 @@ state 94
 
 
 state 95
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT . ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT . ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	';'  shift 100
 	.  error
@@ -980,7 +979,7 @@ state 99
 
 
 state 100
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' . IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' . IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	IDENTIFICADOR  shift 103
 	.  error
@@ -1019,7 +1018,7 @@ state 102
 
 
 state 103
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR . comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR . comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	error  shift 84
 	'<'  shift 85
@@ -1050,7 +1049,7 @@ state 105
 
 
 state 106
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador . expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador . expresion ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	error  shift 37
 	IDENTIFICADOR  shift 38
@@ -1090,7 +1089,7 @@ state 108
 
 
 state 109
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion . ';' IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion . ';' IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	';'  shift 111
 	.  error
@@ -1115,7 +1114,7 @@ state 110
 
 
 state 111
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' . IDENTIFICADOR ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' . IDENTIFICADOR ')' '{' sentencias '}'  (58)
 
 	IDENTIFICADOR  shift 113
 	.  error
@@ -1145,7 +1144,7 @@ state 112
 
 
 state 113
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR . ')' '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR . ')' '{' sentencias '}'  (58)
 
 	')'  shift 115
 	.  error
@@ -1159,7 +1158,7 @@ state 114
 
 
 state 115
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' . '{' sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' . '{' sentencias '}'  (58)
 
 	'{'  shift 117
 	.  error
@@ -1172,7 +1171,7 @@ state 116
 
 
 state 117
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' . sentencias ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' . sentencias '}'  (58)
 	$$1 : .  (6)
 
 	PRINT  shift 1
@@ -1195,27 +1194,17 @@ state 117
 
 
 state 118
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias . ';' '}'  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias . '}'  (58)
 
-	';'  shift 119
+	'}'  shift 119
 	.  error
 
 
 state 119
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' . '}'  (58)
-
-	'}'  shift 120
-	.  error
-
-
-state 120
-	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias ';' '}' .  (58)
+	bucle : FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR ')' '{' sentencias '}' .  (58)
 
 	.  reduce 58
 
 
-State 10 contains 1 shift/reduce conflict.
-
-
 32 terminals, 19 nonterminals
-59 grammar rules, 121 states
+59 grammar rules, 120 states

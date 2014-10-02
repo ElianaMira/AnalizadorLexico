@@ -622,7 +622,7 @@ case 15:
 break;
 case 17:
 //#line 40 "gramatica.y"
-{logSintactico.addLog("ERROR sintactica en la linea "+lexico.getLineas()+": sintactico en el arreglo");}
+{logSintactico.addLog("ERROR sintactica en la linea "+lexico.getLineas()+": sintactico en el vector");}
 break;
 case 20:
 //#line 45 "gramatica.y"
