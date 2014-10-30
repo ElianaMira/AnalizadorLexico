@@ -20,8 +20,6 @@
 
 package dataModel;
 import java.io.IOException;
-import java.util.Vector;
-import java.util.Stack;
 
 //#line 24 "Parser.java"
 

@@ -16,7 +16,6 @@ public class AnalizadorLexico {
 	private Log logErrores = new Log("errores_lexico.log");
 	private Log logToken = new Log("token.log");
 	private Token token;
-	private int nroLinea;
 	private ParserVal parserVal;
 	
 	public AnalizadorLexico(String ruta){
@@ -112,7 +111,6 @@ public class AnalizadorLexico {
     
     public int yylex() throws FileNotFoundException, IOException {
     	 int numero = 0;
-    	 nroLinea = lector.getLine();
 		token = obtenerToken();
          if (token != null) {
              logToken.addLog("<"+token.getLinea() +","+ token.getTipo() + "," + token.getPuntero().getValor() + ">");
@@ -125,18 +123,18 @@ public class AnalizadorLexico {
                  numero = Parser.FLOAT;
 	             } else if (token.getTipo().equals(":=")) {
 	                 numero = Parser.ASIG;
-	             } else if (token.getTipo().equals("IF")) {
+	             } else if (token.getTipo().equals("SI")) {
 	                 numero = Parser.IF;
-	             }else if (token.getTipo().equals("OF")) {
+	             }else if (token.getTipo().equals("DE")) {
 	                 numero = Parser.OF;
 	             }
-	               else if (token.getTipo().equals("FOR")) {
+	               else if (token.getTipo().equals("PARA")) {
 	                 numero = Parser.FOR;
-	             } else if (token.getTipo().equals("THEN")) {
+	             } else if (token.getTipo().equals("ENTONCES")) {
 	                 numero = Parser.THEN;
-	             } else if (token.getTipo().equals("ELSE")) {
+	             } else if (token.getTipo().equals("SINO")) {
 	                 numero = Parser.ELSE;
-	             } else if (token.getTipo().equals("PRINT")) {
+	             } else if (token.getTipo().equals("IMPRIMIR")) {
 	                 numero = Parser.PRINT;
 	             } else if (token.getTipo().equals("VECTOR")) {
 	                 numero = Parser.VECTOR;

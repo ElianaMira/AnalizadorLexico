@@ -1,6 +1,5 @@
 package dataModel;
 
-import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,7 +8,6 @@ public class Matriz
     private Object celdas[][];
     private int fila;
     private int columna;
-    private Hashtable<Object,Integer> tabla; // elemento al que tenes que ir estado
     
     public Matriz(int fila, int columna)
     {

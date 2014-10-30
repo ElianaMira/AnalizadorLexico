@@ -7,7 +7,7 @@ import java.util.Stack;
 
 %}
 
-%token  IF,THEN, ELSE,PRINT,IDENTIFICADOR, VECTOR, OF,CADENA, INT,FLOAT,FOR,ASIG
+%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOAT,PARA,ASIG
 
 %start programa
 
@@ -17,93 +17,79 @@ import java.util.Stack;
 programa: sentencias { logSintactico.addLog("El programa finalizo correctamente"); };
 
 sentencias:
-	 sentencia  
-	 |sentencia sentencias  ;
+	 sentencia  ';'
+	 |sentencias sentencia  ;
 
 sentencia:	
 	declaracion 
 	|asignacion			
-	|{logSintactico.addLog("Linea "+lexico.getLineas()+": Seleccion");} seleccion
+	|seleccion
 	|bucle
-	|impresion 
-    |  ';' error {logSintactico.addLog("ERROR sintactico en linea "+lexico.getLineas()+": sentencia no permitida");};
+	|impresion ;
 
 declaracion:
-	FLOAT variables';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
-	|FLOAT';' error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
-  	|INT variables ';'
-  	|VECTOR vector OF numero ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
-	|VECTOR vector error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
-
-vector: 
-	IDENTIFICADOR '[' expresion ']' 
-	|error {logSintactico.addLog("ERROR sintactica en la linea "+lexico.getLineas()+": sintactico en el vector");};
+	FLOAT variables {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
+	|FLOAT error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
+  	|INT variables
+  	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
+	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
 	IDENTIFICADOR 
-	|variables','IDENTIFICADOR
-	|error {logSintactico.addLog("ERROR sintactica en la linea"+lexico.getLineas()+": declaracion de variables");} ;
+	|variables','IDENTIFICADOR;
 
 asignacion: 
-	IDENTIFICADOR ASIG expresion ';'  {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
-	|IDENTIFICADOR '[' expresion ']' ASIG expresion ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");};
-
-expresion:
-	numero {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
-  	|operacionAritmetica {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
-	|variable  {logSintactico.addLog("Linea "+lexico.getLineas()+": se encontro una expresion");}
-	|error{logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": entero inexistente");};
+	IDENTIFICADOR ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+	|IDENTIFICADOR '['expresion']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");};
 	
 numero:
 	FLOAT
 	|INT;
 	
-operacionAritmetica:
-	variable operador variable
-	|variable operador numero
-	|numero operador variable
-	|numero operador numero;
+expresion:
+	expresion '+' termino
+	|expresion '-' termino
+	|termino;
 
-variable:
-	IDENTIFICADOR
-	|IDENTIFICADOR '[' expresion ']';
-
-operador:
-	'+'
-	|'-'
-	|'*'
-	|'/';
+vector:
+	IDENTIFICADOR '['expresion']';
 	
+termino:
+	termino '*' argumento
+	|termino '/' argumento
+	|argumento;
+	
+argumento:
+	IDENTIFICADOR
+	|numero
+	|vector;
+
 comparador:
 	'<'
-	|'<='
+	|'<''='
 	|'>'
-	|'>='
+	|'>''='
 	|'='
-	|'^='
-	|error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": no es posible resolver la comparacion");}
-;		
+	|'^''=';		
 
 seleccion: 
-	IF'('condicion')'THEN'{'sentencias'}'   
-	|IF'('condicion')'THEN'{'sentencias'}' ELSE '{'sentencias'}'  {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion ifelse");}
-	|IF'('condicion')'THEN'{'sentencias'}' ELSE  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");}
-	|IF'('condicion')''{'sentencias'}' ELSE  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion falta setencia THEN ");}
-	|IF'('condicion')'THEN {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");}
-	|error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion no valida");};
+	SI'('condicion')'ENTONCES'{'sentencias'}'   
+	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO '{'sentencias'}'  {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SISINO");}
+	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");}
+	|SI'('condicion')''{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion falta setencia ENTONCES ");}
+	|SI'('condicion')'ENTONCES {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");};
 
 condicion: 
-	expresion comparador expresion 
-	|error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": condicion no valida");};
+	expresion comparador expresion;
 
 impresion: 
-	PRINT'(' CADENA ')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
-    |PRINT'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
-	|PRINT'('';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una cadena");};
-	|PRINT';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
+	IMPRIMIR'(' CADENA ')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
+    |IMPRIMIR'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
+	|IMPRIMIR'('';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una cadena");};
+	|IMPRIMIR';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	FOR '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR')' '{' sentencias '}';
+	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR')' '{' sentencias '}';
 
 %%
   private Log logSintactico = new Log("sintactico.log");
