@@ -20,11 +20,11 @@ public class LectorArchivo{
         	FileReader fr = new FileReader(ruta);
             BufferedReader bf = new BufferedReader(fr); 
             String sCadena = "";
-            while ((sCadena = bf.readLine())!= null)                        
-                fuente.add(sCadena + "@");              
+            while ((sCadena = bf.readLine())!= null){                        
+                fuente.add(sCadena);
+            }
             sCadena = "#";
-            fuente.add(sCadena); 
-            bf.close();
+            fuente.add(sCadena);
          }
         catch (FileNotFoundException fnfe){fnfe.printStackTrace();
       }

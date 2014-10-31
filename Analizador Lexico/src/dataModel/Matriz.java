@@ -34,6 +34,7 @@ public class Matriz
         		case '$' :  celda = get(eActual,0); break;
         		case '_' :  celda = get(eActual,0); break;
         		case '&' :  celda = get(eActual,0); break;
+        		case '@' :  celda = get(eActual,16); break;
         		case '.' :  celda = get(eActual,3); break;
         		case 'F' :  celda = get(eActual,4); break;
         		case 'f' :  celda = get(eActual,4); break;

@@ -14,9 +14,6 @@ public class AccionSemantica0 extends AccionesSemanticas
 	public Token ejecutar(StringBuffer lexema, char caracter, TablaSimbolo tablaS,int linea) 
 	{
 		linea++;
-        if(caracter == '@')
-            this.msjError = "Error lexico en linea "+linea+ " salto de linea inesperado";
-		else{
             if  (caracter == '#')
                 this.msjError = "Error lexico en linea "+linea+" se esperaba un cierre de cadena";
             else{
@@ -26,7 +23,6 @@ public class AccionSemantica0 extends AccionesSemanticas
             	else{
             		this.msjError = "Error lexico en linea "+linea+" caracter no valido "+caracter;
             	}
-            }
               
         }
         this.error = true;
