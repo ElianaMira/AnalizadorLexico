@@ -101,6 +101,7 @@ bucle:
 
   public Parser(AnalizadorLexico l) {
          lexico = l;
+         logSintactico.generar();
 
     }
 
