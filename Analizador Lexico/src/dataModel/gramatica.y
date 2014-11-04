@@ -7,7 +7,7 @@ import java.util.Stack;
 
 %}
 
-%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOAT,PARA,ASIG
+%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOAT,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
 
 %start programa
 
@@ -70,11 +70,11 @@ argumento:
 
 comparador:
 	'<'
-	|'<''='
+	|MAYOR_IGUAL
 	|'>'
-	|'>''='
+	|MENOR_IGUAL
 	|'='
-	|'^''=';		
+	|DISTINTO;		
 
 seleccion: 
 	SI'('condicion')'ENTONCES'{'sentencias'}'   

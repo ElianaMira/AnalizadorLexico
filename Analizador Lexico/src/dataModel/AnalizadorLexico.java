@@ -127,7 +127,13 @@ public class AnalizadorLexico {
 					numero = Parser.FLOAT;
 				} else if (token.getTipo().equals(":=")) {
 					numero = Parser.ASIG;
-				} else if (token.getTipo().equals("SI")) {
+				}else if (token.getTipo().equals(">=")) {
+					numero = Parser.MAYOR_IGUAL;
+				}else if (token.getTipo().equals("<=")) {
+					numero = Parser.MENOR_IGUAL;
+				}else if (token.getTipo().equals("^=")) {
+					numero = Parser.DISTINTO;
+				}else if (token.getTipo().equals("SI")) {
 					numero = Parser.SI;
 				} else if (token.getTipo().equals("DE")) {
 					numero = Parser.DE;

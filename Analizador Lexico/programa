@@ -1,4 +1,5 @@
-a := 2222222222;
+a>=b;
+a:=2222222222;
 [-comentario-];
 int juli;
 a[w]:=a[c];
