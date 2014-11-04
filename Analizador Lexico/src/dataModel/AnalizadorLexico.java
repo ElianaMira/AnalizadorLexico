@@ -122,31 +122,34 @@ public class AnalizadorLexico {
 			if (token.getTipo().equals("INT")) {
 				numero = Parser.INT;
 			}
-			if (token.getTipo().equals("FLOAT")) {
-				numero = Parser.FLOAT;
-			} else if (token.getTipo().equals(":=")) {
-				numero = Parser.ASIG;
-			} else if (token.getTipo().equals("SI")) {
-				numero = Parser.SI;
-			} else if (token.getTipo().equals("DE")) {
-				numero = Parser.DE;
-			} else if (token.getTipo().equals("PARA")) {
-				numero = Parser.PARA;
-			} else if (token.getTipo().equals("ENTONCES")) {
-				numero = Parser.ENTONCES;
-			} else if (token.getTipo().equals("SINO")) {
-				numero = Parser.SINO;
-			} else if (token.getTipo().equals("IMPRIMIR")) {
-				numero = Parser.IMPRIMIR;
-			} else if (token.getTipo().equals("VECTOR")) {
-				numero = Parser.VECTOR;
-			} else if (token.getTipo().equals("CADENA")) {
-				numero = Parser.CADENA;
-			} else if (token.getTipo().equals("IDENTIFICADOR")) {
-				numero = Parser.IDENTIFICADOR;
-			} else if (token.getPuntero().getValor().length() == 1) {
-				numero = token.getPuntero().getValor().charAt(0);
+			else{
+				if (token.getTipo().equals("FLOAT")) {
+					numero = Parser.FLOAT;
+				} else if (token.getTipo().equals(":=")) {
+					numero = Parser.ASIG;
+				} else if (token.getTipo().equals("SI")) {
+					numero = Parser.SI;
+				} else if (token.getTipo().equals("DE")) {
+					numero = Parser.DE;
+				} else if (token.getTipo().equals("PARA")) {
+					numero = Parser.PARA;
+				} else if (token.getTipo().equals("ENTONCES")) {
+					numero = Parser.ENTONCES;
+				} else if (token.getTipo().equals("SINO")) {
+					numero = Parser.SINO;
+				} else if (token.getTipo().equals("IMPRIMIR")) {
+					numero = Parser.IMPRIMIR;
+				} else if (token.getTipo().equals("VECTOR")) {
+					numero = Parser.VECTOR;
+				} else if (token.getTipo().equals("CADENA")) {
+					numero = Parser.CADENA;
+				} else if (token.getTipo().equals("IDENTIFICADOR")) {
+					numero = Parser.IDENTIFICADOR;
+				} else if (token.getPuntero().getValor().length() == 1) {
+					numero = token.getPuntero().getValor().charAt(0);
+				}
 			}
+			
 			parserVal = new ParserVal(token.getPuntero().getValor().toString());
 		}
 		return numero;

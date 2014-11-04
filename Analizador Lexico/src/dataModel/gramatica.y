@@ -17,47 +17,51 @@ import java.util.Stack;
 programa: sentencias { logSintactico.addLog("El programa finalizo correctamente"); };
 
 sentencias:
-	 sentencia  ';'
+	 sentencia
 	 |sentencias sentencia  ;
 
 sentencia:	
 	declaracion 
-	|asignacion			
+	|asignacion ';'
 	|seleccion
 	|bucle
+	|condicion ';'
 	|impresion ;
 
 declaracion:
-	FLOAT variables {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
+	FLOAT variables ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
 	|FLOAT error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
-  	|INT variables
-  	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
+  	|INT variables ';'
+  	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';'{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
-	IDENTIFICADOR 
+	IDENTIFICADOR
 	|variables','IDENTIFICADOR;
 
 asignacion: 
-	IDENTIFICADOR ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
-	|IDENTIFICADOR '['expresion']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");};
+	IDENTIFICADOR ASIG expresion  {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+	|IDENTIFICADOR '['expresion']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+	|INT IDENTIFICADOR ASIG expresion;
 	
 numero:
-	FLOAT
+	FLOAT 
 	|INT;
 	
 expresion:
-	expresion '+' termino
+	termino
+	|expresion '+' termino
 	|expresion '-' termino
-	|termino;
+	;
 
 vector:
 	IDENTIFICADOR '['expresion']';
 	
 termino:
-	termino '*' argumento
+	argumento
+	|termino '*' argumento
 	|termino '/' argumento
-	|argumento;
+	;
 	
 argumento:
 	IDENTIFICADOR
@@ -83,13 +87,13 @@ condicion:
 	expresion comparador expresion;
 
 impresion: 
-	IMPRIMIR'(' CADENA ')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
+	IMPRIMIR'('CADENA')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
     |IMPRIMIR'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
 	|IMPRIMIR'('';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una cadena");};
 	|IMPRIMIR';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR')' '{' sentencias '}';
+	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR'+'')' '{' sentencias '}'';';
 
 %%
   private Log logSintactico = new Log("sintactico.log");

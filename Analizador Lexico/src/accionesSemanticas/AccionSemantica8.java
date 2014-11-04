@@ -12,7 +12,7 @@ public class AccionSemantica8 extends AccionesSemanticas
 		@Override
 		public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo tablaS, int linea)
 		{
-			 //lexema.delete(0, lexema.length());
-			 return null;
+			lexema.delete(0, lexema.length());
+			return null;
 		}
 }

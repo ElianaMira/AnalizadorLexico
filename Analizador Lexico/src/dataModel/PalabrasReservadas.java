@@ -7,15 +7,15 @@ public class PalabrasReservadas
 	public PalabrasReservadas()
 	{
 		palabras = new ArrayList<String>();
-		palabras.add("if");
-		palabras.add("then");
-		palabras.add("else");
-		palabras.add("print");
+		palabras.add("si");
+		palabras.add("entonces");
+		palabras.add("sino");
+		palabras.add("imprimir");
 		palabras.add("int");
 		palabras.add("float");
-		palabras.add("for");
+		palabras.add("para");
 		palabras.add("vector");
-		palabras.add("of");
+		palabras.add("de");
 	}
 	
 	public ArrayList<String> getReservadas()

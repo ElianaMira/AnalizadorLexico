@@ -309,25 +309,25 @@ public class InicEstructuras {
         acciones.set(12, 18, accionSemantica1);
         
         //FILA13 Estado 13
-        acciones.set(13, 0, accionSemantica0);
-        acciones.set(13, 1, accionSemantica0);
-        acciones.set(13, 2, accionSemantica0);
-        acciones.set(13, 3, accionSemantica0);
-        acciones.set(13, 4, accionSemantica0);
-        acciones.set(13, 5, accionSemantica0);
-        acciones.set(13, 6, accionSemantica0);
-        acciones.set(13, 7, accionSemantica0);
-        acciones.set(13, 8, accionSemantica0);
-        acciones.set(13, 9, accionSemantica0);
-        acciones.set(13, 10, accionSemantica8);
-        acciones.set(13, 11, accionSemantica0);
-        acciones.set(13, 12, accionSemantica0);
-        acciones.set(13, 13, accionSemantica0);
-        acciones.set(13, 14, accionSemantica0);
-        acciones.set(13, 15, accionSemantica0);
-        acciones.set(13, 16, accionSemantica0);
-        acciones.set(13, 17, accionSemantica0);
-        acciones.set(13, 18, accionSemantica0);
+        acciones.set(13, 0, accionSemantica8);
+        acciones.set(13, 1, accionSemantica8);
+        acciones.set(13, 2, accionSemantica8);
+        acciones.set(13, 3, accionSemantica8);
+        acciones.set(13, 4, accionSemantica8);
+        acciones.set(13, 5, accionSemantica8);
+        acciones.set(13, 6, accionSemantica8);
+        acciones.set(13, 7, accionSemantica8);
+        acciones.set(13, 8, accionSemantica8);
+        acciones.set(13, 9, accionSemantica8);
+        acciones.set(13, 10, accionSemantica1);
+        acciones.set(13, 11, accionSemantica8);
+        acciones.set(13, 12, accionSemantica1);
+        acciones.set(13, 13, accionSemantica8);
+        acciones.set(13, 14, accionSemantica8);
+        acciones.set(13, 15, accionSemantica8);
+        acciones.set(13, 16, accionSemantica8);
+        acciones.set(13, 17, accionSemantica8);
+        acciones.set(13, 18, accionSemantica8);
         
         //FILA14 Estado 14
         acciones.set(14, 0, accionSemantica1);
@@ -668,9 +668,9 @@ public class InicEstructuras {
         estados.set(13, 7, 0);
         estados.set(13, 8, 0);
         estados.set(13, 9, 0);
-        estados.set(13, 10, 0);
+        estados.set(13, 10, 13);
         estados.set(13, 11, 0);
-        estados.set(13, 12, 0);
+        estados.set(13, 12, 13);
         estados.set(13, 13, 0);
         estados.set(13, 14, 0);
         estados.set(13, 15, 0);
