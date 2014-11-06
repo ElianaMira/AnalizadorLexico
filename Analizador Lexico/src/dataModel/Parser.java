@@ -411,6 +411,7 @@ final static String yyrule[] = {
   private Log logSintactico = new Log("sintactico.log");
   private AnalizadorLexico lexico;
 
+
   public Parser(AnalizadorLexico l) {
          lexico = l;
          logSintactico.generar();
@@ -448,7 +449,7 @@ public void putNegativo(String valor){
 public void imprimirSintactico(){
     logSintactico.imprimir();
 }
-//#line 380 "Parser.java"
+//#line 381 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -608,11 +609,15 @@ case 1:
 break;
 case 10:
 //#line 32 "gramatica.y"
-{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
+{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una variable FLOAT");}
 break;
 case 11:
 //#line 33 "gramatica.y"
-{logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
+{logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variable float");}
+break;
+case 12:
+//#line 34 "gramatica.y"
+{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una variable INT");}
 break;
 case 13:
 //#line 35 "gramatica.y"
@@ -624,15 +629,23 @@ case 14:
 break;
 case 17:
 //#line 43 "gramatica.y"
-{logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una asignacion");}
 break;
 case 18:
 //#line 44 "gramatica.y"
-{logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
+{logSintactico.addLog("Linea "+lexico.getLineas()+":declaracion de una asignacion");}
+break;
+case 19:
+//#line 45 "gramatica.y"
+{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una asignacion");}
+break;
+case 38:
+//#line 80 "gramatica.y"
+{logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES");}
 break;
 case 39:
 //#line 81 "gramatica.y"
-{logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SISINO");}
+{logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES SINO");}
 break;
 case 40:
 //#line 82 "gramatica.y"
@@ -662,7 +675,11 @@ case 47:
 //#line 93 "gramatica.y"
 {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");}
 break;
-//#line 589 "Parser.java"
+case 48:
+//#line 96 "gramatica.y"
+{logSintactico.addLog("Linea "+lexico.getLineas()+":bucle");}
+break;
+//#line 606 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

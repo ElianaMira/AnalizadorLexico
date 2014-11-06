@@ -29,9 +29,9 @@ sentencia:
 	|impresion ;
 
 declaracion:
-	FLOAT variables ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un FLOAT");}
-	|FLOAT error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
-  	|INT variables ';'
+	FLOAT variables ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una variable FLOAT");}
+	|FLOAT error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variable float");}
+  	|INT variables ';' {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una variable INT");}
   	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';'{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
@@ -40,9 +40,9 @@ variables:
 	|variables','IDENTIFICADOR;
 
 asignacion: 
-	IDENTIFICADOR ASIG expresion  {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
-	|IDENTIFICADOR '['expresion']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": asignacion");}
-	|INT IDENTIFICADOR ASIG expresion;
+	IDENTIFICADOR ASIG expresion  {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una asignacion");}
+	|IDENTIFICADOR '['expresion']' ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+":declaracion de una asignacion");}
+	|INT IDENTIFICADOR ASIG expresion {logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de una asignacion");};
 	
 numero:
 	FLOAT 
@@ -77,8 +77,8 @@ comparador:
 	|DISTINTO;		
 
 seleccion: 
-	SI'('condicion')'ENTONCES'{'sentencias'}'   
-	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO '{'sentencias'}'  {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SISINO");}
+	SI'('condicion')'ENTONCES'{'sentencias'}' {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES");}	  
+	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO '{'sentencias'}'  {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES SINO");}
 	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");}
 	|SI'('condicion')''{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion falta setencia ENTONCES ");}
 	|SI'('condicion')'ENTONCES {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");};
@@ -88,16 +88,17 @@ condicion:
 
 impresion: 
 	IMPRIMIR'('CADENA')'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":salida por pantalla");};
-    |IMPRIMIR'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
+    	|IMPRIMIR'('CADENA')' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba un punto y coma");};
 	|IMPRIMIR'('';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una cadena");};
 	|IMPRIMIR';' error {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": se esperaba una ('cadena')");};
 
 bucle:
-	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR'+'')' '{' sentencias '}'';';
+	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR'+'')' '{' sentencias '}'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":bucle");};
 
 %%
   private Log logSintactico = new Log("sintactico.log");
   private AnalizadorLexico lexico;
+
 
   public Parser(AnalizadorLexico l) {
          lexico = l;
