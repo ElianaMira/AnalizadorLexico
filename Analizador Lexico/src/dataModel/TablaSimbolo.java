@@ -47,10 +47,10 @@ public class TablaSimbolo {
         
     }
     
-    public static  void existeVariable(Token t){
+    public static void existeVariable(Token t){
     	Simbolo s = obtenerSimbolo(t.getPuntero());
     	if (s == null){
-    		System.out.println("Linea "+t.getLinea()+":La variable <+t.getLexema()+> no se encuentra en la tabla de simbolos.");
+    		System.out.println("Linea "+t.getLinea()+":La variable <"+ t.getPuntero().getValor().toString()+ "> no se encuentra en la tabla de simbolos.");
     	}
     }
     

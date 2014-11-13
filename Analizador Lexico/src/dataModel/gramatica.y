@@ -36,23 +36,21 @@ declaracion:
 
 variables: 
 
-	IDENTIFICADOR {	$1.stipo = varTipo; }
-	|variables','IDENTIFICADOR { $3.stipo = varTipo; };
+	IDENTIFICADOR {	$1.obj = varTipo; }
+	|variables','IDENTIFICADOR { $3.obj = varTipo; };
 
 asignacion: 
 	IDENTIFICADOR ASIG expresion  
 	{
-		Token identificador = obtenerToken($1.sval,nroAmbito,$1.stipo);
+		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		if(!existeToken(identificador))
-			yyerror("Error: la variable <'" +aux.getLexema()+"'> no se encuentra declarada.");
+			yyerror("Error: la variable <'" +identificador.getPuntero().getValor()+"'> no se encuentra declarada.");
 		
 		String operador1 = $1.sval;
 		String operador2 = new String($3.sval);
 		vectorTercetos.add(new Tercetos(":-",operador1,operador2));
-			
-		Imprimir("Asignacion.");
 	}
-	|IDENTIFICADOR '['expresion']' ASIG expresion ; { VER BIENN QUE PONER}
+	|IDENTIFICADOR '['expresion']' ASIG expresion ;
 	
 numero:
 	FLOAT {	varTipo = "float";} 
@@ -63,23 +61,23 @@ expresion:
 	termino 
 	{
 		$$.sval = $1.sval;
-		$$.stipo = $1.stipo;
+		$$.obj = $1.obj;
 	}
 	|expresion '+' termino 
 	{	
-		Token operador1 = obtenerToken($1.sval,nroAmbito,obtenerToken);
-		Token operador2 = obtenerToken($3.sval,nroAmbito,obtenerToken);
+		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$1.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("+",op1,op2); 
+		vectorTercetos.add(new Tercetos("+",op1,op2)); 
 	} 
 	|expresion '-' termino
 	{
-		Token operador1 = obtenerToken($1.sval,nroAmbito,$1.stipo);
-		Token operador2 = obtenerToken($3.sval,nroAmbito,$1.stipo);
+		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$1.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("-",op1,op2); 
+		vectorTercetos.add(new Tercetos("-",op1,op2)); 
 	};
 
 vector:
@@ -89,23 +87,23 @@ termino:
 	argumento
 	{
 		$$.sval = $1.sval;	
-		$$.stipo = $1.stipo;
+		$$.obj = $1.obj;
 	}
 	|termino '*' argumento 
 	{
-		Token operador1 = obtenerToken($1.sval,nroAmbito,$1.stipo);
-		Token operador2 = obtenerToken($3.sval,nroAmbito,$1.stipo);
+		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$1.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("*",op1,op2);
+		vectorTercetos.add(new Tercetos("*",op1,op2));
 	}
 	|termino '/' argumento
 	{
-		Token operador1 = obtenerToken($1.sval,nroAmbito,$1.stipo);
-		Token operador2 = obtenerToken($3.sval,nroAmbito,$1.stipo);
+		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$1.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("/",op1,op2);
+		vectorTercetos.add(new Tercetos("/",op1,op2));
 	}
 	|termino '*' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador *"); }
 	|termino '/' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador /"); };
@@ -113,15 +111,15 @@ termino:
 argumento:
 	IDENTIFICADOR 
 	{
-		$1.simb.setAmbito(nroAmbito);
+		$1.ival = nroAmbito;
 		
-		Token identificador = obtenerToken($1.sval,nroAmbito,$1.stipo);
-		$1.stipo = identificador.getTipo();
-		existeVariable($1.simb);
-		$1.sval = identificor.getPuntero().getValor();
+		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		$1.obj = identificador.getTipo();
+		existeVariable(identificador);
+		$1.sval = identificador.getPuntero().getValor().toString();
 		$$.sval = $1.sval;
-		$$.stipo = $1.stipo;
-		$$.simb = $1.simb;
+		$$.obj = $1.obj;
+		$$.ival = $1.ival;
 	}	
 	|numero
 	|vector;
@@ -144,7 +142,7 @@ seleccion:
 condicion: 
 	expresion comparador expresion
 	{
-		if(!$1.stipo.equals($3.stipo))
+		if(!$1.obj.equals($3.obj))
 			Warning("Warning: Los tipos de los operandos en la comparacion de la sentencia son distintos");
 		vectorTercetos.add(new Tercetos($2.sval,$1.sval,$3.sval));
 	}
@@ -155,7 +153,6 @@ impresion:
 	IMPRIMIR'('CADENA')'';' 
 	{
 		vectorTercetos.add(new Tercetos("IMPRIMIR",$3.sval,"_"));
-		Imprimir("Fin de la sentencia Print.");
 	}
 	|IMPRIMIR'('CADENA {yyerror("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
 	|IMPRIMIR CADENA   {yyerror("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
@@ -172,11 +169,12 @@ bucle:
   private AnalizadorLexico lexico;
   private Vector<Tercetos> vectorTercetos;
   private boolean errores;
+  String varTipo;
+  int nroAmbito = 1;
   
   public Parser(AnalizadorLexico l) {
          lexico = l;
-         vectorTercetos = new Vector<Tercetos>();
- 		 pila = new Stack<String>();  
+         vectorTercetos = new Vector<Tercetos>(); 
          logSintactico.generar();
 
     }
