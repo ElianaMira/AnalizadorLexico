@@ -24,8 +24,15 @@ public class TablaSimbolo {
     }
     
     public static boolean existeSimbolo(Token t){
-    	if  (tablaSimbolo.contains(t.getPuntero()))
+    	/*if  (tablaSimbolo.contains(t.getPuntero())){
     		return true;
+    	}
+    	return false;*/
+    	for (int i=0; i< tablaSimbolo.size()-1;i++){
+    		if (tablaSimbolo.get(i).getValor() == t.getPuntero().getValor()){
+    			return true;
+    		}
+    	}
     	return false;
     }
 

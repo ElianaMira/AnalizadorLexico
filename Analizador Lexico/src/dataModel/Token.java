@@ -26,7 +26,7 @@ public class Token
 	}
 	    
 	public Simbolo getPuntero(){
-	        return simb;
+		return simb;
 	}
 	
 	public String getTipo(){
