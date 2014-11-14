@@ -23,16 +23,19 @@ public class AccionSemantica3 extends AccionesSemanticas{
 		 }
 		     
 	     s = new Simbolo(lexema,"INT");
+	     Token t = new Token(s.getTipo(),s);
 	     
 	     if ((number > -32768) && (number < 32767)) {            
-	             ts.addSimbolo(s);             
+	    	 if (!TablaSimbolo.existeSimbolo(t)){
+	         	ts.addSimbolo(s);
+	         }             
 	     }
 	     else{
 	       this.error = true;
 	       linea++;
 	       this.msjError = "ERROR entero fuera de rango"+linea;
 	     }
-	     Token t = new Token(s.getTipo(),s);
+	     
 	     retroceder = true;
 	     return t;
 	}

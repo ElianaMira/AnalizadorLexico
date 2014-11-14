@@ -28,9 +28,11 @@ public class AccionSemantica4 extends AccionesSemanticas
 			linea++;
 			this.msjError= "ERROR Float fuera de rango linea "+linea;
 			
-		}else
-		{
-			ts.addSimbolo(s);
+		}
+		else{
+			if (!TablaSimbolo.existeSimbolo(t)){
+	         	ts.addSimbolo(s);
+	         }             
 		}
 		lexema = new StringBuffer();               
 	    retroceder = true;

@@ -33,8 +33,10 @@ public class AccionSemantica2 extends AccionesSemanticas
 	        }
 	    	s = new Simbolo(lexema, "IDENTIFICADOR");	        
 	    }
-	    ts.addSimbolo(s);
 	    Token t = new Token(s.getTipo(),s);
+	    if (!TablaSimbolo.existeSimbolo(t)){
+        	ts.addSimbolo(s);
+        }
 	    retroceder = true;
 	    return t;
 		

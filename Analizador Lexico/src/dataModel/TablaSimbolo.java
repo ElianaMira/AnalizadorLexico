@@ -17,19 +17,17 @@ public class TablaSimbolo {
 
     public static Simbolo obtenerSimbolo(Simbolo s) {
     	
-    	if (tablaSimbolo.contains(s)){
-    		return tablaSimbolo.get(tablaSimbolo.indexOf(s));
+    	for (int i=0; i<=tablaSimbolo.size()-1;i++){
+    		if (tablaSimbolo.get(i).getValor().toString().equals(s.getValor().toString())){
+    			return tablaSimbolo.get(i);
+    		}
     	}
-        return null;
+    	return null;
     }
     
     public static boolean existeSimbolo(Token t){
-    	/*if  (tablaSimbolo.contains(t.getPuntero())){
-    		return true;
-    	}
-    	return false;*/
-    	for (int i=0; i< tablaSimbolo.size()-1;i++){
-    		if (tablaSimbolo.get(i).getValor() == t.getPuntero().getValor()){
+    	for (int i=0; i<=tablaSimbolo.size()-1;i++){
+    		if (tablaSimbolo.get(i).getValor().toString().equals(t.getPuntero().getValor().toString())){
     			return true;
     		}
     	}
