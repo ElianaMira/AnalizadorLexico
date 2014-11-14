@@ -35,6 +35,7 @@ declaracion:
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
+
 	IDENTIFICADOR {	$1.stipo = varTipo; }
 	|variables','IDENTIFICADOR { $3.stipo = varTipo; };
 

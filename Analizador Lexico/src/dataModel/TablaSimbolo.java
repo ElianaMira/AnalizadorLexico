@@ -44,6 +44,7 @@ public class TablaSimbolo {
         if (tablaSimbolo.contains(s)){
         	tablaSimbolo.remove(s);
         }
+        
     }
     
     public static  void existeVariable(Token t){

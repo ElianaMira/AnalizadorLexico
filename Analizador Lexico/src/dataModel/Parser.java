@@ -785,6 +785,7 @@ case 29:
 		yyval.sval = val_peek(0).sval;
 		yyval.stipo = val_peek(0).stipo;
 		yyval.simb = val_peek(0).simb;
+		
 	}
 break;
 case 32:
