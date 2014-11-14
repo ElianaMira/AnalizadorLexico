@@ -5,35 +5,52 @@ import java.util.ArrayList;
 
 public class TablaSimbolo {
 
-	private ArrayList<Simbolo> tablaSimbolo;
+	protected static ArrayList<Simbolo> tablaSimbolo;
 
     public TablaSimbolo() {
     	tablaSimbolo = new ArrayList<Simbolo>();
     }
     
-    public ArrayList<Simbolo> getTabla() {
+    public static ArrayList<Simbolo> getTabla() {
         return tablaSimbolo;
     }
 
-    public Simbolo existeSimbolo(Simbolo s) {
+    public static Simbolo obtenerSimbolo(Simbolo s) {
     	
     	if (tablaSimbolo.contains(s)){
     		return tablaSimbolo.get(tablaSimbolo.indexOf(s));
     	}
         return null;
     }
+    
+    public static boolean existeSimbolo(Token t){
+    	if  (tablaSimbolo.contains(t.getPuntero()))
+    		return true;
+    	return false;
+    }
 
     public void addSimbolo(Simbolo s) {
-        Simbolo aux = existeSimbolo(s);
+        Simbolo aux = obtenerSimbolo(s);
         if (aux == null) {
         	tablaSimbolo.add(s);
         }
     }
-
+    
+    public static Token getToken(Simbolo lexema,int ambito){
+    	return new Token(lexema.getTipo(),lexema,ambito);    	 	  
+    }
+    
     public void eliminarSimbolo(Simbolo s) {
         if (tablaSimbolo.contains(s)){
         	tablaSimbolo.remove(s);
         }
+    }
+    
+    public static  void existeVariable(Token t){
+    	Simbolo s = obtenerSimbolo(t.getPuntero());
+    	if (s == null){
+    		System.out.println("Linea "+t.getLinea()+":La variable <+t.getLexema()+> no se encuentra en la tabla de simbolos.");
+    	}
     }
     
     public void imprimirTabla() {

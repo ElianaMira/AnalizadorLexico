@@ -5,6 +5,7 @@ public class Token
     private String tipo;
 	private Simbolo simb;
 	private int linea;
+	private int ambito = 0;	
 	
 	public Token(){
 		
@@ -14,6 +15,14 @@ public class Token
 		tipo = t;
 	    simb = s;
 	    linea = 0;
+	    ambito = 0;
+	}
+	
+	public Token(String t,Simbolo s,int a){
+		tipo = t;
+	    simb = s;
+	    linea = 0;
+	    ambito = a;
 	}
 	    
 	public Simbolo getPuntero(){
@@ -22,6 +31,10 @@ public class Token
 	
 	public String getTipo(){
 		return tipo;
+	}
+	
+	public int getAmbito(){
+		return ambito;
 	}
 	
 	public void setPuntero(Simbolo s) {
