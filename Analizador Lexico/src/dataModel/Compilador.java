@@ -14,6 +14,7 @@ public class Compilador {
        
         analizadorL.crearToken();
         analizadorL.crearLexico();
+        parser.mostrarTercetos();
         analizadorL.getTablaSimbolos().imprimirTabla();
         parser.imprimirSintactico();
          

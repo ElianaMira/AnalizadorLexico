@@ -17,12 +17,12 @@ import java.util.Stack;
 programa: sentencias { logSintactico.addLog("El programa finalizo correctamente"); };
 
 sentencias:
-	 sentencia
+	 sentencia {indiceSentencias = indiceSentencia;}
 	 |sentencias sentencia  ;
 
 sentencia:	
 	declaracion 
-	|asignacion ';'
+	|asignacion ';' {indiceSentencia = indiceAsignacion;}
 	|seleccion
 	|bucle
 	|condicion ';'
@@ -31,7 +31,7 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval; }
 	|numero error {yyerror("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';'{logSintactico.addLog("Linea "+lexico.getLineas()+": declaracion de un VECTOR");}
+	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' 
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
@@ -45,13 +45,25 @@ asignacion:
 		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		if(!existeToken(identificador))
 			yyerror("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
-		
+		indiceAsignacion = VectorTercetos.size();
 		String operador1 = $1.sval;
-		vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
+		if (indiceExpresion != 0)
+			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
+		else	
+			vectorTercetos.add(new Tercetos(":=",operador1,$3.sval));
 	}
 	
 	
-	|IDENTIFICADOR '['expresion']' ASIG expresion ;
+	|IDENTIFICADOR '['expresion']' ASIG expresion  
+	{
+		String operador1 = $1.sval + $2.sval + $3.sval + $4.sval;
+		indiceAsignacion = vectorTercetos.size();
+		if (indiceExpresion != 0)
+			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
+		else	
+			vectorTercetos.add(new Tercetos(":=",operador1,$6.sval));
+		
+	};
 	
 numero:
 	FLOAT {	varTipo = "float";} 
@@ -71,8 +83,9 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("+",op1,op2));
 		indiceExpresion = vectorTercetos.size();
+		vectorTercetos.add(new Tercetos("+",op1,op2));
+		
 		 
 	} 
 	|expresion '-' termino
@@ -81,8 +94,9 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("-",op1,op2));
 		indiceExpresion = vectorTercetos.size();
+		vectorTercetos.add(new Tercetos("-",op1,op2));
+		
 	};
 
 vector:
@@ -127,9 +141,10 @@ argumento:
 		$$.sval = $1.sval;
 		$$.obj = $1.obj;
 		$$.ival = $1.ival;
+		indiceArgumento = indiceExpresion;
 	}	
-	|numero
-	|vector;
+	|numero {indiceArgumento = indiceExpresion;}
+	|vector ;
 
 comparador:
 	'<'  { $$.sval = "<"; }
@@ -179,8 +194,11 @@ bucle:
   String varTipo;
   int nroAmbito = 1;
   int indiceExpresion = 0;
+  int indiceSentencia = 0;
   int indiceTermino = 0;
   int indiceArgumento = 0;
+  int indiceSentencias = 0;
+  int indiceAsignacion=0;
   
   public Parser(AnalizadorLexico l) {
          lexico = l;
