@@ -307,27 +307,28 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 				| IDENTIFICADOR error 	';'				{yyerror("Error sintactico->Error en la comparacion de la sentencia FOR.");}
 				;
  
-sentenciaif: SI '('condicion ')' 
+sentenciaif: SI '('condicion')' ENTONCES
 			{
-				vectorTercetos.add(new Tercetos("BF",$3.sval,"")); 
-				pila.push(String.valueOf(vectorTercetos.size()-1));			
+			vectorTercetos.add(new Tercetos("BF",$3.sval,"")); 
+			pila.push(String.valueOf(vectorTercetos.size()-1));			
 			}  bloque_if
 			|SI bloque_if {yyerror("Error sintactico->Falta la condicion en la sentencia IF.");} ';'			
 			;
 
-bloque_if: 	bloque_sentencias 
+bloque_if: 	
+			bloque_sentencias 
 			{
 				vectorTercetos.add(new Tercetos("BI","","_")); 
 				String topePila = pila.pop();
 				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePila));
-				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+1)+"]");
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()-1)+"]");
 				pila.push(String.valueOf(vectorTercetos.size()-1));
 			}
-			SINO bloque_sentencias %prec SINO
+			SINO bloque_sentencias
 			{
 				String topePila = pila.pop();
 				Tercetos tercetoBI = vectorTercetos.elementAt(Integer.parseInt(topePila));
-				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()+1)+"]");
+				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()-1)+"]");
 			}
 			|'{'sentencias {yyerror("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 
 			|sentencias'}' {yyerror("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 			
