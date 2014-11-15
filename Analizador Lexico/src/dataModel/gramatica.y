@@ -87,8 +87,8 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		indiceExpresion = vectorTercetos.size();
 		vectorTercetos.add(new Tercetos("+",op1,op2));
+		indiceExpresion = vectorTercetos.size();
 		
 		 
 	} 
@@ -98,13 +98,22 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		indiceExpresion = vectorTercetos.size();
 		vectorTercetos.add(new Tercetos("-",op1,op2));
+		indiceExpresion = vectorTercetos.size();
 		
 	};
 
 vector:
-	IDENTIFICADOR '['expresion']';
+	IDENTIFICADOR '['expresion']'{
+		
+		$1.ival = nroAmbito;
+		$1.obj = "IDENTIFICADOR";
+		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+		$1.sval = identificador.getPuntero().getValor().toString();
+		$2.sval = "[";
+		$4.sval = "]";
+		$$.sval = $1.sval + $2.sval + $3.sval + $4.sval;
+	};
 	
 termino:
 	argumento
@@ -118,8 +127,9 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		indiceExpresion = vectorTercetos.size();
+		
 		vectorTercetos.add(new Tercetos("*",op1,op2));
+		indiceExpresion = vectorTercetos.size();
 		
 	}
 	|termino '/' argumento
@@ -128,8 +138,9 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		indiceExpresion = vectorTercetos.size();
+		
 		vectorTercetos.add(new Tercetos("/",op1,op2));
+		indiceExpresion = vectorTercetos.size();
 		
 	}
 	|termino '*' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador *"); }
@@ -148,7 +159,7 @@ argumento:
 		$$.ival = $1.ival;
 	}	
 	|numero
-	|vector ;
+	|vector;
 
 comparador:
 	'<'  { $$.sval = "<"; }
