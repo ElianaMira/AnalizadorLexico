@@ -45,10 +45,12 @@ asignacion:
 		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		if(!existeToken(identificador))
 			yyerror("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
-		indiceAsignacion = VectorTercetos.size();
+		indiceAsignacion = vectorTercetos.size();
 		String operador1 = $1.sval;
-		if (indiceExpresion != 0)
+		if (indiceExpresion != 0){
 			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
+			indiceExpresion = 0;
+		}
 		else	
 			vectorTercetos.add(new Tercetos(":=",operador1,$3.sval));
 	}
@@ -57,11 +59,14 @@ asignacion:
 	|IDENTIFICADOR '['expresion']' ASIG expresion  
 	{
 		String operador1 = $1.sval + $2.sval + $3.sval + $4.sval;
-		indiceAsignacion = vectorTercetos.size();
-		if (indiceExpresion != 0)
+		if (indiceExpresion != 0){
 			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
-		else	
+			indiceExpresion = 0;	
+		}
+		else{
 			vectorTercetos.add(new Tercetos(":=",operador1,$6.sval));
+		}	
+			
 		
 	};
 	
@@ -75,7 +80,6 @@ expresion:
 	{
 		$$.sval = $1.sval;
 		$$.obj = $1.obj;
-		indiceExpresion = indiceTermino;
 	}
 	|expresion '+' termino 
 	{	
@@ -107,7 +111,6 @@ termino:
 	{
 		$$.sval = $1.sval;	
 		$$.obj = $1.obj;
-		indiceTermino = indiceArgumento;
 	}
 	|termino '*' argumento 
 	{
@@ -115,8 +118,9 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
+		indiceExpresion = vectorTercetos.size();
 		vectorTercetos.add(new Tercetos("*",op1,op2));
-		indiceTermino = vectorTercetos.size();
+		
 	}
 	|termino '/' argumento
 	{
@@ -124,8 +128,9 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
+		indiceExpresion = vectorTercetos.size();
 		vectorTercetos.add(new Tercetos("/",op1,op2));
-		indiceTermino = vectorTercetos.size();
+		
 	}
 	|termino '*' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador *"); }
 	|termino '/' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador /"); };
@@ -141,9 +146,8 @@ argumento:
 		$$.sval = $1.sval;
 		$$.obj = $1.obj;
 		$$.ival = $1.ival;
-		indiceArgumento = indiceExpresion;
 	}	
-	|numero {indiceArgumento = indiceExpresion;}
+	|numero
 	|vector ;
 
 comparador:
