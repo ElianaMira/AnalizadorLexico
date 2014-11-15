@@ -165,14 +165,14 @@ sentenciaestructurada:
 				
 sentenciafor: PARA condicion_for
 			{
-				vectorTercetos.add(new Tercetos("BF",$2.sval,"_","",vectorTercetos.size()+1,true)); 
+				vectorTercetos.add(new Tercetos("BF",$2.sval,"_","",vectorTercetos.size(),true)); 
 				pila.push(String.valueOf(vectorTercetos.size()-1));
 			}
 			bloque_sentencias
 			{
 				String topePilaFin = pila.pop();
 				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePilaFin));
-				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+3)+"]");
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+2)+"]");
 				String topePilaBI =  pila.pop();
 				String topePilaIndice = pila.pop();	
 				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,"uint",vectorTercetos.size()+1,true)); 
@@ -196,7 +196,7 @@ condicion_for: 	'(' asignacion_for exp_logica_for argumento ')'
 				|asignacion_for exp_logica_for  argumento ')'    {yyerror("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
 				;
 				
-asignacion_for: IDENTIFICADOR ASIG argumento 
+asignacion_for: IDENTIFICADOR ASIG argumento ';'
 				{	
 					StringBuffer sb1 = new StringBuffer();
 					sb1.append($1.sval); 
@@ -216,11 +216,10 @@ asignacion_for: IDENTIFICADOR ASIG argumento
 					String posTofloat = new String(aux2.getPuntero().getValor().toString());
 					
 					posTofloat = new String("["+String.valueOf(vectorTercetos.size()+"]"));					
-					vectorTercetos.add(new Tercetos(":-",aux.getPuntero().getValor().toString(),posTofloat,(String)$$.obj,vectorTercetos.size(),true)); 					
+					vectorTercetos.add(new Tercetos(":=",aux.getPuntero().getValor().toString(),$3.sval,(String)$$.obj,vectorTercetos.size(),true)); 					
 					pila.push($1.sval);
-					pila.push(String.valueOf(vectorTercetos.size()+1));
-				}
-				| error  {yyerror("Error sintactico->Error en la asignacion de la sentencia FOR.");}	
+					pila.push(String.valueOf(vectorTercetos.size()));
+				}	
 				;
 			
 exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
@@ -229,15 +228,9 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					Token aux2 =obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
-					if(aux2.getTipo().equals("id")&&(!isEntero($3.sval)))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");	
-					if(aux.getTipo().equals("id"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");										
-					if(!aux.getTipo().equals("uint")||!aux2.getTipo().equals("uint"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString())); 
 					
-					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()-1+"]"));
 				}
 				| IDENTIFICADOR '<' argumento	';'
 				{
@@ -257,14 +250,9 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					Token aux2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj); 
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
-					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
-					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
-					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					
 					vectorTercetos.add(new Tercetos("<",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"uint",vectorTercetos.size()+1,true)); 
-					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()-1 +"]"));
 				}
 				| IDENTIFICADOR MENOR_IGUAL argumento ';'
 				{
