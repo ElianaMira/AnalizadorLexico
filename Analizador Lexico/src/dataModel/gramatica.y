@@ -23,8 +23,7 @@ sentencias:
 sentencia:	
 	declaracion 
 	|asignacion ';' {indiceSentencia = indiceAsignacion;}
-	|seleccion
-	|bucle
+	|sentenciaestructurada
 	|condicion ';'
 	|impresion ;
 
@@ -65,15 +64,13 @@ asignacion:
 		}
 		else{
 			vectorTercetos.add(new Tercetos(":=",operador1,$6.sval));
-		}	
-			
-		
+		}				
 	};
 	
 numero:
 	FLOAT {	varTipo = "float";} 
 	|INT  { varTipo = "int";
-	  };
+	  };	  
 	
 expresion:
 	termino 
@@ -86,7 +83,7 @@ expresion:
 		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
-		String op2 = new String(operador2.getPuntero().getValor());			
+		String op2 = new String(operador2.getPuntero().getValor());		
 		vectorTercetos.add(new Tercetos("+",op1,op2));
 		indiceExpresion = vectorTercetos.size();
 		
@@ -104,16 +101,10 @@ expresion:
 	};
 
 vector:
-	IDENTIFICADOR '['expresion']'{
-		
-		$1.ival = nroAmbito;
-		$1.obj = "IDENTIFICADOR";
-		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
-		$1.sval = identificador.getPuntero().getValor().toString();
-		$2.sval = "[";
-		$4.sval = "]";
-		$$.sval = $1.sval + $2.sval + $3.sval + $4.sval;
-	};
+ IDENTIFICADOR '['expresion']'
+ {
+	  $$.sval = $1.sval + $2.sval + $3.sval + $4.sval;
+};
 	
 termino:
 	argumento
@@ -127,7 +118,6 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		
 		vectorTercetos.add(new Tercetos("*",op1,op2));
 		indiceExpresion = vectorTercetos.size();
 		
@@ -138,7 +128,6 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		
 		vectorTercetos.add(new Tercetos("/",op1,op2));
 		indiceExpresion = vectorTercetos.size();
 		
@@ -159,7 +148,7 @@ argumento:
 		$$.ival = $1.ival;
 	}	
 	|numero
-	|vector;
+	|vector {};
 
 comparador:
 	'<'  { $$.sval = "<"; }
@@ -169,12 +158,193 @@ comparador:
 	|'=' { $$.sval = "="; }
 	|DISTINTO { $$.sval = "DISTINTO"; };		
 
-seleccion: 
-	SI'('condicion')'ENTONCES'{'sentencias'}' {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES");}	  
-	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO '{'sentencias'}'  {logSintactico.addLog("Linea "+lexico.getLineas()+": seleccion SI ENTONCES SINO");}
-	|SI'('condicion')'ENTONCES'{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");}
-	|SI'('condicion')''{'sentencias'}' SINO  {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion falta setencia ENTONCES ");}
-	|SI'('condicion')'ENTONCES {logSintactico.addLog("ERROR sintactico en la linea "+lexico.getLineas()+": seleccion faltan las LLAVES");};
+
+sentenciaestructurada: 	
+				sentenciafor
+				|sentenciaif;
+				
+sentenciafor: PARA condicion_for
+			{
+				vectorTercetos.add(new Tercetos("BF",$2.sval,"_","",vectorTercetos.size()+1,true)); 
+				pila.push(String.valueOf(vectorTercetos.size()-1));
+			}
+			bloque_sentencias
+			{
+				String topePilaFin = pila.pop();
+				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePilaFin));
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+3)+"]");
+				String topePilaBI =  pila.pop();
+				String topePilaIndice = pila.pop();	
+				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,"uint",vectorTercetos.size()+1,true)); 
+				vectorTercetos.add(new Tercetos("BI","["+topePilaBI+"]","_","",vectorTercetos.size()+1,true)); 
+			}
+			| PARA condicion_for ';'{yyerror("Error sintactico->Falta el cuerpo de la sentencia FOR.");}	
+			;
+
+bloque_sentencias: '{'sentencias'}' 
+					| sentencia	
+					;
+
+condicion_for: 	'(' asignacion_for exp_logica_for argumento ')' 
+				{	
+					$$.sval = $3.sval;
+					Token aux = obtenerToken($4.sval,nroAmbito,(String)$4.obj); 
+					incrementoSentFor = aux.getPuntero().getValor().toString();
+				
+				}
+				|'('asignacion_for exp_logica_for argumento 	  {yyerror("Error sintactico->Falta cerrar parentesis en sentencia FOR.");}
+				|asignacion_for exp_logica_for  argumento ')'    {yyerror("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
+				;
+				
+asignacion_for: IDENTIFICADOR ASIG argumento 
+				{	
+					StringBuffer sb1 = new StringBuffer();
+					sb1.append($1.sval); 
+					Simbolo s1 = new Simbolo(sb1,"");
+					Simbolo simb1 = getSimbolo(s1);
+					$1.obj = simb1.getTipo();
+					
+					StringBuffer sb2 = new StringBuffer();
+					sb2.append($3.sval); 
+					Simbolo s2 = new Simbolo(sb2,"");
+					Simbolo simb2 = getSimbolo(s2);
+					$3.obj = simb2.getTipo();
+					
+					Token aux = obtenerToken($1.sval,nroAmbito,(String)$1.obj); 
+					Token aux2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);				
+					$1.sval= aux.getPuntero().getValor().toString();
+					String posTofloat = new String(aux2.getPuntero().getValor().toString());
+					
+					posTofloat = new String("["+String.valueOf(vectorTercetos.size()+"]"));					
+					vectorTercetos.add(new Tercetos(":-",aux.getPuntero().getValor().toString(),posTofloat,(String)$$.obj,vectorTercetos.size(),true)); 					
+					pila.push($1.sval);
+					pila.push(String.valueOf(vectorTercetos.size()+1));
+				}
+				| error  {yyerror("Error sintactico->Error en la asignacion de la sentencia FOR.");}	
+				;
+			
+exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
+				{
+					Token aux = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+					Token aux2 =obtenerToken($3.sval,nroAmbito,(String)$3.obj);
+					$1.sval=aux.getPuntero().getValor().toString();
+					$1.obj = aux.getTipo();
+					if(aux2.getTipo().equals("id")&&(!isEntero($3.sval)))
+						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");	
+					if(aux.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");										
+					if(!aux.getTipo().equals("uint")||!aux2.getTipo().equals("uint"))
+						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString())); 
+					
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+				}
+				| IDENTIFICADOR '<' argumento	';'
+				{
+					StringBuffer sb1 = new StringBuffer();
+					sb1.append($1.sval); 
+					Simbolo s1 = new Simbolo(sb1,"");
+					Simbolo simb1 = getSimbolo(s1);
+					$1.obj = simb1.getTipo();
+					
+					StringBuffer sb2 = new StringBuffer();
+					sb2.append($3.sval); 
+					Simbolo s2 = new Simbolo(sb2,"");
+					Simbolo simb2 = getSimbolo(s2);
+					$3.obj = simb2.getTipo();
+					
+					Token aux = obtenerToken($1.sval,nroAmbito,(String)$1.obj); 
+					Token aux2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj); 
+					$1.sval=aux.getPuntero().getValor().toString();
+					$1.obj = aux.getTipo();
+					if(aux2.getTipo().equals("IDENTIFICADOR"))
+						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+					if(aux.getTipo().equals("IDENTIFICADOR"))
+						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
+						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					vectorTercetos.add(new Tercetos("<",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"uint",vectorTercetos.size()+1,true)); 
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+				}
+				| IDENTIFICADOR MENOR_IGUAL argumento ';'
+				{
+					Token aux = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+					Token aux2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
+					$1.sval=aux.getPuntero().getValor().toString();
+					$1.obj = aux.getTipo();
+					if(aux2.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+					if(aux.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+					if(!aux.getTipo().equals("uint")||!aux2.getTipo().equals("uint"))
+						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"uint",vectorTercetos.size()+1,true)); 
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+				}
+				| IDENTIFICADOR '>' argumento	';'
+				{
+					Token aux =obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+					Token aux2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
+					$1.sval=aux.getPuntero().getValor().toString();
+					$1.obj = aux.getTipo();
+					if(aux2.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+					if(aux.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+					if(!aux.getTipo().equals("uint")||!aux2.getTipo().equals("uint"))
+						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					vectorTercetos.add(new Tercetos(">",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"uint",vectorTercetos.size()+1,true));  
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+				}
+				| IDENTIFICADOR DISTINTO argumento ';'
+				{
+					Token aux = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
+					Token aux2 =obtenerToken($3.sval,nroAmbito,(String)$3.obj);
+					$1.sval=aux.getPuntero().getValor().toString();
+					$1.obj = aux.getTipo();
+					if(aux2.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+					if(aux.getTipo().equals("id"))
+						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+					if(!aux.getTipo().equals("uint")||!aux2.getTipo().equals("uint"))
+						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+					vectorTercetos.add(new Tercetos("<>",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"uint",vectorTercetos.size()+1,true)); 
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
+				}
+				| IDENTIFICADOR '>' error 		{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR MAYOR_IGUAL error	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR '<' error 		{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR MENOR_IGUAL error 	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}				
+				| IDENTIFICADOR DISTINTO error 	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR error 	';'				{yyerror("Error sintactico->Error en la comparacion de la sentencia FOR.");}
+				;
+ 
+sentenciaif: SI '('condicion ')' 
+			{
+				vectorTercetos.add(new Tercetos("BF",$3.sval,"")); 
+				pila.push(String.valueOf(vectorTercetos.size()-1));			
+			}  bloque_if
+			|SI bloque_if {yyerror("Error sintactico->Falta la condicion en la sentencia IF.");} ';'			
+			;
+
+bloque_if: 	bloque_sentencias 
+			{
+				vectorTercetos.add(new Tercetos("BI","","_")); 
+				String topePila = pila.pop();
+				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePila));
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+1)+"]");
+				pila.push(String.valueOf(vectorTercetos.size()-1));
+			}
+			SINO bloque_sentencias %prec SINO
+			{
+				String topePila = pila.pop();
+				Tercetos tercetoBI = vectorTercetos.elementAt(Integer.parseInt(topePila));
+				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()+1)+"]");
+			}
+			|'{'sentencias {yyerror("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 
+			|sentencias'}' {yyerror("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 			
+			;
+
 
 condicion: 
 	expresion comparador expresion
@@ -198,8 +368,6 @@ impresion:
 	|IMPRIMIR'('error')' {yyerror("Error sintactico->La cadena es incorrecta en la instruccion Imprimir.");}					
 	|IMPRIMIR error 	 {yyerror("Error sintactico en la instrucion 'Imprimir'.");};
 
-bucle:
-	PARA '(' INT IDENTIFICADOR '=' INT ';' IDENTIFICADOR comparador expresion ';' IDENTIFICADOR'+'')' '{' sentencias '}'';' {logSintactico.addLog("Linea "+lexico.getLineas()+":bucle");};
 
 %%
   private Log logSintactico = new Log("sintactico.log");
@@ -207,6 +375,8 @@ bucle:
   private Vector<Tercetos> vectorTercetos;
   private boolean errores;
   String varTipo;
+  String incrementoSentFor;
+  Stack<String> pila;
   int nroAmbito = 1;
   int indiceExpresion = 0;
   int indiceSentencia = 0;
@@ -217,6 +387,7 @@ bucle:
   
   public Parser(AnalizadorLexico l) {
          lexico = l;
+         pila = new Stack<String>();
          vectorTercetos = new Vector<Tercetos>(); 
          logSintactico.generar();
 
@@ -250,6 +421,10 @@ public void putNegativo(String valor){
 
 public void imprimirSintactico(){
     logSintactico.imprimir();
+}
+
+public Simbolo getSimbolo(Simbolo s){
+	return TablaSimbolo.obtenerSimbolo(s);
 }
 
 public boolean existeToken(Token t){
@@ -289,4 +464,8 @@ public void mostrarTercetos(){
 		System.out.print((i+1)+" ");
 		vectorTercetos.elementAt(i).mostrarTerceto();
 	}
+}
+
+public boolean isEntero(String elem){
+	return (elem.charAt(0)>='0' && elem.charAt(0)<='9');
 }
