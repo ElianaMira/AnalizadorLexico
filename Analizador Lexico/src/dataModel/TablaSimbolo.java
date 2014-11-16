@@ -34,7 +34,7 @@ public class TablaSimbolo {
     	return false;
     }
 
-    public void addSimbolo(Simbolo s) {
+    public static void addSimbolo(Simbolo s) {
         Simbolo aux = obtenerSimbolo(s);
         if (aux == null) {
         	tablaSimbolo.add(s);
