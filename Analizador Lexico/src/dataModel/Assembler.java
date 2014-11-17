@@ -266,84 +266,72 @@ public class Assembler {
 		else
 			if(!seteoLabel)
 				LabelBIBF="";
-//		if(posInstr==0)
-//			posInstr = InstruccionesTercetos.size(); 
 		ter = terceto;
 		String operador = terceto.getElem1();
 		argu1 = getDestino(terceto.getElem2());
 		argu2 = getDestino(terceto.getElem3());
-		
-		if(operador.equals("toFloat")){			
-//			GEN(LabelBIBF+"MOV AX, ",argu1,"");
-//			GEN("MOV "+ter.getVariable()+", ","AX","");
-			GEN(LabelBIBF+"FILD " +argu1,"","");
-			GEN("FSTP " +ter.getVariable(),"","");
+	
+		if ( operador.equals("+")||operador.equals("-")||operador.equals("/")||operador.equals("*")){
+			if(ter.getTipo().equals("int")){
+				GEN(LabelBIBF+"MOV","AX,",argu1);
+			}
+			else{
+				GEN(LabelBIBF+"FLD",argu1,"");
+			}
+			
+			if ( operador.equals("+")){
+				SUMA(terceto.getElem2(),terceto.getElem3(),"");
+			}
+			else{
+				if (operador.equals("-")){
+					RESTA(terceto.getElem2(),terceto.getElem3(),"");
+				}
+				else{
+					if(operador.equals("/")){
+						DIV(terceto.getElem2(),terceto.getElem3(),"");
+					}
+					else{
+						if(operador.equals("*"))
+							MUL(terceto.getElem2(),terceto.getElem3(),"");
+					}
+				}
+				if(ter.getTipo().equals("int"))
+					GEN("MOV", terceto.getVariable(), ", AX");
+				else
+					GEN("FSTP", terceto.getVariable(),"");
+			}
 		}
-		else		
-			if ( operador.equals("+")||operador.equals("-")||operador.equals("/")||operador.equals("*"))
-			{
-				if(ter.getTipo().equals("INT"))
-					GEN(LabelBIBF+"MOV","AX,",argu1);
-				else
-				{
-						//GEN("MOV AUXFLOAT,",argu1,"");
-						//GEN("FLD","AUXFLOAT","");
-					GEN(LabelBIBF+"FLD",argu1,"");
+							
+		else{
+			if(operador.equals(":=")){
+				ASSIG(terceto.getElem2(),terceto.getElem3());
+			}
+			else{
+				if(operador.equals("BI")){
+					BI(terceto.getElem2(),terceto.getElem3());
 				}
-				
-				if ( operador.equals("+"))
-					SUMA(terceto.getElem2(),terceto.getElem3(),"");
-				else
-					if (operador.equals("-"))
-						RESTA(terceto.getElem2(),terceto.getElem3(),"");
-					else
-						if(operador.equals("/"))
-							DIV(terceto.getElem2(),terceto.getElem3(),"");
-						else
-							if(operador.equals("*"))
-								MUL(terceto.getElem2(),terceto.getElem3(),"");
-				
-//				if(ter.isSentenciaFor()){
-//					if(ter.getTipo().equals("uint"))
-//						GEN("ADD AUX_FOR,","", "AX");
-//					else
-//						GEN("FSTP", terceto.getVariable(),"");
-//				}
-//				else{
-					if(ter.getTipo().equals("INT"))
-						GEN("MOV", terceto.getVariable(), ", AX");
-					else
-						GEN("FSTP", terceto.getVariable(),"");
-				}
-//			}							
-			else			
-			if(operador.equals(":="))
-				ASSIG(terceto.getElem2(),terceto.getElem3());							
-			else
-				if(operador.equals("BI"))
-						BI(terceto.getElem2(),terceto.getElem3());
-				else
+				else{
 					if(operador.equals("<")||operador.equals(">")||operador.equals("MENOR_IGUAL")||operador.equals("MAYOR_IGUAL")||operador.equals("DISTINTO")){
 						CMP=operador;	
 						CMP(terceto.getElem2(),terceto.getElem3());
 					}
-					else
-						if(operador.equals("BF"))
+					else{
+						if(operador.equals("BF")){
 							BF(terceto.getElem2(),terceto.getElem3());
-						else
+						}
+						else{
 							if (operador.equals("IMPRIMIR"))
 								GEN(LabelBIBF+"invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
-							
-			
-		if(operador.equals("FIN")){
-			GEN(LabelBIBF+"JMP","_QUIT","");
-			GEN("LabelOverflow: invoke MessageBox, NULL, addr AUX_Overflow, addr msjError, MB_OK ","","");			
-			GEN("JMP","_QUIT","");
-			GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");			
-			GEN("JMP","_QUIT","");											
-		}
-											
+						}
+					}
 						
+				}
+					
+			}
+				
+							
+		}			
+					
 	}
 }
 
