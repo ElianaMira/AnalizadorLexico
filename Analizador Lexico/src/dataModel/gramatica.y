@@ -177,7 +177,7 @@ sentenciafor: PARA condicion_for
 				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+2)+"]");
 				String topePilaBI =  pila.pop();
 				String topePilaIndice = pila.pop();	
-				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,"uint",vectorTercetos.size()+1,true)); 
+				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,varTipo,vectorTercetos.size()+1,true)); 
 				vectorTercetos.add(new Tercetos("BI","["+topePilaBI+"]","_","",vectorTercetos.size()+1,true)); 
 			}
 			| PARA condicion_for ';'{yyerror("Error sintactico->Falta el cuerpo de la sentencia FOR.");}	
@@ -218,7 +218,7 @@ asignacion_for: IDENTIFICADOR ASIG argumento ';'
 					String posTofloat = new String(aux2.getPuntero().getValor().toString());
 					
 					posTofloat = new String("["+String.valueOf(vectorTercetos.size()+"]"));					
-					vectorTercetos.add(new Tercetos(":=",aux.getPuntero().getValor().toString(),$3.sval,(String)$1.obj,vectorTercetos.size(),true)); 					
+					vectorTercetos.add(new Tercetos(":=",aux.getPuntero().getValor().toString(),$3.sval,varTipo,vectorTercetos.size(),true)); 					
 					pila.push($1.sval);
 					pila.push(String.valueOf(vectorTercetos.size()));
 				}	
@@ -230,7 +230,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					Token aux2 =obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
-					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT")); 
+					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo)); 
 					
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()-1+"]"));
 				}
@@ -266,7 +266,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
 						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
-					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("uint"))
+					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
 						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT",vectorTercetos.size()+1,true)); 
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));

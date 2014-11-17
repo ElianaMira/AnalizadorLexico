@@ -55,10 +55,9 @@ public class Assembler {
 	private void SUMA (String x, String y, String z)
 	    {
 			
-			if(ter.getTipo()!=null && ter.getTipo().equals("INT")){
+			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
 				GEN("ADD","AX,",argu2);
-				GEN("CMP","LimiteUINT,","AX");				
-				GEN("JG","LabelOverflow","");
+				GEN("CMP","LimiteINT,","AX");				
 				if(ter.isSentenciaFor())
 					GEN("MOV",argu1+",","AX"); //guardo el valor del iterador del FOR en el mismo.
 			}
@@ -73,7 +72,7 @@ public class Assembler {
 	//RESTA
 	 private void RESTA (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && ter.getTipo().equals("INT")){
+		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
 		 		GEN("SUB","AX,",argu2);
 		 		GEN("JS","LabelNegativo","");
 		 	}
@@ -87,7 +86,7 @@ public class Assembler {
 	//PRODUCTO
 	private void  MUL (String x, String y, String z)
 	    {
-			if(ter.getTipo()!=null && ter.getTipo().equals("INT"))
+			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") ))
 				GEN ("IMUL AX, ",argu2,"");			
 			else
 				GEN ("FMUL ",argu2,"");
@@ -96,7 +95,7 @@ public class Assembler {
 	//DIVISION
 	 private void DIV (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && ter.getTipo().equals("INT"))		 		
+		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") ))		 		
 		 		GEN ("DIV ","AX,",argu2);		 	
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
@@ -104,14 +103,13 @@ public class Assembler {
 	//ASIGNACION
 	 private void ASSIG(String x,String y)
 	 {				 
-		 if (ter.getTipo()!=null && ter.getTipo().equals("int")){
+		 if (ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
 			 	GEN (LabelBIBF+"MOV", "AX,",argu2);
 			 	GEN ("MOV "+argu1+",","AX","");
 			 	if(ter.isSentenciaFor())
 			 		GEN ("MOV AUX_FOR,","AX","");
 			}
 			else{
-				//GEN("MOV AUXFLOAT,",argu2,"");
 				GEN(LabelBIBF+"FLD",argu2,"");				
 				GEN ("FSTP ",argu1,"");
 			}
@@ -159,12 +157,6 @@ public class Assembler {
 				GEN("MOV AX,","AUXCMP","");
 				GEN("SAHF","","");
 		}
-//		 if (CAC (x, y))		 
-//	    	  GEN ("CMP","AX,",x);
-//	      else
-//	    	  GEN ("CMP","AX,",y);
-//		 LabelIteracion = "_LABEL"+String.valueOf(InstruccionesTercetos.size());
-	     // AX=z;
 		
 	 }
 	 
@@ -197,40 +189,10 @@ public class Assembler {
 			if(ter.isSentenciaFor())
 		 		GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
 		
-//		 	GEN("JGE","_QUIT","");
-//			 y = y.replace("[","");
-//			 y = y.replace("]","");			 
-//			 posBF = InstruccionesTercetos.size();
-//			 posJMPBF = Integer.parseInt(y);		
-//			 GEN("JGE","_QUIT","");
 	 }
 	public void GEN(String instr1,String instr2,String Instr3)
 	{
-//		String label="";
-//		if(numTerceto+1 == posJMPBI && posBI!=-1){
-//			String aux;
-//			InstruccionesTercetos.remove(posBI);
-////			aux = "_LABEL"+String.valueOf(posBI+1)+": "+"JMP _LABEL"+String.valueOf(posInstr+1);
-//			aux = "JMP _LABEL"+String.valueOf(posInstr+1);
-//			InstruccionesTercetos.add(posBI, aux);
-//			posBI=-1;posJMPBI=0;
-//			label = "_LABEL"+String.valueOf(posInstr+1)+": ";
-//		}	
-//		else		
-//			if(numTerceto+1 == posJMPBF && posBF!=-1){
-//				String aux;
-//				InstruccionesTercetos.remove(posBF);
-////				aux = "_LABEL"+String.valueOf(posBF+1)+": "+"JGE _LABEL"+String.valueOf(posInstr+1);
-//				aux = "JGE _LABEL"+String.valueOf(posInstr+1);
-//				InstruccionesTercetos.add(posBF, aux);
-//				posBF =-1;posJMPBF=0;
-//				label = "_LABEL"+String.valueOf(posInstr+1)+": ";
-//			}					
-//			
 		InstruccionesTercetos.add(instr1+" "+instr2+" "+Instr3);
-//		posInstr = posInstr+1;
-				
-		
 	}
 	private String getDestino(String elemTerceto){
 		

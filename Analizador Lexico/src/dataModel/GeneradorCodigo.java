@@ -148,15 +148,15 @@ public class GeneradorCodigo {
 		
 		InstruccionDeclaracion.add("AUX_FOR dw 0");
 		sb.append("AUX_FOR");
-		Simbolo s = new Simbolo(sb,"INT");
+		Simbolo s = new Simbolo(sb,"int");
 		sb.delete(0, sb.length());
-		varAuxiliares.add(new Token("INT",s));
+		varAuxiliares.add(new Token("int",s));
 		
 		InstruccionDeclaracion.add("AUXCMP dw 0");
 		sb.append("AUXCMP");
-		Simbolo s1 = new Simbolo(sb,"INT");
+		Simbolo s1 = new Simbolo(sb,"int");
 		sb.delete(0, sb.length());
-		varAuxiliares.add(new Token("INT",s1));
+		varAuxiliares.add(new Token("int",s1));
 		
 		InstruccionDeclaracion.add("LimiteFLOAT dd 3.40282347e38");
 		sb.append("LimiteFLOAT");
@@ -165,21 +165,21 @@ public class GeneradorCodigo {
 		varAuxiliares.add(new Token("FLOAT",s2));
 		
 		
-		InstruccionDeclaracion.add("LimiteUINT dw 65535");
+		InstruccionDeclaracion.add("LimiteINT dw 65535");
 		sb.append("LimiteUINT");
-		Simbolo s3 = new Simbolo(sb,"INT");
+		Simbolo s3 = new Simbolo(sb,"int");
 		sb.delete(0, sb.length());
-		varAuxiliares.add(new Token("INT",s3));
+		varAuxiliares.add(new Token("int",s3));
 		
 		for (int i=0; i<ldt.size(); i++){
 			aux = (Tercetos)ldt.elementAt(i);
 			if(aux.getElem1().equals("+")||aux.getElem1().equals("-")||aux.getElem1().equals("/")||aux.getElem1().equals("*")){
-				if(aux.getTipo()!=null && aux.getTipo().equals("INT")){
+				if(aux.getTipo()!=null && aux.getTipo().equals("int")){
 					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" dw 0");
 					sb.append("AUX_"+String.valueOf(i+1));
-					Simbolo s4 = new Simbolo(sb,"INT");
+					Simbolo s4 = new Simbolo(sb,"int");
 					sb.delete(0, sb.length());
-					varAuxiliares.add(new Token("INT", s4));
+					varAuxiliares.add(new Token("int", s4));
 				}
 				else{
 					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" dd 0");
