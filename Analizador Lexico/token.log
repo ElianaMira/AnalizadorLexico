@@ -1,2 +1,11 @@
+<1,INT,int>
 <1,IDENTIFICADOR,a>
-<1,:=,:=>
+<1,;,;>
+<2,INT,int>
+<2,IDENTIFICADOR,b>
+<2,;,;>
+<4,IDENTIFICADOR,a>
+<4,>,>>
+<4,IDENTIFICADOR,b>
+<4,;,;>
+<6,#,#>

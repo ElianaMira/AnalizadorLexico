@@ -86,7 +86,7 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());		
-		vectorTercetos.add(new Tercetos("+",op1,op2,"INT"));
+		vectorTercetos.add(new Tercetos("+",op1,op2,varTipo));
 		indiceExpresion = vectorTercetos.size();
 		
 		 
@@ -97,7 +97,7 @@ expresion:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("-",op1,op2,"INT"));
+		vectorTercetos.add(new Tercetos("-",op1,op2,varTipo));
 		indiceExpresion = vectorTercetos.size();
 		
 	};
@@ -120,7 +120,7 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("*",op1,op2,"INT"));
+		vectorTercetos.add(new Tercetos("*",op1,op2,varTipo));
 		indiceExpresion = vectorTercetos.size();
 		
 	}
@@ -130,7 +130,7 @@ termino:
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
-		vectorTercetos.add(new Tercetos("/",op1,op2,"INT"));
+		vectorTercetos.add(new Tercetos("/",op1,op2,varTipo));
 		indiceExpresion = vectorTercetos.size();
 		
 	}
@@ -342,7 +342,7 @@ condicion:
 	{
 		if($1.obj != $3.obj)
 			Warning("Warning: Los tipos de los operandos en la comparacion de la sentencia son distintos");
-		vectorTercetos.add(new Tercetos($2.sval,$1.sval,$3.sval,(String)$1.obj));
+		vectorTercetos.add(new Tercetos($2.sval,$1.sval,$3.sval,varTipo));
 	}
 	| expresion comparador { yyerror("Error sintactico-> Falta lado derecho de la expresion.");}                      
 	| expresion comparador error { yyerror("Error sintactico-> Falta abrir parentisis en la expresion.");};

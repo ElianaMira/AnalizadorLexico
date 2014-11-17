@@ -140,7 +140,7 @@ public class Assembler {
 		 if(ter.isSentenciaFor())
 			 label=ter.getEtiquetaSalto();
 		 
-		 if (ter.getTipo().equals("INT")){	
+		 if (ter.getTipo().equals("int")){	
 			
 			 if(!label.equals("")){
 				 	GEN("MOV AX, ","AUX_FOR","");	
