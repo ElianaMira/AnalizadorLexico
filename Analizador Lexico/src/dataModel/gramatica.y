@@ -28,14 +28,16 @@ sentencia:
 	|impresion ;
 
 declaracion:
-	numero variables ';' { $$.sval = $1.sval; }
+	numero variables ';' { $$.sval = $1.sval;
+							}
 	|numero error {yyerror("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' 
+	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOAT");}
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
 
-	IDENTIFICADOR {	$1.obj = varTipo; }
+	IDENTIFICADOR {	$1.obj = varTipo;
+					lexico.getTablaSimbolos().addTipo($$.sval,varTipo); }
 	|variables','IDENTIFICADOR { $3.obj = varTipo; };
 
 asignacion: 
@@ -47,11 +49,11 @@ asignacion:
 		indiceAsignacion = vectorTercetos.size();
 		String operador1 = $1.sval;
 		if (indiceExpresion != 0){
-			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
+			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion,varTipo));
 			indiceExpresion = 0;
 		}
 		else	
-			vectorTercetos.add(new Tercetos(":=",operador1,$3.sval));
+			vectorTercetos.add(new Tercetos(":=",operador1,$3.sval,varTipo));
 	}
 	
 	

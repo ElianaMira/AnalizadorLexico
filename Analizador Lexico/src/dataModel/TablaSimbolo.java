@@ -26,11 +26,14 @@ public class TablaSimbolo {
     }
     
     public static boolean existeSimbolo(Token t){
-    	for (int i=0; i<=tablaSimbolo.size()-1;i++){
-    		if (tablaSimbolo.get(i).getValor().toString().equals(t.getPuntero().getValor().toString())){
-    			return true;
-    		}
+    	if (t.getPuntero() != null){
+    		for (int i=0; i<=tablaSimbolo.size()-1;i++){
+        		if (tablaSimbolo.get(i).getValor().toString().equals(t.getPuntero().getValor().toString())){
+        			return true;
+        		}
+        	}
     	}
+    	
     	return false;
     }
 
@@ -50,6 +53,16 @@ public class TablaSimbolo {
         	tablaSimbolo.remove(s);
         }
         
+    }
+    
+    public void addTipo(String valor, String variableTipo){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append(valor);
+    	Simbolo s = obtenerSimbolo(new Simbolo(sb, ""));
+    	Token t = new Token("",s);
+    	if (existeSimbolo(t)) {
+             s.setTipoVariable(variableTipo);
+        }
     }
     
     public static void existeVariable(Token t){

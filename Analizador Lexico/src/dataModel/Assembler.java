@@ -104,7 +104,7 @@ public class Assembler {
 	//ASIGNACION
 	 private void ASSIG(String x,String y)
 	 {				 
-		 if (ter.getTipo()!=null && ter.getTipo().equals("INT")){
+		 if (ter.getTipo()!=null && ter.getTipo().equals("int")){
 			 	GEN (LabelBIBF+"MOV", "AX,",argu2);
 			 	GEN ("MOV "+argu1+",","AX","");
 			 	if(ter.isSentenciaFor())

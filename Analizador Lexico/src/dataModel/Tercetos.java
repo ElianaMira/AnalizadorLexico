@@ -31,6 +31,17 @@ public class Tercetos {
 		 label="";
 		 sentenciaFor = false;
 	 }
+	
+	public Tercetos(String e1,String e2,int e3,String t) 
+	 {
+		 elem1= e1;
+		 elem2= e2;
+		 elem3 = "["+Integer.toString(e3)+"]" ;
+		 tipo=t;
+		 variable = new String();
+		 label="";
+		 sentenciaFor = false;
+	 }
 	 
 	 public Tercetos(String e1,String e2,String e3,String tipo,int posTerceto,boolean isSentenciaFor) 
 	 {

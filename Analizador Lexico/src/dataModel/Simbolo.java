@@ -4,6 +4,7 @@ public class Simbolo
 {
 	private StringBuffer valor;
     private String tipo;
+    private String tipoVariable;
     
     public Simbolo(StringBuffer v, String t)
     {
@@ -15,6 +16,9 @@ public class Simbolo
     public String getTipo() {
         return tipo;
     }
+    public String getTipoVariable() {
+        return tipoVariable;
+    }
 
     public StringBuffer getValor() {
         return valor;
@@ -22,6 +26,9 @@ public class Simbolo
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    public void setTipoVariable(String var) {
+    	tipoVariable = var;
     }
     public boolean equals(Simbolo s){       
         if (s != null)

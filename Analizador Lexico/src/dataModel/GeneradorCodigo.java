@@ -6,7 +6,7 @@ public class GeneradorCodigo {
 		
 	private Vector<Tercetos> ldt;
 	private Assembler assem;
-	private Log logAssembler = new Log("assembler.log");
+	private Log logAssembler = new Log("assembler.asm");
 	private Vector<String> InstruccionDeclaracion;
 	private Vector<String> InstruccionesTercetos;
 	private Vector<Token> varAuxiliares;
@@ -20,10 +20,10 @@ public class GeneradorCodigo {
 	
 	private static boolean isNumeric(String cadena,String tipo){
 		try {
-			if(tipo.equals("INT"))
+			if(tipo.equals("int"))
 				Integer.parseInt(cadena);
 			else
-				if(tipo.equals("FLOAT"))
+				if(tipo.equals("float"))
 					Float.parseFloat(cadena);
 			return true;
 		} catch (NumberFormatException nfe){
@@ -73,16 +73,16 @@ public class GeneradorCodigo {
 			
 			for(int i=0; i< TablaSimbolo.getTabla().size();i++){
 				Simbolo simb = TablaSimbolo.getTabla().get(i);
-				
-				if(simb.getTipo()!=null && simb.getTipo().equals("INT")){
-					if(!isNumeric(simb.getValor().toString(),simb.getTipo())){
+
+				if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("int")){
+					if(!isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
 						InstruccionDeclaracion.add(simb.getValor().toString()+" dw 0");
 						varAuxiliares.add(new Token("INT",simb));
 					}
 				}
 				else
-					if(simb.getTipo()!=null && simb.getTipo().equals("FLOAT")){						
-						if(isNumeric(simb.getValor().toString(),simb.getTipo())){
+					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("float")){						
+						if(isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
 							InstruccionDeclaracion.add("AUXAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
 							StringBuffer sb= new StringBuffer();
 							sb.append("AUXAssem"+getPosTerceto(simb.getValor().toString()));
