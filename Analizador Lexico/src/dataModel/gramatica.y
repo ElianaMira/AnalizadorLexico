@@ -167,14 +167,14 @@ sentenciaestructurada:
 				
 sentenciafor: PARA condicion_for
 			{
-				vectorTercetos.add(new Tercetos("BF",$2.sval,"_","",vectorTercetos.size(),true)); 
+				vectorTercetos.add(new Tercetos("BF",$2.sval,"_","",vectorTercetos.size()+1,true)); 
 				pila.push(String.valueOf(vectorTercetos.size()-1));
 			}
 			bloque_sentencias
 			{
 				String topePilaFin = pila.pop();
 				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePilaFin));
-				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+2)+"]");
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+3)+"]");
 				String topePilaBI =  pila.pop();
 				String topePilaIndice = pila.pop();	
 				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,varTipo,vectorTercetos.size()+1,true)); 
@@ -218,9 +218,9 @@ asignacion_for: IDENTIFICADOR ASIG argumento ';'
 					String posTofloat = new String(aux2.getPuntero().getValor().toString());
 					
 					posTofloat = new String("["+String.valueOf(vectorTercetos.size()+"]"));					
-					vectorTercetos.add(new Tercetos(":=",aux.getPuntero().getValor().toString(),$3.sval,varTipo,vectorTercetos.size(),true)); 					
+					vectorTercetos.add(new Tercetos(":=",aux.getPuntero().getValor().toString(),$3.sval,varTipo,vectorTercetos.size()+1,true)); 					
 					pila.push($1.sval);
-					pila.push(String.valueOf(vectorTercetos.size()));
+					pila.push(String.valueOf(vectorTercetos.size()+1));
 				}	
 				;
 			
@@ -230,9 +230,9 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					Token aux2 =obtenerToken($3.sval,nroAmbito,(String)$3.obj);
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
-					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo)); 
+					vectorTercetos.add(new Tercetos(">=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					
-					$$.sval = new String("["+String.valueOf(vectorTercetos.size()-1+"]"));
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
 				| IDENTIFICADOR '<' argumento	';'
 				{
@@ -253,8 +253,8 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
 					
-					vectorTercetos.add(new Tercetos("<",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT",vectorTercetos.size()+1,true)); 
-					$$.sval = new String("["+String.valueOf(vectorTercetos.size()-1 +"]"));
+					vectorTercetos.add(new Tercetos("<",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
+					$$.sval = new String("["+String.valueOf(vectorTercetos.size() +"]"));
 				}
 				| IDENTIFICADOR MENOR_IGUAL argumento ';'
 				{
@@ -268,7 +268,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
 						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
-					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT",vectorTercetos.size()+1,true)); 
+					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
 				| IDENTIFICADOR '>' argumento	';'
@@ -283,7 +283,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
 						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
-					vectorTercetos.add(new Tercetos(">",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT",vectorTercetos.size()+1,true));  
+					vectorTercetos.add(new Tercetos(">",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true));  
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
 				| IDENTIFICADOR DISTINTO argumento ';'
@@ -298,7 +298,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
 						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
-					vectorTercetos.add(new Tercetos("<>",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),"INT",vectorTercetos.size()+1,true)); 
+					vectorTercetos.add(new Tercetos("<>",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
 				| IDENTIFICADOR '>' error 		{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
@@ -323,14 +323,14 @@ bloque_if:
 				vectorTercetos.add(new Tercetos("BI","","_")); 
 				String topePila = pila.pop();
 				Tercetos tercetoBF = vectorTercetos.elementAt(Integer.parseInt(topePila));
-				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()-1)+"]");
+				tercetoBF.setElem3("["+String.valueOf(vectorTercetos.size()+1)+"]");
 				pila.push(String.valueOf(vectorTercetos.size()-1));
 			}
 			SINO bloque_sentencias
 			{
 				String topePila = pila.pop();
 				Tercetos tercetoBI = vectorTercetos.elementAt(Integer.parseInt(topePila));
-				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()-1)+"]");
+				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()+1)+"]");
 			}
 			|'{'sentencias {yyerror("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 
 			|sentencias'}' {yyerror("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 			
@@ -350,13 +350,12 @@ condicion:
 impresion: 
 	IMPRIMIR'('CADENA')'';' 
 	{
-		vectorTercetos.add(new Tercetos("IMPRIMIR",$3.sval,"_","CADENA"));
+		vectorTercetos.add(new Tercetos("IMPRIMIR",$3.sval,"_"));
 	}
 	|IMPRIMIR'('CADENA {yyerror("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
 	|IMPRIMIR CADENA   {yyerror("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
 	|IMPRIMIR CADENA ')' {yyerror("Error sintactico->Falta abrir parentesis en la instruccion 'Imprimir'.");}	
-	|IMPRIMIR'('')'      {yyerror("Error sintactico->Falta la cadena en la instruccion Imprimir.");}
-	|IMPRIMIR'('error')' {yyerror("Error sintactico->La cadena es incorrecta en la instruccion Imprimir.");}					
+	|IMPRIMIR'('')'      {yyerror("Error sintactico->Falta la cadena en la instruccion Imprimir.");}					
 	|IMPRIMIR error 	 {yyerror("Error sintactico en la instrucion 'Imprimir'.");};
 
 

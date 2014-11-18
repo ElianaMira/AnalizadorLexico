@@ -26,30 +26,10 @@ public class Assembler {
 //	
 	private Vector<String> InstruccionesTercetos;
 	public Assembler(){
-//		AX="";
-//		posJMPBI= 0; posInstr=0;
-//		posBI = posBF =-1;
-		//arch = archivo;
 		saltoBI="-2";
 		LabelBIBF="";
 		pilaBF= new Stack<String>();
 	}
-
-//	//Rutina de carga del acumulador.
-//	 private boolean CAC (String x, String y)
-//	    {
-//	      if (!AX.equals("") && AX==y) return true;
-//	      if (!AX.equals(x)) {
-//	        if (!AX.equals("")) 
-//	        	GEN ("MOV","AX,","AX");
-//	        if(!x.contains("["))
-//	        {
-//	        	GEN ("MOV","AX,",x);
-//	        	//AX=x;
-//	        }	        
-//	      }
-//	      return false;
-//	    }
 
 	//SUMA
 	private void SUMA (String x, String y, String z)
@@ -74,7 +54,7 @@ public class Assembler {
 	    {
 		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
 		 		GEN("SUB","AX,",argu2);
-		 		GEN("JS","LabelNegativo","");
+		 	//	GEN("JS","LabelNegativo","");
 		 	}
 		 	else
 		 	{
@@ -96,7 +76,7 @@ public class Assembler {
 	 private void DIV (String x,String y,String z)
 	    {
 		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") ))		 		
-		 		GEN ("DIV ","AX,",argu2);		 	
+		 		GEN ("DIV ","AX",argu2);		 	
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
 	    }
@@ -119,17 +99,8 @@ public class Assembler {
 		 String salto;
 		 salto= ter.getElem2().replace("[","");
 		 salto = salto.replace("]","");
-		 saltoBI=salto;
-		// GEN("invoke MessageBox, NULL, addr msjBI, addr msjBI, MB_OK","","");
+		 saltoBI=salto;	
 		 GEN(LabelBIBF+"JMP EtiquetaSalto_"+salto,"","");
-//		 if(InstruccionesTercetos.elementAt(posInstr-2).contains("JG"))//Sabemos que estamos dentro de una iteracion.		 
-//			 GEN("JMP ",LabelIteracion,"");
-//		
-//		 x = x.replace("[","");
-//		 x = x.replace("]","");
-//		 posBI = InstruccionesTercetos.size();
-//		 posJMPBI = Integer.parseInt(x);		
-//		 GEN("JMP","_QUIT","");
 	 }
 	 
 	 private void CMP(String x,String y){
@@ -284,6 +255,14 @@ public class Assembler {
 						else{
 							if (operador.equals("IMPRIMIR"))
 								GEN(LabelBIBF+"invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
+							
+							if(operador.equals("FIN")){
+								GEN(LabelBIBF+"JMP","_QUIT","");
+							    //GEN("LabelOverflow: invoke MessageBox, NULL, addr AUX_Overflow, addr msjError, MB_OK ","","");			
+								//GEN("JMP","_QUIT","");
+								//GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");			
+								GEN("JMP","_QUIT","");											
+							}
 						}
 					}
 						
