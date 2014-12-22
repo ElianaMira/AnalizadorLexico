@@ -157,8 +157,8 @@ public class Assembler {
 			if ( CMP.equals("=") )
 				GEN(LabelBIBF+"JE EtiquetaSalto_"+salto,"","");
 		
-			if(ter.isSentenciaFor())
-		 		GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
+			//if(ter.isSentenciaFor())
+		 	//	GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
 		
 	 }
 	public void GEN(String instr1,String instr2,String Instr3)

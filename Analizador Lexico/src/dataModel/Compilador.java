@@ -8,7 +8,7 @@ public class Compilador {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        AnalizadorLexico analizadorL = new AnalizadorLexico("programa");
+        AnalizadorLexico analizadorL = new AnalizadorLexico("C:/programa.txt");
         
         Parser parser = new Parser(analizadorL);
         parser.run();

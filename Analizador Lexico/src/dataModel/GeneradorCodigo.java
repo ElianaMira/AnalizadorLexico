@@ -54,7 +54,7 @@ public class GeneradorCodigo {
 		try{
 			
 			//TablaSimbolo.CleanID();			
-			logAssembler.generar();
+			
 		    assem = new Assembler();
 
 //		    InstruccionDeclaracion.add(".MODEL small");
@@ -107,8 +107,8 @@ public class GeneradorCodigo {
 			}
 			InstruccionesTercetos.add("_QUIT: invoke ExitProcess, 0");
 			InstruccionesTercetos.add("end start");
-			
 			llenarArchivoAssembler();
+			logAssembler.generar();
 		}
 		catch(Exception e){
 			System.err.println("El archivo logAssembler no se pudo crear.Verifique si hay errores sintacticos que puedan afectar a los tercetos.");
@@ -124,11 +124,13 @@ public class GeneradorCodigo {
 		
 		for (int i=0; i<InstruccionDeclaracion.size(); i++){
 			System.out.println(String.format(InstruccionDeclaracion.elementAt(i)));
-			logAssembler.addLog(String.format(InstruccionDeclaracion.elementAt(i)));
+			String a = String.format(InstruccionDeclaracion.elementAt(i));
+			logAssembler.addLog(a);
 		}
 		for (int i=0; i<InstruccionesTercetos.size(); i++){
 			System.out.println(String.format(InstruccionesTercetos.elementAt(i)));
-			logAssembler.addLog(String.format(InstruccionesTercetos.elementAt(i)));
+			String b = String.format(InstruccionesTercetos.elementAt(i));			
+			logAssembler.addLog(b);
 		}
 		
 	}
