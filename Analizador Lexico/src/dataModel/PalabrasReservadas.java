@@ -12,7 +12,7 @@ public class PalabrasReservadas
 		palabras.add("sino");
 		palabras.add("imprimir");
 		palabras.add("int");
-		palabras.add("float");
+		palabras.add("flotante");
 		palabras.add("para");
 		palabras.add("vector");
 		palabras.add("de");

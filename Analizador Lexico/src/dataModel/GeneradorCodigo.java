@@ -23,7 +23,7 @@ public class GeneradorCodigo {
 			if(tipo.equals("int"))
 				Integer.parseInt(cadena);
 			else
-				if(tipo.equals("float"))
+				if(tipo.equals("flotante"))
 					Float.parseFloat(cadena);
 			return true;
 		} catch (NumberFormatException nfe){
@@ -81,17 +81,17 @@ public class GeneradorCodigo {
 					}
 				}
 				else
-					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("float")){						
+					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("flotante")){						
 						if(isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
 							InstruccionDeclaracion.add("AUXAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
 							StringBuffer sb= new StringBuffer();
 							sb.append("AUXAssem"+getPosTerceto(simb.getValor().toString()));
-							Simbolo s = new Simbolo(sb,"FLOAT");
-							varAuxiliares.add(new Token("FLOAT",s));
+							Simbolo s = new Simbolo(sb,"FLOTANTE");
+							varAuxiliares.add(new Token("FLOTANTE",s));
 						}
 						else{
 							InstruccionDeclaracion.add(simb.getValor().toString()+" dd 0");
-							varAuxiliares.add(new Token("FLOAT",simb));
+							varAuxiliares.add(new Token("FLOTANTE",simb));
 						}
 					}	
 			}
@@ -162,9 +162,9 @@ public class GeneradorCodigo {
 		
 		InstruccionDeclaracion.add("LimiteFLOAT dd 3.40282347e38");
 		sb.append("LimiteFLOAT");
-		Simbolo s2 = new Simbolo(sb,"FLOAT");
+		Simbolo s2 = new Simbolo(sb,"FLOTANTE");
 		sb.delete(0, sb.length());
-		varAuxiliares.add(new Token("FLOAT",s2));
+		varAuxiliares.add(new Token("FLOTANTE",s2));
 		
 		
 		InstruccionDeclaracion.add("LimiteINT dw 65535");
@@ -186,9 +186,9 @@ public class GeneradorCodigo {
 				else{
 					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" dd 0");
 					sb.append("AUX_"+String.valueOf(i+1));
-					Simbolo s4 = new Simbolo(sb,"FLOAT");
+					Simbolo s4 = new Simbolo(sb,"FLOTANTE");
 					sb.delete(0, sb.length());
-					varAuxiliares.add(new Token("FLOAT",s4));
+					varAuxiliares.add(new Token("FLOTANTE",s4));
 				}
 				
 				aux.setVariable("AUX_"+String.valueOf(i+1));

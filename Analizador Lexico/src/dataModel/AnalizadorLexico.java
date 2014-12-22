@@ -123,8 +123,8 @@ public class AnalizadorLexico {
 				numero = Parser.INT;
 			}
 			else{
-				if (token.getTipo().equals("FLOAT")) {
-					numero = Parser.FLOAT;
+				if (token.getTipo().equals("FLOTANTE")) {
+					numero = Parser.FLOTANTE;
 				} else if (token.getTipo().equals(":=")) {
 					numero = Parser.ASIG;
 				}else if (token.getTipo().equals(">=")) {

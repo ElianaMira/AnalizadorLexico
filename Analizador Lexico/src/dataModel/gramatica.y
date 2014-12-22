@@ -7,7 +7,7 @@ import java.util.Stack;
 
 %}
 
-%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOAT,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
+%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
 
 %start programa
 
@@ -31,7 +31,7 @@ declaracion:
 	numero variables ';' { $$.sval = $1.sval;
 							}
 	|numero error {yyerror("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOAT");}
+	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
 	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
@@ -70,7 +70,7 @@ asignacion:
 	};
 	
 numero:
-	FLOAT {	varTipo = "float";} 
+	FLOTANTE {	varTipo = "flotante";} 
 	|INT  { varTipo = "int";
 	  };	  
 	

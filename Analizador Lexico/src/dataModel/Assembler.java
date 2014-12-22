@@ -35,7 +35,7 @@ public class Assembler {
 	private void SUMA (String x, String y, String z)
 	    {
 			
-			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
+			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
 				GEN("ADD","AX,",argu2);
 				GEN("CMP","LimiteINT,","AX");				
 				if(ter.isSentenciaFor())
@@ -52,7 +52,7 @@ public class Assembler {
 	//RESTA
 	 private void RESTA (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
+		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
 		 		GEN("SUB","AX,",argu2);
 		 	//	GEN("JS","LabelNegativo","");
 		 	}
@@ -66,7 +66,7 @@ public class Assembler {
 	//PRODUCTO
 	private void  MUL (String x, String y, String z)
 	    {
-			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") ))
+			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))
 				GEN ("IMUL AX, ",argu2,"");			
 			else
 				GEN ("FMUL ",argu2,"");
@@ -75,7 +75,7 @@ public class Assembler {
 	//DIVISION
 	 private void DIV (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") ))		 		
+		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))		 		
 		 		GEN ("DIV ","AX",argu2);		 	
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
@@ -83,7 +83,7 @@ public class Assembler {
 	//ASIGNACION
 	 private void ASSIG(String x,String y)
 	 {				 
-		 if (ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("float") )){
+		 if (ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
 			 	GEN (LabelBIBF+"MOV", "AX,",argu2);
 			 	GEN ("MOV "+argu1+",","AX","");
 			 	if(ter.isSentenciaFor())
@@ -175,7 +175,7 @@ public class Assembler {
 				return elemTerceto;
 			}
 			else
-				if(ter.getTipo()!=null && ter.getTipo().equals("float"))
+				if(ter.getTipo()!=null && ter.getTipo().equals("flotante"))
 					return "AuxAssem"+String.valueOf(numTerceto+1);
 		return elemTerceto;
 			

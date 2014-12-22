@@ -19,7 +19,7 @@ public class AccionSemantica4 extends AccionesSemanticas
 			lexema.replace(index, index+1,"e");
 		Float f = Float.valueOf(lexema.toString()).floatValue();
 		
-		Simbolo s = new Simbolo(lexema,"FLOAT");
+		Simbolo s = new Simbolo(lexema,"FLOTANTE");
 		t = new Token(s.getTipo(),s);
         
 		if (f.compareTo(new Float(1.17549435e-38))== -1 || f.compareTo(new Float(3.40282347e+38)) == 1)
