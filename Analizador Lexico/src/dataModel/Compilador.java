@@ -16,11 +16,19 @@ public class Compilador {
         analizadorL.crearLexico();
         analizadorL.getTablaSimbolos().imprimirTabla();
         
-        parser.mostrarTercetos();
-        parser.imprimirSintactico();
-        
-        GeneradorCodigo generador = new GeneradorCodigo(parser.getTercetos());
-        generador.run();
+        if (!parser.hayErrores()){
+            
+        	parser.mostrarTercetos();
+        	parser.imprimirSintactico();
+        	GeneradorCodigo generador = new GeneradorCodigo(parser.getTercetos());
+        	generador.run();
+        }
+        else{
+            System.out.println("");
+            System.out.println("Su codigo posee errores");
+            System.out.println("");
+            parser.imprimirErrores();
+        }
         
 	}
 }

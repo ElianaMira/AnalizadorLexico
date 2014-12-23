@@ -19,7 +19,7 @@ public class AccionSemantica11 extends AccionesSemanticas
 		Simbolo s = new Simbolo(lexema,"VECTOR");
         Token t = new Token(s.getTipo(),s);
         if (!TablaSimbolo.existeSimbolo(t)){
-        	ts.addSimbolo(s);
+        	TablaSimbolo.addSimbolo(s);
         }
         return t;
 	}

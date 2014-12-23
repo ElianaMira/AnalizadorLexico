@@ -30,9 +30,9 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;
 							}
-	|numero error {yyerror("Error sintactico -> Declaracion invalida.");}
+	|numero error{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
 	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
-	|VECTOR IDENTIFICADOR error {logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
+	|VECTOR IDENTIFICADOR error {sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
 
@@ -45,7 +45,7 @@ asignacion:
 	{
 		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		if(!existeToken(identificador))
-			yyerror("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
+			sintacticoError.addLog("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
 		indiceAsignacion = vectorTercetos.size();
 		String operador1 = $1.sval;
 		if (indiceExpresion != 0){
@@ -134,8 +134,8 @@ termino:
 		indiceExpresion = vectorTercetos.size();
 		
 	}
-	|termino '*' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador *"); }
-	|termino '/' error { yyerror("Error sintactico-> Falta el factor del lado derecho del operador /"); };
+	|termino '*' error { sintacticoError.addLog("Error sintactico-> Falta el factor del lado derecho del operador *"); }
+	|termino '/' error { sintacticoError.addLog("Error sintactico-> Falta el factor del lado derecho del operador /"); };
 		
 argumento:
 	IDENTIFICADOR 
@@ -180,7 +180,7 @@ sentenciafor: PARA condicion_for
 				vectorTercetos.add(new Tercetos("+",topePilaIndice,incrementoSentFor,varTipo,vectorTercetos.size()+1,true)); 
 				vectorTercetos.add(new Tercetos("BI","["+topePilaBI+"]","_","",vectorTercetos.size()+1,true)); 
 			}
-			| PARA condicion_for ';'{yyerror("Error sintactico->Falta el cuerpo de la sentencia FOR.");}	
+			| PARA condicion_for ';'{sintacticoError.addLog("Error sintactico->Falta el cuerpo de la sentencia FOR.");}	
 			;
 
 bloque_sentencias: '{'sentencias'}' 
@@ -194,8 +194,8 @@ condicion_for: 	'(' asignacion_for exp_logica_for argumento ')'
 					incrementoSentFor = aux.getPuntero().getValor().toString();
 				
 				}
-				|'('asignacion_for exp_logica_for argumento 	  {yyerror("Error sintactico->Falta cerrar parentesis en sentencia FOR.");}
-				|asignacion_for exp_logica_for  argumento ')'    {yyerror("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
+				|'('asignacion_for exp_logica_for argumento 	  {sintacticoError.addLog("Error sintactico->Falta cerrar parentesis en sentencia FOR.");}
+				|asignacion_for exp_logica_for  argumento ')'    {sintacticoError.addLog("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
 				;
 				
 asignacion_for: IDENTIFICADOR ASIG argumento ';'
@@ -263,11 +263,11 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
@@ -278,11 +278,11 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos(">",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true));  
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
@@ -293,20 +293,20 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
 					$1.sval=aux.getPuntero().getValor().toString();
 					$1.obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<>",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					$$.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
-				| IDENTIFICADOR '>' error 		{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
-				| IDENTIFICADOR MAYOR_IGUAL error	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
-				| IDENTIFICADOR '<' error 		{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
-				| IDENTIFICADOR MENOR_IGUAL error 	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}				
-				| IDENTIFICADOR DISTINTO error 	{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
-				| IDENTIFICADOR error 	';'				{yyerror("Error sintactico->Error en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR '>' error 		{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR MAYOR_IGUAL error	{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR '<' error 		{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR MENOR_IGUAL error 	{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}				
+				| IDENTIFICADOR DISTINTO error 	{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+				| IDENTIFICADOR error 	';'				{sintacticoError.addLog("Error sintactico->Error en la comparacion de la sentencia FOR.");}
 				;
  
 sentenciaif: SI '('condicion')' ENTONCES
@@ -314,7 +314,7 @@ sentenciaif: SI '('condicion')' ENTONCES
 			vectorTercetos.add(new Tercetos("BF",$3.sval,"")); 
 			pila.push(String.valueOf(vectorTercetos.size()-1));			
 			}  bloque_if
-			|SI bloque_if {yyerror("Error sintactico->Falta la condicion en la sentencia IF.");} ';'			
+			|SI bloque_if {sintacticoError.addLog("Error sintactico->Falta la condicion en la sentencia IF.");} ';'			
 			;
 
 bloque_if: 	
@@ -332,8 +332,8 @@ bloque_if:
 				Tercetos tercetoBI = vectorTercetos.elementAt(Integer.parseInt(topePila));
 				tercetoBI.setElem2("["+String.valueOf(vectorTercetos.size()+1)+"]");
 			}
-			|'{'sentencias {yyerror("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 
-			|sentencias'}' {yyerror("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 			
+			|'{'sentencias {sintacticoError.addLog("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 
+			|sentencias'}' {sintacticoError.addLog("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");} SINO bloque_sentencias 			
 			;
 
 
@@ -344,23 +344,24 @@ condicion:
 			Warning("Warning: Los tipos de los operandos en la comparacion de la sentencia son distintos");
 		vectorTercetos.add(new Tercetos($2.sval,$1.sval,$3.sval,varTipo));
 	}
-	| expresion comparador { yyerror("Error sintactico-> Falta lado derecho de la expresion.");}                      
-	| expresion comparador error { yyerror("Error sintactico-> Falta abrir parentisis en la expresion.");};
+	| expresion comparador { sintacticoError.addLog("Error sintactico-> Falta lado derecho de la expresion.");}                      
+	| expresion comparador error { sintacticoError.addLog("Error sintactico-> Falta abrir parentisis en la expresion.");};
 
 impresion: 
 	IMPRIMIR'('CADENA')'';' 
 	{
 		vectorTercetos.add(new Tercetos("IMPRIMIR",$3.sval,"_"));
 	}
-	|IMPRIMIR'('CADENA {yyerror("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
-	|IMPRIMIR CADENA   {yyerror("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
-	|IMPRIMIR CADENA ')' {yyerror("Error sintactico->Falta abrir parentesis en la instruccion 'Imprimir'.");}	
-	|IMPRIMIR'('')'      {yyerror("Error sintactico->Falta la cadena en la instruccion Imprimir.");}					
-	|IMPRIMIR error 	 {yyerror("Error sintactico en la instrucion 'Imprimir'.");};
+	|IMPRIMIR'('CADENA {sintacticoError.addLog("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
+	|IMPRIMIR CADENA   {sintacticoError.addLog("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
+	|IMPRIMIR CADENA ')' {sintacticoError.addLog("Error sintactico->Falta abrir parentesis en la instruccion 'Imprimir'.");}	
+	|IMPRIMIR'('')'      {sintacticoError.addLog("Error sintactico->Falta la cadena en la instruccion Imprimir.");}					
+	|IMPRIMIR error 	 {sintacticoError.addLog("Error sintactico en la instrucion 'Imprimir'.");};
 
 
 %%
   private Log logSintactico = new Log("sintactico.log");
+  private Log sintacticoError = new Log("errores_sintacticos.log");
   private AnalizadorLexico lexico;
   private Vector<Tercetos> vectorTercetos;
   private boolean errores;
@@ -380,6 +381,7 @@ impresion:
          pila = new Stack<String>();
          vectorTercetos = new Vector<Tercetos>(); 
          logSintactico.generar();
+         sintacticoError.generar();
 
     }
 
@@ -411,6 +413,10 @@ public void putNegativo(String valor){
 
 public void imprimirSintactico(){
     logSintactico.imprimir();
+}
+
+public void imprimirErrores(){
+    sintacticoError.imprimir();
 }
 
 public Simbolo getSimbolo(Simbolo s){
@@ -454,6 +460,10 @@ public void mostrarTercetos(){
 		System.out.print((i+1)+" ");
 		vectorTercetos.elementAt(i).mostrarTerceto();
 	}
+}
+
+public boolean hayErrores(){
+    return !(sintacticoError.estaVacio());
 }
 
 public boolean isEntero(String elem){

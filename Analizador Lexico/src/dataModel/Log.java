@@ -35,6 +35,10 @@ public class Log
 	  }
 	
 	}
+    
+    public boolean estaVacio(){
+        return lineas.isEmpty();
+    }
 
 
     public void imprimir() {
