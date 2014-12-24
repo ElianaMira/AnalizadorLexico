@@ -28,11 +28,10 @@ sentencia:
 	|impresion ;
 
 declaracion:
-	numero variables ';' { $$.sval = $1.sval;
-							}
-	|numero error{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
+	numero variables ';' { $$.sval = $1.sval;}
+	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
 	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
-	|VECTOR IDENTIFICADOR error {sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
+	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
 

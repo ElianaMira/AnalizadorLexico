@@ -25,7 +25,7 @@ public class Matriz
         else if (Character.isDigit(caracter) )
                 return get(eActual,2);//Es un digito
         else if (caracter ==  '#')
-                return get(eActual,12);
+                return get(eActual,16);
         else if(Character.isWhitespace(caracter))
                 return get(eActual,15);
         else 
