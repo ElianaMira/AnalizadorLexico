@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public class Assembler {
 	
-//	private String AX;
+	//private float AX = 0;
 	private Tercetos ter;
 	private String argu1;
 	private String argu2;
@@ -37,9 +37,9 @@ public class Assembler {
 			
 			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
 				GEN("ADD","AX,",argu2);
-				GEN("CMP","LimiteINT,","AX");				
+				GEN("CMP","LimiteINT,","EAX");				
 				if(ter.isSentenciaFor())
-					GEN("MOV",argu1+",","AX"); //guardo el valor del iterador del FOR en el mismo.
+					GEN("MOV",argu1+",","EAX"); //guardo el valor del iterador del FOR en el mismo.
 			}
 			else{
 				
@@ -53,7 +53,7 @@ public class Assembler {
 	 private void RESTA (String x,String y,String z)
 	    {
 		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
-		 		GEN("SUB","AX,",argu2);
+		 		GEN("SUB","EAX,",argu2);
 		 	//	GEN("JS","LabelNegativo","");
 		 	}
 		 	else
@@ -67,7 +67,7 @@ public class Assembler {
 	private void  MUL (String x, String y, String z)
 	    {
 			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))
-				GEN ("IMUL AX, ",argu2,"");			
+				GEN ("IMUL EAX, ",argu2,"");			
 			else
 				GEN ("FMUL ",argu2,"");
 	    } 
@@ -76,7 +76,7 @@ public class Assembler {
 	 private void DIV (String x,String y,String z)
 	    {
 		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))		 		
-		 		GEN ("DIV ","AX",argu2);		 	
+		 		GEN ("DIV ","EAX",argu2);		 	
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
 	    }
@@ -84,10 +84,10 @@ public class Assembler {
 	 private void ASSIG(String x,String y)
 	 {				 
 		 if (ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
-			 	GEN (LabelBIBF+"MOV", "AX,",argu2);
-			 	GEN ("MOV "+argu1+",","AX","");
+			 	GEN (LabelBIBF+"MOV", "EAX" +",",argu2);
+			 	GEN ("MOV "+argu1+",","EAX","");
 			 	if(ter.isSentenciaFor())
-			 		GEN ("MOV AUX_FOR,","AX","");
+			 		GEN ("MOV AUX_FOR,","EAX","");
 			}
 			else{
 				GEN(LabelBIBF+"FLD",argu2,"");				
@@ -133,7 +133,7 @@ public class Assembler {
 	 
 	 private void BF(String x,String y){		
 			
-		 //	pilaBF.push(String.valueOf(InstruccionesTercetos.size()+1));//Apilo la pos de la instruccion del BF, para poder volver.
+		  	pilaBF.push(String.valueOf(InstruccionesTercetos.size()+1));//Apilo la pos de la instruccion del BF, para poder volver.
 		 	String salto;
 		 	salto= ter.getElem3().replace("[","");
 		 	salto = salto.replace("]","");
@@ -161,6 +161,7 @@ public class Assembler {
 		 	//	GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
 		
 	 }
+	 
 	public void GEN(String instr1,String instr2,String Instr3)
 	{
 		InstruccionesTercetos.add(instr1+" "+instr2+" "+Instr3);
@@ -254,13 +255,13 @@ public class Assembler {
 						}
 						else{
 							if (operador.equals("IMPRIMIR"))
-								GEN(LabelBIBF+"invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
+								GEN("invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
 							
 							if(operador.equals("FIN")){
 								GEN(LabelBIBF+"JMP","_QUIT","");
-							    //GEN("LabelOverflow: invoke MessageBox, NULL, addr AUX_Overflow, addr msjError, MB_OK ","","");			
-								//GEN("JMP","_QUIT","");
-								//GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");			
+							    GEN("LabelOverflow: invoke MessageBox, NULL, addr AUX_Overflow, addr msjError, MB_OK ","","");			
+								GEN("JMP","_QUIT","");
+								GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");			
 								GEN("JMP","_QUIT","");											
 							}
 						}

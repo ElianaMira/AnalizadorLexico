@@ -56,9 +56,7 @@ public class GeneradorCodigo {
 			//TablaSimbolo.CleanID();			
 			
 		    assem = new Assembler();
-
-//		    InstruccionDeclaracion.add(".MODEL small");
-//			InstruccionDeclaracion.add(".STACK 200h");		
+		    
 			InstruccionDeclaracion.add(".386");
 			InstruccionDeclaracion.add(".model flat, stdcall");
 			InstruccionDeclaracion.add("option casemap :none");
@@ -83,20 +81,20 @@ public class GeneradorCodigo {
 				else
 					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("flotante")){						
 						if(isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
-							InstruccionDeclaracion.add("AUXAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
+							InstruccionDeclaracion.add("AuxAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
 							StringBuffer sb= new StringBuffer();
-							sb.append("AUXAssem"+getPosTerceto(simb.getValor().toString()));
+							sb.append("AuxAssem"+getPosTerceto(simb.getValor().toString()));
 							Simbolo s = new Simbolo(sb,"FLOTANTE");
 							varAuxiliares.add(new Token("FLOTANTE",s));
 						}
 						else{
-							InstruccionDeclaracion.add(simb.getValor().toString()+" dd 0");
+							InstruccionDeclaracion.add(simb.getValor().toString()+" dd 0.0");
 							varAuxiliares.add(new Token("FLOTANTE",simb));
 						}
 					}	
 			}
 			CargarVariablesAuxiliares();    
-			//CargarMensajesError();
+			CargarMensajesError();
 			CargarVariablesAUXEnTDS();
 			InstruccionDeclaracion.add(".code");
 			InstruccionDeclaracion.add("start:");
@@ -194,8 +192,8 @@ public class GeneradorCodigo {
 				aux.setVariable("AUX_"+String.valueOf(i+1));
 			}
 			else
-				if(aux.getElem1().equals("Print")){
-					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" db \""+ aux.getElem2().substring(1, aux.getElem2().length()) + "\""+",0");
+				if(aux.getElem1().equals("IMPRIMIR")){
+					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" db \""+ aux.getElem2().substring(1, aux.getElem2().length()) +",0");
 					sb.append("AUX_"+String.valueOf(i+1));
 					Simbolo s4 = new Simbolo(sb,"CADENA");
 					sb.delete(0, sb.length());
@@ -204,15 +202,15 @@ public class GeneradorCodigo {
 				}						
 		}
 	}
-	/*private void CargarMensajesError(){			
+	private void CargarMensajesError(){			
 		InstruccionDeclaracion.add("tituloPrint db \""+"Print\",0");
 		InstruccionDeclaracion.add("msjBI db \""+"Bifurcacion Incondicional\",0");
 		InstruccionDeclaracion.add("msjBF db \""+"Bifurcacion por Falso\",0");
 		InstruccionDeclaracion.add("msjFOR db \""+"Iteracion sentencia FOR.\",0");
 		InstruccionDeclaracion.add("msjError db \""+"Error\",0");
 		InstruccionDeclaracion.add("AUX_Overflow db \""+"OverFlow en la suma.\",0");
-		varAuxiliares.add(new Token("AUX_Overflow",CADENA,"Cadena"));
+		//varAuxiliares.add(new Token("AUX_Overflow",CADENA,"Cadena"));
 		InstruccionDeclaracion.add("AUX_Negativo db \""+"El resultado de la resta es negativo.\",0");
-		varAuxiliares.add(new Token("AUX_Negativo",CADENA,"Cadena"));
-	}*/
+		//varAuxiliares.add(new Token("AUX_Negativo",CADENA,"Cadena"));
+	}
 }
