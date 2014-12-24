@@ -57,7 +57,7 @@ public class Matriz
         		case ']' :  celda = get(eActual,10);break;
         		case '"' :  celda = get(eActual,14);break;        		       	
         		case '\n':  celda = get(eActual,16);break;
-        		case '\t':  celda = get(eActual,17);break;        		
+        		case '\t':  celda = get(eActual,17);break; 
         		
         	}        
         if(celda == null) // eof
