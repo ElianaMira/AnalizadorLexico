@@ -23,9 +23,6 @@ public class AccionSemantica13 extends AccionesSemanticas {
 		 else {
 			 Simbolo s = new Simbolo(lexema, "CADENA");
 		     Token t = new Token(s.getTipo(),s);
-		     if (!TablaSimbolo.existeSimbolo(t)){
-		    	 ts.addSimbolo(s);
-		     }
 		     return t;
 		 }
 	}

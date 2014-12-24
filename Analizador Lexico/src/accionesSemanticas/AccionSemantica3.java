@@ -11,32 +11,7 @@ public class AccionSemantica3 extends AccionesSemanticas{
 
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {		
-		 Simbolo s =null;
-		 Integer number=0;
-		 
-		 try{
-			 number = Integer.valueOf(lexema.toString()).intValue();
-		 }catch (Exception e) {
-			 this.error = true;
-		     linea++;
-		     this.msjError = "ERROR entero fuera de rango en linea "+linea;
-		 }
-		     
-	     s = new Simbolo(lexema,"INT");
-	     Token t = new Token(s.getTipo(),s);
-	     
-	     if ((number > -32768) && (number < 32767)) {            
-	    	 if (!TablaSimbolo.existeSimbolo(t)){
-	         	ts.addSimbolo(s);
-	         }             
-	     }
-	     else{
-	       this.error = true;
-	       linea++;
-	       this.msjError = "ERROR entero fuera de rango"+linea;
-	     }
-	     
-	     retroceder = true;
-	     return t;
+		//no eberia existir	    
+	     return null;
 	}
 }

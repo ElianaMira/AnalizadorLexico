@@ -170,7 +170,7 @@ public final static short VECTOR=262;
 public final static short DE=263;
 public final static short CADENA=264;
 public final static short INT=265;
-public final static short FLOAT=266;
+public final static short FLOTANTE=266;
 public final static short PARA=267;
 public final static short ASIG=268;
 public final static short MAYOR_IGUAL=269;
@@ -383,7 +383,7 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,"SI","SINO","ENTONCES","IMPRIMIR",
-"IDENTIFICADOR","VECTOR","DE","CADENA","INT","FLOAT","PARA","ASIG",
+"IDENTIFICADOR","VECTOR","DE","CADENA","INT","FLOTANTE","PARA","ASIG",
 "MAYOR_IGUAL","MENOR_IGUAL","DISTINTO",
 };
 final static String yyrule[] = {
@@ -404,7 +404,7 @@ final static String yyrule[] = {
 "variables : variables ',' IDENTIFICADOR",
 "asignacion : IDENTIFICADOR ASIG expresion",
 "asignacion : IDENTIFICADOR '[' expresion ']' ASIG expresion",
-"numero : FLOAT",
+"numero : FLOTANTE",
 "numero : INT",
 "expresion : termino",
 "expresion : expresion '+' termino",
@@ -469,6 +469,7 @@ final static String yyrule[] = {
 
 //#line 363 "gramatica.y"
   private Log logSintactico = new Log("sintactico.log");
+  private Log sintacticoError = new Log("errores_sintacticos.log");
   private AnalizadorLexico lexico;
   private Vector<Tercetos> vectorTercetos;
   private boolean errores;
@@ -488,6 +489,7 @@ final static String yyrule[] = {
          pila = new Stack<String>();
          vectorTercetos = new Vector<Tercetos>(); 
          logSintactico.generar();
+         sintacticoError.generar();
 
     }
 
@@ -519,6 +521,10 @@ public void putNegativo(String valor){
 
 public void imprimirSintactico(){
     logSintactico.imprimir();
+}
+
+public void imprimirErrores(){
+    sintacticoError.imprimir();
 }
 
 public Simbolo getSimbolo(Simbolo s){
@@ -564,6 +570,10 @@ public void mostrarTercetos(){
 	}
 }
 
+public boolean hayErrores(){
+    return !(sintacticoError.estaVacio());
+}
+
 public boolean isEntero(String elem){
 	return (elem.charAt(0)>='0' && elem.charAt(0)<='9');
 }
@@ -571,7 +581,7 @@ public boolean isEntero(String elem){
 public Vector<Tercetos> getTercetos(){
     return vectorTercetos;
 }
-//#line 503 "Parser.java"
+//#line 513 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -744,15 +754,15 @@ case 9:
 break;
 case 10:
 //#line 33 "gramatica.y"
-{yyerror("Error sintactico -> Declaracion invalida.");}
+{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
 break;
 case 11:
 //#line 34 "gramatica.y"
-{lexico.getTablaSimbolos().addTipo(val_peek(10).sval,"VECTOR FLOAT");}
+{lexico.getTablaSimbolos().addTipo(val_peek(10).sval,"VECTOR FLOTANTE");}
 break;
 case 12:
 //#line 35 "gramatica.y"
-{logSintactico.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
+{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");}
 break;
 case 13:
 //#line 39 "gramatica.y"
@@ -768,7 +778,7 @@ case 15:
 {
 		Token identificador = obtenerToken(val_peek(2).sval,nroAmbito,(String)val_peek(2).obj);
 		if(!existeToken(identificador))
-			yyerror("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
+			sintacticoError.addLog("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
 		indiceAsignacion = vectorTercetos.size();
 		String operador1 = val_peek(2).sval;
 		if (indiceExpresion != 0){
@@ -794,7 +804,7 @@ case 16:
 break;
 case 17:
 //#line 73 "gramatica.y"
-{	varTipo = "float";}
+{	varTipo = "flotante";}
 break;
 case 18:
 //#line 74 "gramatica.y"
@@ -872,11 +882,11 @@ case 25:
 break;
 case 26:
 //#line 137 "gramatica.y"
-{ yyerror("Error sintactico-> Falta el factor del lado derecho del operador *"); }
+{ sintacticoError.addLog("Error sintactico-> Falta el factor del lado derecho del operador *"); }
 break;
 case 27:
 //#line 138 "gramatica.y"
-{ yyerror("Error sintactico-> Falta el factor del lado derecho del operador /"); }
+{ sintacticoError.addLog("Error sintactico-> Falta el factor del lado derecho del operador /"); }
 break;
 case 28:
 //#line 142 "gramatica.y"
@@ -940,7 +950,7 @@ case 40:
 break;
 case 41:
 //#line 183 "gramatica.y"
-{yyerror("Error sintactico->Falta el cuerpo de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Falta el cuerpo de la sentencia FOR.");}
 break;
 case 44:
 //#line 191 "gramatica.y"
@@ -953,11 +963,11 @@ case 44:
 break;
 case 45:
 //#line 197 "gramatica.y"
-{yyerror("Error sintactico->Falta cerrar parentesis en sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Falta cerrar parentesis en sentencia FOR.");}
 break;
 case 46:
 //#line 198 "gramatica.y"
-{yyerror("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Falta abrir parentesis en sentencia FOR.");}
 break;
 case 47:
 //#line 202 "gramatica.y"
@@ -1029,11 +1039,11 @@ case 50:
 					val_peek(3).sval=aux.getPuntero().getValor().toString();
 					val_peek(3).obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					yyval.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
@@ -1046,11 +1056,11 @@ case 51:
 					val_peek(3).sval=aux.getPuntero().getValor().toString();
 					val_peek(3).obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos(">",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true));  
 					yyval.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
@@ -1063,38 +1073,38 @@ case 52:
 					val_peek(3).sval=aux.getPuntero().getValor().toString();
 					val_peek(3).obj = aux.getTipo();
 					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
 					if(aux.getTipo().equals("IDENTIFICADOR"))
-						yyerror("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
 					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						yyerror("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<>",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					yyval.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
 break;
 case 53:
 //#line 304 "gramatica.y"
-{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
 break;
 case 54:
 //#line 305 "gramatica.y"
-{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
 break;
 case 55:
 //#line 306 "gramatica.y"
-{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
 break;
 case 56:
 //#line 307 "gramatica.y"
-{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
 break;
 case 57:
 //#line 308 "gramatica.y"
-{yyerror("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Se esperaba un Factor en la comparacion de la sentencia FOR.");}
 break;
 case 58:
 //#line 309 "gramatica.y"
-{yyerror("Error sintactico->Error en la comparacion de la sentencia FOR.");}
+{sintacticoError.addLog("Error sintactico->Error en la comparacion de la sentencia FOR.");}
 break;
 case 59:
 //#line 313 "gramatica.y"
@@ -1105,7 +1115,7 @@ case 59:
 break;
 case 61:
 //#line 317 "gramatica.y"
-{yyerror("Error sintactico->Falta la condicion en la sentencia IF.");}
+{sintacticoError.addLog("Error sintactico->Falta la condicion en la sentencia IF.");}
 break;
 case 63:
 //#line 322 "gramatica.y"
@@ -1127,11 +1137,11 @@ case 64:
 break;
 case 65:
 //#line 335 "gramatica.y"
-{yyerror("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");}
+{sintacticoError.addLog("Error sintactico->Falta cerrar llave en el cuerpo de la sentencia IF.");}
 break;
 case 67:
 //#line 336 "gramatica.y"
-{yyerror("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");}
+{sintacticoError.addLog("Error sintactico->Falta abrir llave en el cuerpo de la sentencia IF.");}
 break;
 case 69:
 //#line 342 "gramatica.y"
@@ -1143,11 +1153,11 @@ case 69:
 break;
 case 70:
 //#line 347 "gramatica.y"
-{ yyerror("Error sintactico-> Falta lado derecho de la expresion.");}
+{ sintacticoError.addLog("Error sintactico-> Falta lado derecho de la expresion.");}
 break;
 case 71:
 //#line 348 "gramatica.y"
-{ yyerror("Error sintactico-> Falta abrir parentisis en la expresion.");}
+{ sintacticoError.addLog("Error sintactico-> Falta abrir parentisis en la expresion.");}
 break;
 case 72:
 //#line 352 "gramatica.y"
@@ -1157,25 +1167,25 @@ case 72:
 break;
 case 73:
 //#line 355 "gramatica.y"
-{yyerror("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
+{sintacticoError.addLog("Error sintactico->Falta cerrar parentesis en la instruccion Imprimir.");}
 break;
 case 74:
 //#line 356 "gramatica.y"
-{yyerror("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
+{sintacticoError.addLog("Error sintactico->La cadena de la sentencia Imprimir debe estar entre parentesis.");}
 break;
 case 75:
 //#line 357 "gramatica.y"
-{yyerror("Error sintactico->Falta abrir parentesis en la instruccion 'Imprimir'.");}
+{sintacticoError.addLog("Error sintactico->Falta abrir parentesis en la instruccion 'Imprimir'.");}
 break;
 case 76:
 //#line 358 "gramatica.y"
-{yyerror("Error sintactico->Falta la cadena en la instruccion Imprimir.");}
+{sintacticoError.addLog("Error sintactico->Falta la cadena en la instruccion Imprimir.");}
 break;
 case 77:
 //#line 359 "gramatica.y"
-{yyerror("Error sintactico en la instrucion 'Imprimir'.");}
+{sintacticoError.addLog("Error sintactico en la instrucion 'Imprimir'.");}
 break;
-//#line 1102 "Parser.java"
+//#line 1112 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

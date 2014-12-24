@@ -32,6 +32,7 @@ public class InicEstructuras {
         AccionesSemanticas accionSemantica7 = new AccionSemantica7("accion7");
         AccionesSemanticas accionSemantica8 = new AccionSemantica8("accion8");
         AccionesSemanticas accionSemantica9 = new AccionSemantica9("accion9");
+        AccionesSemanticas accionSemantica10 = new AccionSemantica9("accion10");
         AccionesSemanticas accionSemantica11 = new AccionSemantica11("accion11");
         AccionesSemanticas accionSemantica13 = new AccionSemantica13("accion13");
         
@@ -70,7 +71,7 @@ public class InicEstructuras {
         acciones.set(1, 10, accionSemantica2);
         acciones.set(1, 11, accionSemantica2);
         acciones.set(1, 12, accionSemantica2);
-        acciones.set(1, 13, accionSemantica2);
+        acciones.set(1, 13, accionSemantica10);
         acciones.set(1, 14, accionSemantica2);
         acciones.set(1, 15, accionSemantica2);
         acciones.set(1, 16, accionSemantica2);

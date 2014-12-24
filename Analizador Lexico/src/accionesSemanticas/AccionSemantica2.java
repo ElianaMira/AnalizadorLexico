@@ -21,9 +21,13 @@ public class AccionSemantica2 extends AccionesSemanticas
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {
 		Simbolo s = null;
-		
-		if (reservadas.esPalabraReservada(lexema.toString()))     
+		Token t;
+		if (reservadas.esPalabraReservada(lexema.toString())) 
+		{   
 	    	s = new Simbolo(lexema,lexema.toString().toUpperCase());
+	    	t = new Token(s.getTipo(),s);
+		    
+	    }
 		else{
 	    	if (lexema.length() > 12) 
 	    	{
@@ -31,12 +35,13 @@ public class AccionSemantica2 extends AccionesSemanticas
 	            super.error = true;
 	            super.msjError = "WARNING en linea "+linea+": el identificador es demasiado largo";
 	        }
-	    	s = new Simbolo(lexema, "IDENTIFICADOR");	        
+	    	s = new Simbolo(lexema, "IDENTIFICADOR");	
+	    	t = new Token(s.getTipo(),s);
+	    	if (!TablaSimbolo.existeSimbolo(t)){
+	        	TablaSimbolo.addSimbolo(s);
+	        }
 	    }
-	    Token t = new Token(s.getTipo(),s);
-	    if (!TablaSimbolo.existeSimbolo(t)){
-        	ts.addSimbolo(s);
-        }
+	    
 	    retroceder = true;
 	    return t;
 		
