@@ -11,7 +11,15 @@ public class AccionSemantica3 extends AccionesSemanticas{
 
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea) {		
-		//no eberia existir	    
-	     return null;
+		Token t = null;		
+	
+		      Simbolo s = new Simbolo(lexema,"INT");
+		      t = new Token(s.getTipo(),s);
+		      TablaSimbolo.addSimbolo(s);	            
+		
+	
+		lexema = new StringBuffer();               
+		retroceder = true;
+		return t;
 	}
 }

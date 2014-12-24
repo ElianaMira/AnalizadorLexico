@@ -56,7 +56,7 @@ asignacion:
 	}
 	
 	
-	|IDENTIFICADOR '['expresion']' ASIG expresion  
+	|IDENTIFICADOR'['expresion']' ASIG expresion  
 	{
 		String operador1 = $1.sval + $2.sval + $3.sval + $4.sval;
 		if (indiceExpresion != 0){

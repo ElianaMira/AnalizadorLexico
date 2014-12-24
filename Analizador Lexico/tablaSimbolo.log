@@ -1,3 +1,7 @@
-INT        int
-IDENTIFICADOR        a
+IDENTIFICADOR        vec
+INT        2
+FLOTANTE        2.2
+IDENTIFICADOR        i
+INT        1
+IDENTIFICADOR        MAX
 IDENTIFICADOR        b
