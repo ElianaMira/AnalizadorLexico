@@ -700,6 +700,7 @@ public class InicEstructuras {
         estados.set(14, 17, 14);
         estados.set(14, 18, 14);
         
+        
         //FILA15 Estado 15
         estados.set(15, 0, 15);
         estados.set(15, 1, 15);
