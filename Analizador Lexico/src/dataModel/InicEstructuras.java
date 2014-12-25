@@ -299,7 +299,7 @@ public class InicEstructuras {
         acciones.set(12, 7, accionSemantica1);
         acciones.set(12, 8, accionSemantica1);
         acciones.set(12, 9, accionSemantica1);
-        acciones.set(12, 10, accionSemantica1);
+        acciones.set(12, 10, accionSemantica8);
         acciones.set(12, 11, accionSemantica1);
         acciones.set(12, 12, accionSemantica1);
         acciones.set(12, 13, accionSemantica1);
@@ -345,7 +345,7 @@ public class InicEstructuras {
         acciones.set(14, 11, accionSemantica1);
         acciones.set(14, 12, accionSemantica1);
         acciones.set(14, 13, accionSemantica1);
-        acciones.set(14, 14, accionSemantica8);
+        acciones.set(14, 14, accionSemantica1);
         acciones.set(14, 15, accionSemantica1);
         acciones.set(14, 16, accionSemantica1);
         acciones.set(14, 17, accionSemantica1);
@@ -659,9 +659,9 @@ public class InicEstructuras {
         estados.set(12, 18, 16);
         
         //FILA13 Estado 13
-        estados.set(13, 0, 0);
-        estados.set(13, 1, 0);
-        estados.set(13, 2, 0);
+        estados.set(13, 0, 13);
+        estados.set(13, 1, 13);
+        estados.set(13, 2, 13);
         estados.set(13, 3, 0);
         estados.set(13, 4, 0);
         estados.set(13, 5, 0);
@@ -694,7 +694,7 @@ public class InicEstructuras {
         estados.set(14, 11, 14);
         estados.set(14, 12, 14);
         estados.set(14, 13, 14);
-        estados.set(14, 14, 0);
+        estados.set(14, 14, 14);
         estados.set(14, 15, 14);
         estados.set(14, 16, 14);
         estados.set(14, 17, 14);
