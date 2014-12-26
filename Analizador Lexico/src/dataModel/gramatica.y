@@ -5,7 +5,7 @@ import java.util.Vector;
 import java.util.Stack;
 %}
 
-%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
+%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR,DIMENSION,VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
 
 %start programa
 
@@ -28,7 +28,7 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;}
 	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
+	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
 	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 

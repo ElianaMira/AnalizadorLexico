@@ -22,8 +22,8 @@ public class AnalizadorLexico {
 		lector = new LectorArchivo(ruta);
 		tablaS = new TablaSimbolo();
 		errores = new ArrayList<String>();
-		estados = new Matriz(16, 19);
-		accionesSemanticas = new Matriz(16, 20);
+		estados = new Matriz(20, 19);
+		accionesSemanticas = new Matriz(20, 19);
 		InicEstructuras inicia = new InicEstructuras();
 		accionesSemanticas = inicia.inicializarAcciones();
 		estados = inicia.InicializarEstados();
@@ -51,29 +51,29 @@ public class AnalizadorLexico {
 	}
 
 	public void imprimirEstados() {
-		for (int i = 0; i < 17; i++) {
-			System.out.print("F:" + i);
-			for (int j = 0; j < 19; j++) {
-				System.out.print(" C" + j + ":" + estados.get(i, j));
-			}
-			System.out.println("");
+	for (int i = 0; i < 21; i++) {
+		System.out.print("F:" + i);
+		for (int j = 0; j < 21; j++) {
+			System.out.print(" C" + j + ":" + estados.get(i, j));
 		}
+		System.out.println("");
+	}
 	}
 
 	public void imprimirAcciones() {
-		for (int i = 0; i < 17; i++) {
-			System.out.print("F:" + i);
-			for (int j = 0; j < 19; j++) {
-				if (accionesSemanticas.get(i, j) != null) {
-					AccionesSemanticas a = (AccionesSemanticas) accionesSemanticas
-							.get(i, j);
-					System.out.print(" C:" + j + "_" + a.getIdentificador());
-				} else {
-					System.out.print(" ");
-				}
+		for (int i = 0; i < 21; i++) {
+		System.out.print("F:" + i);
+		for (int j = 0; j < 21; j++) {
+			if (accionesSemanticas.get(i, j) != null) {
+				AccionesSemanticas a = (AccionesSemanticas) accionesSemanticas
+						.get(i, j);
+				System.out.print(" C:" + j + "_" + a.getIdentificador());
+			} else {
+				System.out.print(" ");
 			}
-			System.out.println("");
 		}
+		System.out.println("");
+	}
 	}
 
 	public Token obtenerToken() {
@@ -82,10 +82,9 @@ public class AnalizadorLexico {
 		Integer eSig = 0;
 		Token token = new Token();
 		char caracter = ' ';
-		while (caracter != '#' && eSig != 17) {
+		while (caracter != '#' && eSig != 21) {
 			caracter = lector.getCaracter();
-			AccionesSemanticas accion = (AccionesSemanticas) accionesSemanticas
-					.getCelda(caracter, eActual);
+			AccionesSemanticas accion = (AccionesSemanticas) accionesSemanticas.getCelda(caracter, eActual);
 			eSig = (Integer) estados.getCelda(caracter, eActual);
 			token = accion.ejecutar(lexema, caracter, tablaS, lector.getLine());
 			if (token != null) {
@@ -104,7 +103,7 @@ public class AnalizadorLexico {
 				eSig = (Integer) estados.getCelda(caracter, eActual);
 			}
 			eActual = eSig;
-			if (eActual == 17) {
+			if (eActual == 21) {
 				lexema = new StringBuffer().append("");
 			}
 		}
@@ -146,6 +145,8 @@ public class AnalizadorLexico {
 					numero = Parser.IMPRIMIR;
 				} else if (token.getTipo().equals("VECTOR")) {
 					numero = Parser.VECTOR;
+				}else if (token.getTipo().equals("DIMENSION")) {
+						numero = Parser.DIMENSION;
 				} else if (token.getTipo().equals("CADENA")) {
 					numero = Parser.CADENA;
 				} else if (token.getTipo().equals("IDENTIFICADOR")) {
