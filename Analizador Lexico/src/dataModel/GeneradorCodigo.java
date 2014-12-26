@@ -193,7 +193,7 @@ public class GeneradorCodigo {
 			}
 			else
 				if(aux.getElem1().equals("IMPRIMIR")){
-					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" db \""+ aux.getElem2().substring(1, aux.getElem2().length()) +",0");
+					InstruccionDeclaracion.add("AUX_"+String.valueOf(i+1)+" db \""+ aux.getElem2().substring(0, aux.getElem2().length())+"\"" +",0");
 					sb.append("AUX_"+String.valueOf(i+1));
 					Simbolo s4 = new Simbolo(sb,"CADENA");
 					sb.delete(0, sb.length());
