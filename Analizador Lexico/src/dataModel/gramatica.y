@@ -1,10 +1,8 @@
 %{
-
 package dataModel;
 import java.io.IOException;
 import java.util.Vector;
 import java.util.Stack;
-
 %}
 
 %token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO

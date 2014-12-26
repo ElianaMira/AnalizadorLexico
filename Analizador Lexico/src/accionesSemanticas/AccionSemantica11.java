@@ -15,8 +15,8 @@ public class AccionSemantica11 extends AccionesSemanticas
 	@Override
 	public Token ejecutar(StringBuffer lexema, char caracter,TablaSimbolo ts, int linea)
 	{
-		
-		Simbolo s = new Simbolo(lexema,"VECTOR");
+		lexema.append(caracter);
+		Simbolo s = new Simbolo(lexema,"IDENTIFICADOR");
         Token t = new Token(s.getTipo(),s);
         if (!TablaSimbolo.existeSimbolo(t)){
         	TablaSimbolo.addSimbolo(s);

@@ -25,7 +25,7 @@ public class Matriz
         else if (Character.isDigit(caracter) )
                 return get(eActual,2);//Es un digito
         else if (caracter ==  '#')
-                return get(eActual,16);
+                return get(eActual,17);
         else if(Character.isWhitespace(caracter))
                 return get(eActual,15);
         else 
@@ -34,7 +34,7 @@ public class Matriz
         		case '$' :  celda = get(eActual,0); break;
         		case '_' :  celda = get(eActual,0); break;
         		case '&' :  celda = get(eActual,0); break;
-        		case '@' :  celda = get(eActual,16); break;
+        		case '@' :  celda = get(eActual,17); break;
         		case '.' :  celda = get(eActual,3); break;
         		case 'F' :  celda = get(eActual,4); break;
         		case 'f' :  celda = get(eActual,4); break;
@@ -58,6 +58,7 @@ public class Matriz
         		case '"' :  celda = get(eActual,14);break;        		       	
         		case '\n':  celda = get(eActual,16);break;
         		case '\t':  celda = get(eActual,17);break; 
+        		case '\'':  celda = get(eActual,19);break;
         		
         	}        
         if(celda == null) // eof
