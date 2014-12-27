@@ -75,7 +75,7 @@ public class Assembler {
 	 private void DIV (String x,String y,String z)
 	    {
 		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){	 		
-		 		GEN ("DIV ","EAX",argu2);
+		 		GEN ("DIV ","",argu2);
 		 	}
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
@@ -109,15 +109,15 @@ public class Assembler {
 		 if(ter.isSentenciaFor())
 			 label=ter.getEtiquetaSalto();
 		 
-		 if (ter.getTipo().equals("int")){	
+		 if (ter.getTipo().equals("flotante")){	
 			
 			 if(!label.equals("")){
-				 	GEN("MOV AX, ","AUX_FOR","");	
-			 		GEN(label+"CMP "+argu2,",","AX");			 		
+				 	GEN("MOV EAX, ","AUX_FOR","");	
+			 		GEN(label+"CMP "+argu2,",","EAX");			 		
 			 }
 			 else{				
-				 GEN(" MOV AX, ",argu1,"");	
-				 GEN(label+"CMP "+argu2,",","AX");					
+				 GEN(" MOV EAX, ",argu1,"");	
+				 GEN(label+"CMP "+argu2,",","EAX");					
 			 }
 		}
 		else{
@@ -206,8 +206,8 @@ public class Assembler {
 		argu2 = getDestino(terceto.getElem3());
 	
 		if ( operador.equals("+")||operador.equals("-")||operador.equals("/")||operador.equals("*")){
-			if(ter.getTipo().equals("int")){
-				GEN(LabelBIBF+"MOV","AX,",argu1);
+			if(ter.getTipo().equals("flotante")){
+				GEN(LabelBIBF+"MOV","EAX,",argu1);
 			}
 			else{
 				GEN(LabelBIBF+"FLD",argu1,"");
