@@ -5,7 +5,7 @@ import java.util.Vector;
 import java.util.Stack;
 %}
 
-%token  SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, DIMENSION ,VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
+%token SI,SINO,ENTONCES,IMPRIMIR,IDENTIFICADOR, DIMENSION ,VECTOR, DE,CADENA, INT,FLOTANTE,PARA,ASIG,MAYOR_IGUAL,MENOR_IGUAL,DISTINTO
 
 %start programa
 
@@ -28,7 +28,7 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;}
 	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
+	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
 	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
@@ -308,7 +308,7 @@ exp_logica_for: IDENTIFICADOR MAYOR_IGUAL argumento ';'
  
 sentenciaif: SI '('condicion')' ENTONCES
 			{
-			vectorTercetos.add(new Tercetos("BF",$3.sval,"")); 
+			vectorTercetos.add(new Tercetos("BF"," ","")); 
 			pila.push(String.valueOf(vectorTercetos.size()-1));			
 			}  bloque_if
 			|SI bloque_if {sintacticoError.addLog("Error sintactico->Falta la condicion en la sentencia IF.");} ';'			

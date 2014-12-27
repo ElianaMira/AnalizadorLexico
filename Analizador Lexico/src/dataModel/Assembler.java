@@ -112,7 +112,7 @@ public class Assembler {
 		 if (ter.getTipo().equals("flotante")){	
 			
 			 if(!label.equals("")){
-				 	GEN("MOV AX, ","AUX_FOR","");	
+				 	GEN("MOV EAX, ","AUX_FOR","");	
 			 		GEN(label+"CMP "+argu2,",","EAX");			 		
 			 }
 			 else{				
@@ -187,7 +187,7 @@ public class Assembler {
 		numTerceto = pos;
 		boolean seteoLabel=false;
 		if(!pilaBF.empty()){
-			if(pilaBF.peek().equals(String.valueOf(numTerceto)))//si el tope de la pila es igual al numero de Terceto.			
+			if(pilaBF.peek().equals(String.valueOf(numTerceto+1)))//si el tope de la pila es igual al numero de Terceto.			
 			{
 				LabelBIBF="EtiquetaSalto_"+pilaBF.pop()+":"; //Desapilo el numero de etiqueta(salto del terceto BF)
 				seteoLabel=true;
@@ -195,7 +195,7 @@ public class Assembler {
 			else
 				LabelBIBF="";
 		}
-		if(saltoBI.equals(String.valueOf(numTerceto)))
+		if(saltoBI.equals(String.valueOf(numTerceto+1)))
 			LabelBIBF="EtiquetaSalto_"+saltoBI+":";
 		else
 			if(!seteoLabel)
@@ -255,7 +255,7 @@ public class Assembler {
 						}
 						else{
 							if (operador.equals("IMPRIMIR"))
-								GEN("invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
+								GEN(LabelBIBF + "invoke MessageBox, NULL, addr",ter.getVariable(), ", addr tituloPrint, MB_OK");
 							
 							if(operador.equals("FIN")){
 								GEN(LabelBIBF+"JMP","_QUIT","");
