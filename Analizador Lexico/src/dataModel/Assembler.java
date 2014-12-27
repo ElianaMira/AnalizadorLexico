@@ -187,7 +187,7 @@ public class Assembler {
 		numTerceto = pos;
 		boolean seteoLabel=false;
 		if(!pilaBF.empty()){
-			if(pilaBF.peek().equals(String.valueOf(numTerceto+1)))//si el tope de la pila es igual al numero de Terceto.			
+			if(pilaBF.peek().equals(String.valueOf(numTerceto)))//si el tope de la pila es igual al numero de Terceto.			
 			{
 				LabelBIBF="EtiquetaSalto_"+pilaBF.pop()+":"; //Desapilo el numero de etiqueta(salto del terceto BF)
 				seteoLabel=true;
@@ -195,7 +195,7 @@ public class Assembler {
 			else
 				LabelBIBF="";
 		}
-		if(saltoBI.equals(String.valueOf(numTerceto+1)))
+		if(saltoBI.equals(String.valueOf(numTerceto)))
 			LabelBIBF="EtiquetaSalto_"+saltoBI+":";
 		else
 			if(!seteoLabel)
