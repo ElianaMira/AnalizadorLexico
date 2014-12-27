@@ -125,7 +125,7 @@ public class Assembler {
 				GEN("FCOM ",argu2,"");
 				GEN("FSTSW ","AUXCMP","");
 				GEN("FWAIT","","");
-				GEN("MOV AX,","AUXCMP","");
+				GEN("MOV EAX,","AUXCMP","");
 				GEN("SAHF","","");
 		}
 		
@@ -157,8 +157,8 @@ public class Assembler {
 			if ( CMP.equals("=") )
 				GEN(LabelBIBF+"JNE EtiquetaSalto_"+salto,"","");
 		
-			//if(ter.isSentenciaFor())
-		 	//	GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
+			if(ter.isSentenciaFor())
+		 		GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
 		
 	 }
 	 

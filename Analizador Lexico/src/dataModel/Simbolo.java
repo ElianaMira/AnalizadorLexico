@@ -5,12 +5,20 @@ public class Simbolo
 	private StringBuffer valor;
     private String tipo;
     private String tipoVariable;
+    private boolean declarado;
     
     public Simbolo(StringBuffer v, String t)
     {
         this.valor = new StringBuffer();
         this.valor.append(v); //con el append se cambia el contenido del stringbuffer
         tipo = t ;
+        declarado = false;
+    }
+    public boolean getDeclarado() {
+        return declarado;
+    }
+    public void setDeclarado(boolean d) {
+        declarado=d;
     }
 
     public String getTipo() {

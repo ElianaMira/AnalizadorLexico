@@ -52,4 +52,11 @@ public class Token
 	public void setLinea(int l){
 		linea = l;
 	}
+	
+	public boolean tieneTipo(){
+		if(simb.getTipoVariable() != null){
+			return true;
+		}
+		return false;
+	}
 }

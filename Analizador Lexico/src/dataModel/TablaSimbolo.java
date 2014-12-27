@@ -61,6 +61,7 @@ public class TablaSimbolo {
     	Simbolo s = obtenerSimbolo(new Simbolo(sb, ""));
     	Token t = new Token("",s);
     	if (existeSimbolo(t)) {
+    			s.setDeclarado(true);
              s.setTipoVariable(variableTipo);
         }
     }
@@ -80,6 +81,11 @@ public class TablaSimbolo {
             logSimbolos.addLog(tablaSimbolo.get(i).getTipo() + "        " + tablaSimbolo.get(i).getValor());
         }
         logSimbolos.imprimir();
+    }
+    
+    public boolean existeTipoVariable(String iden,String tipo){
+        Simbolo s = obtenerSimbolo(new Simbolo(new StringBuffer(iden), ""));
+        return s.getDeclarado() && tipo.equals(s.getTipoVariable());
     }
 
 }
