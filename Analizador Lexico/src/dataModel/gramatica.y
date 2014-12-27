@@ -28,7 +28,7 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;}
 	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
+	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($2.sval,"VECTOR");}
 	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
@@ -55,19 +55,19 @@ asignacion:
 	}
 	
 	
-	|IDENTIFICADOR'['expresion']' ASIG expresion  
+	|IDENTIFICADOR DIMENSION ASIG expresion  
 	{
 		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"VECTOR")){
 			sintacticoError.addLog("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
 		}
-		String operador1 = $1.sval + $2.sval + $3.sval + $4.sval;
+		String operador1 = $1.sval + $2.sval;
 		if (indiceExpresion != 0){
 			vectorTercetos.add(new Tercetos(":=",operador1,indiceExpresion));
 			indiceExpresion = 0;	
 		}
 		else{
-			vectorTercetos.add(new Tercetos(":=",operador1,$6.sval));
+			vectorTercetos.add(new Tercetos(":=",operador1,$4.sval));
 		}				
 	};
 	
@@ -120,9 +120,8 @@ vector:
  IDENTIFICADOR DIMENSION DE numero
  {
 	  $$.sval = $1.sval + $2.sval + $3.sval + $4.sval;
-	  lexico.getTablaSimbolos().addTipo($$.sval,"VECTOR");
-	  
-};
+	  lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR");
+	 };
 	
 termino:
 	argumento

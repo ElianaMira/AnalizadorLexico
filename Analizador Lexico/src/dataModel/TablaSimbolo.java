@@ -61,8 +61,8 @@ public class TablaSimbolo {
     	Simbolo s = obtenerSimbolo(new Simbolo(sb, ""));
     	Token t = new Token("",s);
     	if (existeSimbolo(t)) {
-    			s.setDeclarado(true);
-             s.setTipoVariable(variableTipo);
+    		s.setDeclarado(true);
+            s.setTipoVariable(variableTipo);
         }
     }
     
