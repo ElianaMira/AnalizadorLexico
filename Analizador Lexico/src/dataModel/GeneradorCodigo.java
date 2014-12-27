@@ -31,6 +31,16 @@ public class GeneradorCodigo {
 		}
 	}
 	
+	public Integer getPosicion(String nomb){
+		Tercetos aux;
+		for (int i=0; i<ldt.size(); i++){
+			aux = (Tercetos)ldt.elementAt(i);
+			if(aux.getElem2().equals(nomb)||aux.getElem3().equals(nomb))
+				return i+1;
+		}
+		return ldt.size()-1;
+	}
+	
 	public String getPosTerceto(String nomb){
 		Tercetos aux;
 		for (int i=0; i<ldt.size(); i++){
@@ -47,6 +57,16 @@ public class GeneradorCodigo {
 			varAux = varAuxiliares.elementAt(i);
 			TablaSimbolo.addSimbolo(varAux.getPuntero());
 		}		
+	}
+	
+	public boolean existeVariable(String variable){
+		for (int i=0; i<InstruccionDeclaracion.size();i++){
+			String[] var = InstruccionDeclaracion.get(i).split(" ");
+			if(var[0].equals(variable)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void run(){
@@ -81,7 +101,13 @@ public class GeneradorCodigo {
 				else
 					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("flotante")){						
 						if(isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
-							InstruccionDeclaracion.add("AuxAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
+							if (existeVariable("AuxAssem"+getPosTerceto(simb.getValor().toString()))){
+								Integer var = getPosicion(simb.getValor().toString())+1;
+								InstruccionDeclaracion.add("AuxAssem"+var.toString()+" dd "+simb.getValor().toString());	
+							}
+							else{
+								InstruccionDeclaracion.add("AuxAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
+							}
 							StringBuffer sb= new StringBuffer();
 							sb.append("AuxAssem"+getPosTerceto(simb.getValor().toString()));
 							Simbolo s = new Simbolo(sb,"FLOTANTE");

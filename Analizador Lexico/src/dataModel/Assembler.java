@@ -35,8 +35,8 @@ public class Assembler {
 	    {
 			
 			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
-				GEN("ADD","AX,",argu2);
-				GEN("CMP","LimiteINT,","EAX");				
+				GEN("ADD","EAX,",argu2);
+				GEN("CMP","LimiteFLOAT,","EAX");				
 				if(ter.isSentenciaFor())
 					GEN("MOV",argu1+",","EAX"); //guardo el valor del iterador del FOR en el mismo.
 			}
@@ -74,8 +74,9 @@ public class Assembler {
 	//DIVISION
 	 private void DIV (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))		 		
-		 		GEN ("DIV ","EAX",argu2);		 	
+		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){	 		
+		 		GEN ("DIV ","EAX",argu2);
+		 	}
 		 	else		 	
 		 		GEN ("FDIV ",argu2,"");		 	
 	    }
@@ -228,8 +229,8 @@ public class Assembler {
 							MUL(terceto.getElem2(),terceto.getElem3(),"");
 					}
 				}
-				if(ter.getTipo().equals("int"))
-					GEN("MOV", terceto.getVariable(), ", AX");
+				if(ter.getTipo().equals("flotante"))
+					GEN("MOV", terceto.getVariable(), ", EAX");
 				else
 					GEN("FSTP", terceto.getVariable(),"");
 			}
