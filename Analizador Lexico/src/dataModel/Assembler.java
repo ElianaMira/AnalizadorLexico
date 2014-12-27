@@ -112,7 +112,7 @@ public class Assembler {
 		 if (ter.getTipo().equals("flotante")){	
 			
 			 if(!label.equals("")){
-				 	GEN("MOV EAX, ","AUX_FOR","");	
+				 	GEN("MOV AX, ","AUX_FOR","");	
 			 		GEN(label+"CMP "+argu2,",","EAX");			 		
 			 }
 			 else{				
@@ -152,10 +152,10 @@ public class Assembler {
 				GEN(LabelBIBF+"JGE EtiquetaSalto_"+salto,"","");
 			else
 			if ( CMP.equals("DISTINTO") )
-				GEN(LabelBIBF+"JNE EtiquetaSalto_"+salto,"","");
+				GEN(LabelBIBF+"JE EtiquetaSalto_"+salto,"","");
 			else
 			if ( CMP.equals("=") )
-				GEN(LabelBIBF+"JE EtiquetaSalto_"+salto,"","");
+				GEN(LabelBIBF+"JNE EtiquetaSalto_"+salto,"","");
 		
 			//if(ter.isSentenciaFor())
 		 	//	GEN("invoke MessageBox, NULL, addr msjFOR, addr msjFOR, MB_OK","","");
@@ -245,7 +245,7 @@ public class Assembler {
 					BI(terceto.getElem2(),terceto.getElem3());
 				}
 				else{
-					if(operador.equals("<")||operador.equals(">")||operador.equals("MENOR_IGUAL")||operador.equals("MAYOR_IGUAL")||operador.equals("DISTINTO")){
+					if(operador.equals("=")||operador.equals("<")||operador.equals(">")||operador.equals("MENOR_IGUAL")||operador.equals("MAYOR_IGUAL")||operador.equals("DISTINTO")){
 						CMP=operador;	
 						CMP(terceto.getElem2(),terceto.getElem3());
 					}
