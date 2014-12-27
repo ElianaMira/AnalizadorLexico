@@ -148,7 +148,7 @@ public class AnalizadorLexico {
 				}else if (token.getTipo().equals("DIMENSION")) {
 						numero = Parser.DIMENSION;
 				} else if (token.getTipo().equals("CADENA")) {
-					numero = Parser.CADENA;
+					numero = Parser.CADENA; 
 				} else if (token.getTipo().equals("IDENTIFICADOR")) {
 					numero = Parser.IDENTIFICADOR;
 				} else if (token.getPuntero().getValor().length() == 1) {
