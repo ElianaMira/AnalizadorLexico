@@ -28,7 +28,7 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;}
 	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR'['INT '.''.' INT']' DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
+	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($1.sval,"VECTOR FLOTANTE");}
 	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 
@@ -117,7 +117,7 @@ expresion:
 	};
 
 vector:
- IDENTIFICADOR '['expresion']'
+ IDENTIFICADOR DIMENSION DE numero
  {
 	  $$.sval = $1.sval + $2.sval + $3.sval + $4.sval;
 	  lexico.getTablaSimbolos().addTipo($$.sval,"VECTOR");
