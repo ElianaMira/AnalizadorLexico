@@ -87,7 +87,7 @@ public class Assembler {
 			 	GEN (LabelBIBF+"MOV", "EAX" +",",argu2);
 			 	GEN ("MOV "+argu1+",","EAX","");
 			 	if(ter.isSentenciaFor())
-			 		GEN ("MOV AUX_FOR,","EAX","");
+			 		GEN ("MOV AUX_FOR,","AX","");
 			}
 			else{
 				GEN(LabelBIBF+"FLD",argu2,"");				
@@ -112,7 +112,7 @@ public class Assembler {
 		 if (ter.getTipo().equals("flotante")){	
 			
 			 if(!label.equals("")){
-				 	GEN("MOV EAX, ","AUX_FOR","");	
+				 	GEN("MOV AX, ","AUX_FOR","");	
 			 		GEN(label+"CMP "+argu2,",","EAX");			 		
 			 }
 			 else{				
