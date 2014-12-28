@@ -184,6 +184,12 @@ public class GeneradorCodigo {
 		sb.delete(0, sb.length());
 		varAuxiliares.add(new Token("int",s1));
 		
+		InstruccionDeclaracion.add("AUXCMP2 dw 0");
+		sb.append("AUXCMP2");
+		Simbolo s5 = new Simbolo(sb,"int");
+		sb.delete(0, sb.length());
+		varAuxiliares.add(new Token("int",s5));
+		
 		InstruccionDeclaracion.add("LimiteFLOAT dd 3.40282347e38");
 		sb.append("LimiteFLOAT");
 		Simbolo s2 = new Simbolo(sb,"FLOTANTE");
