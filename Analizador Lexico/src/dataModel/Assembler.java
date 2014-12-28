@@ -34,18 +34,24 @@ public class Assembler {
 	private void SUMA (String x, String y, String z)
 	    {
 			
-			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
+			if(ter.getTipo()!=null &&  ter.getTipo().equals("flotante")){
 				GEN("ADD","EAX,",argu2);
 				GEN("CMP","LimiteFLOAT,","EAX");				
-				if(ter.isSentenciaFor())
-					GEN("MOV",argu1+",","EAX"); //guardo el valor del iterador del FOR en el mismo.
 			}
-			else{
-				
-				GEN("FADD",argu2,"");				
-				GEN("FLD","LimiteFLOAT","");
-				GEN("FCOMP","","");
-				GEN("JG","LabelOverflow","");
+			else 
+			{
+				if (ter.getTipo()!=null && (ter.getTipo().equals("int"))){	
+					GEN("ADD","AX,",argu2);
+					GEN("CMP","LimiteINT,","AX");
+					if(ter.isSentenciaFor())
+						GEN("MOV",argu1+",","AX"); //guardo el valor del iterador del FOR en el mismo.
+				}
+				else{
+					GEN("FADD",argu2,"");				
+					GEN("FLD","LimiteFLOAT","");
+					GEN("FCOMP","","");
+					GEN("JG","LabelOverflow","");
+				}
 			}
 	    }
 	//RESTA
@@ -83,17 +89,27 @@ public class Assembler {
 	//ASIGNACION
 	 private void ASSIG(String x,String y)
 	 {				 
-		 if (ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
-			 	GEN (LabelBIBF+"MOV", "EAX" +",",argu2);
-			 	GEN ("MOV "+argu1+",","EAX","");
-			 	if(ter.isSentenciaFor())
-			 		GEN ("MOV AUX_FOR,","AX","");
+		 if (ter.getTipo()!=null && ter.getTipo().equals("flotante"))
+		 {
+			 GEN (LabelBIBF+"MOV", "EAX" +",",argu2);
+			 GEN ("MOV "+argu1+",","EAX","");
+		 }
+		 else
+		 {
+			 if (ter.getTipo()!=null && (ter.getTipo().equals("int")))
+			 {
+				 GEN (LabelBIBF+"MOV", "AX" +",",argu2);
+				 GEN ("MOV "+argu1+",","AX","");
+				 if(ter.isSentenciaFor())
+					 GEN ("MOV AUX_FOR,","AX","");				 
+			 }
+			 else
+			 {
+				 GEN(LabelBIBF+"FLD",argu2,"");				
+				 GEN ("FSTP ",argu1,"");
 			}
-			else{
-				GEN(LabelBIBF+"FLD",argu2,"");				
-				GEN ("FSTP ",argu1,"");
-			}
-	 }
+		 }
+	}
 	 
 	 private void BI(String x,String y){
 		 String salto;
@@ -121,12 +137,15 @@ public class Assembler {
 			 }
 		}
 		else{
-				GEN(label+" FLD ",argu1,"");
-				GEN("FCOM ",argu2,"");
-				GEN("FSTSW ","AUXCMP","");
-				GEN("FWAIT","","");
-				GEN("MOV EAX,","AUXCMP","");
-				GEN("SAHF","","");
+			GEN(label+" FILD ",argu1,"");
+			GEN ("MOV AUXCMP2, ",argu2,"");			
+			GEN("FICOM ","AUXCMP2","");
+			
+			GEN("FSTSW ","AUXCMP","");
+			GEN("FWAIT","","");
+			GEN("MOV AX,","AUXCMP","");
+			
+			GEN("SAHF","","");
 		}
 		
 	 }
@@ -210,7 +229,7 @@ public class Assembler {
 				GEN(LabelBIBF+"MOV","EAX,",argu1);
 			}
 			else{
-				GEN(LabelBIBF+"FLD",argu1,"");
+				GEN(LabelBIBF+"FILD",argu1,"");
 			}
 			
 			if ( operador.equals("+")){
@@ -276,4 +295,3 @@ public class Assembler {
 					
 	}
 }
-

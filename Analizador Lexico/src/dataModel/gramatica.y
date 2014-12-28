@@ -34,14 +34,14 @@ declaracion:
 variables: 
 
 	IDENTIFICADOR {	$1.obj = varTipo;
-					lexico.getTablaSimbolos().addTipo($$.sval,varTipo);}
+					lexico.getTablaSimbolos().addTipo($1.sval,varTipo);}
 	|variables','IDENTIFICADOR { $3.obj = varTipo; };
 
 asignacion: 
 	IDENTIFICADOR ASIG expresion  
 	{
 		Token identificador = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,varTipo)){
 			sintacticoError.addLog("Error: la variable "+ identificador.getPuntero().getValor() +" no se encuentra declarada.");
 		}
 		indiceAsignacion = vectorTercetos.size();
@@ -227,6 +227,7 @@ condicion_for: 	'(' asignacion_for exp_logica_for argumento ')'
 				
 asignacion_for: IDENTIFICADOR ASIG argumento ';'
 				{	
+					lexico.getTablaSimbolos().addTipo($1.sval,"int");
 					StringBuffer sb1 = new StringBuffer();
 					sb1.append($1.sval); 
 					Simbolo s1 = new Simbolo(sb1,"");
