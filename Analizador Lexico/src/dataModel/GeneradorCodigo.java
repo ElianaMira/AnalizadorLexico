@@ -183,9 +183,9 @@ public class GeneradorCodigo {
 		Simbolo s1 = new Simbolo(sb,"int");
 		sb.delete(0, sb.length());
 		varAuxiliares.add(new Token("int",s1));
-		
-		InstruccionDeclaracion.add("AUXCMP2 dw 0");
-		sb.append("AUXCMP2");
+		//lo uso para el for
+		InstruccionDeclaracion.add("_maximo dw 0");
+		sb.append("_maximo");
 		Simbolo s5 = new Simbolo(sb,"int");
 		sb.delete(0, sb.length());
 		varAuxiliares.add(new Token("int",s5));

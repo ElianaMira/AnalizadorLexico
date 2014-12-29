@@ -41,10 +41,19 @@ public class Assembler {
 			else 
 			{
 				if (ter.getTipo()!=null && (ter.getTipo().equals("int"))){	
-					GEN("ADD","AX,",argu2);
-					GEN("CMP","LimiteINT,","AX");
 					if(ter.isSentenciaFor())
-						GEN("MOV",argu1+",","AX"); //guardo el valor del iterador del FOR en el mismo.
+					{
+					
+					
+					}
+					else
+					{
+						GEN("ADD","AX,",argu2);
+						GEN("CMP","LimiteINT,","AX");
+						
+					}
+					
+						
 				}
 				else{
 					GEN("FADD",argu2,"");				
@@ -137,15 +146,15 @@ public class Assembler {
 			 }
 		}
 		else{
-			GEN(label+" FILD ",argu1,"");
-			GEN ("MOV AUXCMP2, ",argu2,"");			
-			GEN("FICOM ","AUXCMP2","");
-			
-			GEN("FSTSW ","AUXCMP","");
-			GEN("FWAIT","","");
-			GEN("MOV AX,","AUXCMP","");
-			
-			GEN("SAHF","","");
+			if (ter.isSentenciaFor())
+			{
+				GEN(label+" FILD ",argu1,"");
+				GEN("MOV","_maximo,",argu2);
+				GEN("FILD","_maximo","");
+				GEN("FCOMP","",""); 
+				GEN("FSTSW","ax",""); 
+				GEN("SAHF","",""); 
+			}
 		}
 		
 	 }
@@ -162,10 +171,18 @@ public class Assembler {
 		 		GEN(LabelBIBF+"JG EtiquetaSalto_"+salto,"","");
 		 	else
 			if ( CMP.equals("<") )
-				GEN(LabelBIBF+"JL EtiquetaSalto_"+salto,"","");
+			{
+				if (ter.isSentenciaFor())
+					GEN(LabelBIBF+"JLE EtiquetaSalto_"+salto,"","");
+				else
+					GEN(LabelBIBF+"JL EtiquetaSalto_"+salto,"","");				
+			}
 			else
 			if ( CMP.equals("MENOR_IGUAL") )
 				GEN(LabelBIBF+"JLE EtiquetaSalto_"+salto,"","");
+			else
+			if ( CMP.equals("<=") )
+					GEN(LabelBIBF+"JLE EtiquetaSalto_"+salto,"","");
 			else
 			if ( CMP.equals("MAYOR_IGUAL") )
 				GEN(LabelBIBF+"JGE EtiquetaSalto_"+salto,"","");
@@ -229,7 +246,15 @@ public class Assembler {
 				GEN(LabelBIBF+"MOV","EAX,",argu1);
 			}
 			else{
-				GEN(LabelBIBF+"FILD",argu1,"");
+				if(ter.isSentenciaFor())
+				{
+					GEN("FILD",argu1,""); 
+					GEN("ADD"," AUX_FOR ,",argu2);
+					GEN("MOV","AX,","AUX_FOR");
+					GEN("MOV",argu1,",AX");
+				}
+				else
+					GEN(LabelBIBF+"FILD",argu1,"");
 			}
 			
 			if ( operador.equals("+")){
@@ -264,7 +289,7 @@ public class Assembler {
 					BI(terceto.getElem2(),terceto.getElem3());
 				}
 				else{
-					if(operador.equals("=")||operador.equals("<")||operador.equals(">")||operador.equals("MENOR_IGUAL")||operador.equals("MAYOR_IGUAL")||operador.equals("DISTINTO")){
+					if(operador.equals("=")||operador.equals("<")||operador.equals(">")||operador.equals("<=")||operador.equals("MENOR_IGUAL")||operador.equals("MAYOR_IGUAL")||operador.equals("DISTINTO")){
 						CMP=operador;	
 						CMP(terceto.getElem2(),terceto.getElem3());
 					}

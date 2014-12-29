@@ -1044,12 +1044,12 @@ case 50:
 					Token aux2 = obtenerToken(val_peek(1).sval,nroAmbito,(String)val_peek(1).obj);
 					val_peek(3).sval=aux.getPuntero().getValor().toString();
 					val_peek(3).obj = aux.getTipo();
-					if(aux2.getTipo().equals("IDENTIFICADOR"))
-						sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
-					if(aux.getTipo().equals("IDENTIFICADOR"))
-						sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
-					if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
-						sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
+				//	if(aux2.getTipo().equals("IDENTIFICADOR"))
+					//		sintacticoError.addLog("Error: la variable <'" +aux2.getPuntero().getValor().toString()+"'> no se encuentra declarada.");					
+					//if(aux.getTipo().equals("IDENTIFICADOR"))
+					//	sintacticoError.addLog("Error: la variable <'" +aux.getPuntero().getValor().toString()+"'> no se encuentra declarada.");									
+					//if(!aux.getTipo().equals("INT")||!aux2.getTipo().equals("INT"))
+					//	sintacticoError.addLog("Error-> No se permiten identificadores de tipo float en la comparacion de la sentencia 'FOR'. ");
 					vectorTercetos.add(new Tercetos("<=",aux.getPuntero().getValor().toString(),aux2.getPuntero().getValor().toString(),varTipo,vectorTercetos.size()+1,true)); 
 					yyval.sval = new String("["+String.valueOf(vectorTercetos.size()+"]"));
 				}
