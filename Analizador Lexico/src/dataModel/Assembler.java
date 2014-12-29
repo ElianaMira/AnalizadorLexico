@@ -112,11 +112,17 @@ public class Assembler {
 				 if(ter.isSentenciaFor())
 					 GEN ("MOV AUX_FOR,","AX","");				 
 			 }
-			 else
-			 {
-				 GEN(LabelBIBF+"FLD",argu2,"");				
-				 GEN ("FSTP ",argu1,"");
+			
+			else{
+				int index = x.indexOf("[");
+				String pos = x.substring(index+1, x.length()-1);
+				String name = x.substring(0, index);
+				GEN ("MOV EAX, ",argu2,"");
+				GEN ("MOV", "AX, ",pos );
+				GEN("MOV SI,","AX","");				
+				GEN ("MOV "+ name+"[SI],", "EAX","");
 			}
+				 
 		 }
 	}
 	 

@@ -117,7 +117,12 @@ public class GeneradorCodigo {
 							InstruccionDeclaracion.add(simb.getValor().toString()+" dd 0.0");
 							varAuxiliares.add(new Token("FLOTANTE",simb));
 						}
-					}	
+					}
+					else{
+						if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("VECTOR")){
+							InstruccionDeclaracion.add(simb.getValor().toString()+" dd "+ 4 +" DUP(0.0)");
+						}
+					}
 			}
 			CargarVariablesAuxiliares();    
 			CargarMensajesError();
