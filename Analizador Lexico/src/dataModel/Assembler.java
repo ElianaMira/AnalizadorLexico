@@ -15,6 +15,7 @@ public class Assembler {
     String LabelBIBF;//Label que se seteara con el numero de salto de un BI o BF. el cual se encontrara en el comienzo una operacion.  
 	static String CMP; //Para saber cual operador de comparacion la BF debe evaluar.	
 	private static Stack <String> pilaBF; //Alamcena las posiciones de regreso para setear a donde deben saltar los BF. 
+	private Vector<String> listAux;
 	
 	private Vector<String> InstruccionesTercetos;
 	
@@ -24,6 +25,7 @@ public class Assembler {
 		contaux = 0;
 		pilaBF= new Stack<String>();
 		pilaCodigo = new Stack<String>();
+		listAux = new Vector<String>();
 	}
 
 	//SUMA
@@ -33,7 +35,9 @@ public class Assembler {
 			if(ter.getTipo()!=null &&  ter.getTipo().equals("flotante")){
 				GEN("FLD",argu1,"");
 				GEN("FADD",argu2,"");
+				listAux.clear();
 				GEN("FSTP _aux"+contaux,"","");
+				GEN("FLD _aux"+contaux,"","");
 				pilaCodigo.push("_aux" + contaux);				
 				contaux++;
 				}
@@ -100,7 +104,7 @@ public class Assembler {
 	 private void ASSIG(String x,String y)
 	 {				 
 		 if (ter.getTipo()!=null && ter.getTipo().equals("flotante"))
-		 {			 	 
+		 {	
 			 GEN(LabelBIBF +" FLD",argu2,"");
 		     GEN("FSTP",argu1,"");
 		 }
@@ -221,15 +225,25 @@ public class Assembler {
 	private String getDestino(String elemTerceto){
 		
 		if (elemTerceto.contains("[")){
-			return "AUX_"+elemTerceto.substring(1, elemTerceto.length()-1);
+			return "_aux"+(contaux-1);
 		}
 		else
 			if (!(elemTerceto.charAt(0)>='0' && elemTerceto.charAt(0)<='9')) {
 				return elemTerceto;
 			}
 			else
-				if(ter.getTipo()!=null && ter.getTipo().equals("flotante"))
-					return "AuxAssem"+String.valueOf(numTerceto+1);
+				if(ter.getTipo()!=null && ter.getTipo().equals("flotante")){
+					String aux = "AuxAssem"+String.valueOf(numTerceto+1);
+					if (!listAux.contains(aux)){
+						listAux.add("AuxAssem"+String.valueOf(numTerceto+1));
+						return "AuxAssem"+String.valueOf(numTerceto+1);
+					}
+					else{
+						listAux.add("AuxAssem"+String.valueOf(numTerceto+listAux.size()));
+						return "AuxAssem"+String.valueOf(numTerceto+listAux.size());
+					}
+					
+				}
 		return elemTerceto;
 			
 	}

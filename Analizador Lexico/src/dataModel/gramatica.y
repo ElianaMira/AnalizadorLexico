@@ -87,12 +87,12 @@ expresion:
 	{	
 		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
-		}
-		if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
-		}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());		
 		vectorTercetos.add(new Tercetos("+",op1,op2,varTipo));
@@ -104,12 +104,12 @@ expresion:
 	{
 		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
-		}
-		if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
-		}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
 		vectorTercetos.add(new Tercetos("-",op1,op2,varTipo));
@@ -134,12 +134,12 @@ termino:
 	{
 		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
-		}
-		if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
-		}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
 		vectorTercetos.add(new Tercetos("*",op1,op2,varTipo));
@@ -150,12 +150,12 @@ termino:
 	{
 		Token operador1 = obtenerToken($1.sval,nroAmbito,(String)$1.obj);
 		Token operador2 = obtenerToken($3.sval,nroAmbito,(String)$3.obj);
-		if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
-		}
-		if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
-			sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
-		}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($1.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador1.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
+		//if(!lexico.getTablaSimbolos().existeTipoVariable($3.sval,"flotante")){
+			//sintacticoError.addLog("Error: la variable "+ operador2.getPuntero().getValor() +" no se encuentra declarada.");
+		//}
 		String op1 = new String(operador1.getPuntero().getValor());
 		String op2 = new String(operador2.getPuntero().getValor());			
 		vectorTercetos.add(new Tercetos("/",op1,op2,varTipo));
