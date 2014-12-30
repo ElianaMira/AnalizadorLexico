@@ -25,6 +25,7 @@ public class LectorArchivo{
             }
             sCadena = "#";
             fuente.add(sCadena);
+            bf.close();
          }
         catch (FileNotFoundException fnfe){fnfe.printStackTrace();
       }

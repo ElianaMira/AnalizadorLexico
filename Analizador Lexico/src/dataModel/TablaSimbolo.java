@@ -66,6 +66,27 @@ public class TablaSimbolo {
         }
     }
     
+    public void addDimension(String valor, String dimension){
+    	StringBuffer sb = new StringBuffer();
+    	sb.append(valor);
+    	Simbolo s = obtenerSimbolo(new Simbolo(sb, ""));
+    	Token t = new Token("",s);
+    	int indexCorchete = dimension.indexOf("[");
+    	int indexPunto = dimension.indexOf(".");
+    	int indexCorchete2 = dimension.indexOf("]");
+    	String aux = dimension.substring(indexCorchete+1, indexPunto);
+    	aux.replace(".", "");
+    	Integer inicio =Integer.parseInt(aux);
+    	String aux1 = dimension.substring(indexPunto+2,indexCorchete2);
+    	aux1.replace("]", "");
+    	Integer fin = Integer.parseInt(aux1);
+    	int rango = fin-inicio+1;
+    	if (existeSimbolo(t)) {
+    		s.setDeclarado(true);
+            s.setRango(rango);
+        }
+    }
+    
     public static void existeVariable(Token t){
     	Simbolo s = obtenerSimbolo(t.getPuntero());
     	if (s == null){

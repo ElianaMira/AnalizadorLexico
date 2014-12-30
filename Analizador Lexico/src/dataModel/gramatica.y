@@ -28,7 +28,8 @@ sentencia:
 declaracion:
 	numero variables ';' { $$.sval = $1.sval;}
 	|numero ';'{sintacticoError.addLog("Error sintactico -> Declaracion invalida.");}
-	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($2.sval,"VECTOR");}
+	|VECTOR IDENTIFICADOR DIMENSION DE numero ';' {lexico.getTablaSimbolos().addTipo($2.sval,"VECTOR");
+												lexico.getTablaSimbolos().addDimension($2.sval,$3.sval);}
 	|VECTOR IDENTIFICADOR ';'{sintacticoError.addLog("Error sintactico en la linea "+lexico.getLineas()+": declaracion de variables");};
 
 variables: 

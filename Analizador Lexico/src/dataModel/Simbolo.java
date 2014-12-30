@@ -6,6 +6,7 @@ public class Simbolo
     private String tipo;
     private String tipoVariable;
     private boolean declarado;
+    private int rango;
     
     public Simbolo(StringBuffer v, String t)
     {
@@ -13,6 +14,7 @@ public class Simbolo
         this.valor.append(v); //con el append se cambia el contenido del stringbuffer
         tipo = t ;
         declarado = false;
+        rango = 0;
     }
     public boolean getDeclarado() {
         return declarado;
@@ -20,7 +22,12 @@ public class Simbolo
     public void setDeclarado(boolean d) {
         declarado=d;
     }
-
+    public int getRango() {
+        return rango;
+    }
+    public void setRango(int r) {
+        rango=r;
+    }
     public String getTipo() {
         return tipo;
     }

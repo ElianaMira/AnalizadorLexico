@@ -118,6 +118,9 @@ public class Assembler {
 				int index = x.indexOf("[");
 				String pos = x.substring(index+1, x.length()-1);
 				String name = x.substring(0, index);
+				
+				GEN("CMP cte_rango, ",pos,"");
+				GEN("JL LabelOutRange","","");
 				GEN ("MOV EAX, ",argu2,"");
 				GEN ("MOV", "AX, ",pos );
 				GEN("MOV SI,","AX","");				
@@ -318,7 +321,9 @@ public class Assembler {
 								GEN(LabelBIBF+"JMP","_QUIT","");
 							    GEN("LabelOverflow: invoke MessageBox, NULL, addr AUX_Overflow, addr msjError, MB_OK ","","");			
 								GEN("JMP","_QUIT","");
-								GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");			
+								GEN("LabelNegativo: invoke MessageBox, NULL, addr AUX_Negativo, addr msjError, MB_OK ","","");
+								GEN("JMP","_QUIT","");
+								GEN("LabelOutRange: invoke MessageBox, NULL, addr AUX_Range, addr msjError, MB_OK ","","");
 								GEN("JMP","_QUIT","");											
 							}
 						}

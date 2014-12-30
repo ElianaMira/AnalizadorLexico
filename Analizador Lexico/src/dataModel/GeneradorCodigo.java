@@ -77,9 +77,7 @@ public class GeneradorCodigo {
 
 	public void run(){
 
-		try{
-			
-			//TablaSimbolo.CleanID();			
+		try{			
 			
 		    assem = new Assembler();
 		    
@@ -93,7 +91,6 @@ public class GeneradorCodigo {
 			InstruccionDeclaracion.add("includelib\\masm32\\lib\\user32.lib");
 			InstruccionDeclaracion.add(".data");
 			
-			//Enumeration<Token> elem =TablaSimbolos.Enumerator();
 			
 			for(int i=0; i< TablaSimbolo.getTabla().size();i++){
 				Simbolo simb = TablaSimbolo.getTabla().get(i);
@@ -134,7 +131,8 @@ public class GeneradorCodigo {
 					}
 					else{
 						if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("VECTOR")){
-							InstruccionDeclaracion.add(simb.getValor().toString()+" dd "+ 4 +" DUP(0.0)");
+							InstruccionDeclaracion.add(simb.getValor().toString()+" dd "+ simb.getRango() +" DUP(0.0)");
+							InstruccionDeclaracion.add("cte_rango dw " + simb.getRango());
 						}
 					}
 			}
@@ -260,8 +258,7 @@ public class GeneradorCodigo {
 		InstruccionDeclaracion.add("msjFOR db \""+"Iteracion sentencia FOR.\",0");
 		InstruccionDeclaracion.add("msjError db \""+"Error\",0");
 		InstruccionDeclaracion.add("AUX_Overflow db \""+"OverFlow en la suma.\",0");
-		//varAuxiliares.add(new Token("AUX_Overflow",CADENA,"Cadena"));
+		InstruccionDeclaracion.add("AUX_Range db \""+"Indice fuera de rango.\",0");
 		InstruccionDeclaracion.add("AUX_Negativo db \""+"El resultado de la resta es negativo.\",0");
-		//varAuxiliares.add(new Token("AUX_Negativo",CADENA,"Cadena"));
 	}
 }
