@@ -1,5 +1,6 @@
 package dataModel;
 
+import java.util.Stack;
 import java.util.Vector;
 
 public class GeneradorCodigo {
@@ -10,12 +11,17 @@ public class GeneradorCodigo {
 	private Vector<String> InstruccionDeclaracion;
 	private Vector<String> InstruccionesTercetos;
 	private Vector<Token> varAuxiliares;
+	public Stack<String> pilaCodigo;
+	private int it;
+	
 	
 	public GeneradorCodigo(Vector<Tercetos> listaTercetos){		
 		ldt = listaTercetos;
 		InstruccionDeclaracion = new Vector<String>();
 		InstruccionesTercetos = new Vector<String>();
 		varAuxiliares = new Vector<Token>();
+	    pilaCodigo = new Stack<String>();
+	    it = 0;
 	}
 	
 	private static boolean isNumeric(String cadena,String tipo){
@@ -101,6 +107,7 @@ public class GeneradorCodigo {
 				else
 					if(simb.getTipoVariable()!=null && simb.getTipoVariable().equals("flotante")){						
 						if(isNumeric(simb.getValor().toString(),simb.getTipoVariable())){
+							
 							if (existeVariable("AuxAssem"+getPosTerceto(simb.getValor().toString()))){
 								Integer var = getPosicion(simb.getValor().toString())+1;
 								InstruccionDeclaracion.add("AuxAssem"+var.toString()+" dd "+simb.getValor().toString());	
@@ -108,6 +115,13 @@ public class GeneradorCodigo {
 							else{
 								InstruccionDeclaracion.add("AuxAssem"+getPosTerceto(simb.getValor().toString())+" dd "+simb.getValor().toString());
 							}
+							
+							if (simb != null	&& simb.getTipoVariable().equals("flotante")) {
+							
+								InstruccionDeclaracion.add("_aux"+it+" dd ?");				
+								it++;
+							}
+							
 							StringBuffer sb= new StringBuffer();
 							sb.append("AuxAssem"+getPosTerceto(simb.getValor().toString()));
 							Simbolo s = new Simbolo(sb,"FLOTANTE");

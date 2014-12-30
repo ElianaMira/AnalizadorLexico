@@ -5,29 +5,25 @@ import java.util.Vector;
 
 public class Assembler {
 	
-	//private float AX = 0;
+	private Stack<String> pilaCodigo;
+	private Integer contaux;	
 	private Tercetos ter;
 	private String argu1;
 	private String argu2;
-//	static int posInstr;
-//	static int posBI;
-//	static int posJMPBI;
-//	static int posJMPBF;
-//	static int posBF;
 	static int numTerceto;
 	static String saltoBI; //Guarda la posicion a donde tiene que saltar(se setea cuando encuentra un BI, si la posición a la que tiene que saltar es menor a numTerceto (o sea un salto para atras 'sentencia for'.),no hacemos nada porque antes en el CMP se seteo la label, si es mayor entonces cuando coincida saltoBI con numterceto marcaremos esa instr assembler con la una label+saltoBI. 
-
-	String LabelBIBF;//Label que se seteara con el numero de salto de un BI o BF. el cual se encontrara en el comienzo una operacion.  
+    String LabelBIBF;//Label que se seteara con el numero de salto de un BI o BF. el cual se encontrara en el comienzo una operacion.  
 	static String CMP; //Para saber cual operador de comparacion la BF debe evaluar.	
 	private static Stack <String> pilaBF; //Alamcena las posiciones de regreso para setear a donde deben saltar los BF. 
-//	private Stack <String> pilaBI_For;//Almacena las posiciones a donde saltar (atras) en caso de una sentencia FOR.
-//	private Stack <String> pilaBI_IF;//Almacena las posiciones a donde saltar (adelante) en caso de una sentencia IF.
-//	
+	
 	private Vector<String> InstruccionesTercetos;
+	
 	public Assembler(){
 		saltoBI="-2";
 		LabelBIBF="";
+		contaux = 0;
 		pilaBF= new Stack<String>();
+		pilaCodigo = new Stack<String>();
 	}
 
 	//SUMA
@@ -35,40 +31,30 @@ public class Assembler {
 	    {
 			
 			if(ter.getTipo()!=null &&  ter.getTipo().equals("flotante")){
-				GEN("ADD","EAX,",argu2);
-				GEN("CMP","LimiteFLOAT,","EAX");				
-			}
+				GEN("FLD",argu1,"");
+				GEN("FADD",argu2,"");
+				GEN("FSTP _aux"+contaux,"","");
+				pilaCodigo.push("_aux" + contaux);				
+				contaux++;
+				}
 			else 
 			{
-				if (ter.getTipo()!=null && (ter.getTipo().equals("int"))){	
-					if(ter.isSentenciaFor())
-					{
-					
-					
-					}
-					else
-					{
-						GEN("ADD","AX,",argu2);
-						GEN("CMP","LimiteINT,","AX");
-						
-					}
-					
-						
-				}
-				else{
-					GEN("FADD",argu2,"");				
-					GEN("FLD","LimiteFLOAT","");
-					GEN("FCOMP","","");
-					GEN("JG","LabelOverflow","");
+				if (ter.getTipo()!=null )
+				{	
+					GEN("ADD","AX,",argu2);
+					GEN("CMP","LimiteINT,","AX");
 				}
 			}
 	    }
 	//RESTA
 	 private void RESTA (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){
-		 		GEN("SUB","EAX,",argu2);
-		 	//	GEN("JS","LabelNegativo","");
+		 	if(ter.getTipo()!=null && ter.getTipo().equals("flotante")){
+		 		GEN("FLD ",argu1,"");
+				GEN("FSUB ",argu2,"");
+				GEN("FST _aux"+contaux,"","");
+				pilaCodigo.push("_aux" + contaux);				
+				contaux++;
 		 	}
 		 	else
 		 	{
@@ -80,8 +66,18 @@ public class Assembler {
 	//PRODUCTO
 	private void  MUL (String x, String y, String z)
 	    {
-			if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") ))
-				GEN ("IMUL EAX, ",argu2,"");			
+			if(ter.getTipo().equals("flotante"))
+			{
+				GEN("FLD  ",argu1," ");
+				GEN("FMUL ",argu2," ");
+				GEN("FST _aux"+contaux,"","");
+				GEN("FCOMP"," LimiteFLOAT"," ");
+				GEN("FSTSW","ax","");
+				GEN("SAHF","","");
+				GEN("JNBE LabelOverflow","","");
+				pilaCodigo.push("_aux" + contaux);
+				contaux++;
+			}		
 			else
 				GEN ("FMUL ",argu2,"");
 	    } 
@@ -89,19 +85,24 @@ public class Assembler {
 	//DIVISION
 	 private void DIV (String x,String y,String z)
 	    {
-		 	if(ter.getTipo()!=null && (ter.getTipo().equals("int") || ter.getTipo().equals("flotante") )){	 		
-		 		GEN ("DIV ","",argu2);
-		 	}
-		 	else		 	
-		 		GEN ("FDIV ",argu2,"");		 	
+		 	if(ter.getTipo()!=null && ter.getTipo().equals("flotante"))
+		 	{	 			 		
+		 		GEN("FLD",argu1,"");
+		 		GEN("FLD",argu1,"");
+		        GEN("FDIVR","",""); 
+				GEN("FST _aux"+contaux,"","");
+				pilaCodigo.push("_aux" + contaux);
+				contaux++;
+			}		 		 	
 	    }
+	 
 	//ASIGNACION
 	 private void ASSIG(String x,String y)
 	 {				 
 		 if (ter.getTipo()!=null && ter.getTipo().equals("flotante"))
-		 {
-			 GEN (LabelBIBF+"MOV", "EAX" +",",argu2);
-			 GEN ("MOV "+argu1+",","EAX","");
+		 {			 	 
+			 GEN(LabelBIBF +" FLD",argu2,"");
+		     GEN("FSTP",argu1,"");
 		 }
 		 else
 		 {
@@ -121,8 +122,7 @@ public class Assembler {
 				GEN ("MOV", "AX, ",pos );
 				GEN("MOV SI,","AX","");				
 				GEN ("MOV "+ name+"[SI],", "EAX","");
-			}
-				 
+			}				 
 		 }
 	}
 	 
@@ -134,36 +134,6 @@ public class Assembler {
 		 GEN(LabelBIBF+"JMP EtiquetaSalto_"+salto,"","");
 	 }
 	 
-	 private void CMP(String x,String y){
-		 String label="";
-		 label=LabelBIBF;
-		 if(ter.isSentenciaFor())
-			 label=ter.getEtiquetaSalto();
-		 
-		 if (ter.getTipo().equals("flotante")){	
-			
-			 if(!label.equals("")){
-				 	GEN("MOV AX, ","AUX_FOR","");	
-			 		GEN(label+"CMP "+argu2,",","EAX");			 		
-			 }
-			 else{				
-				 GEN(" MOV EAX, ",argu1,"");	
-				 GEN(label+"CMP "+argu2,",","EAX");					
-			 }
-		}
-		else{
-			if (ter.isSentenciaFor())
-			{
-				GEN(label+" FILD ",argu1,"");
-				GEN("MOV","_maximo,",argu2);
-				GEN("FILD","_maximo","");
-				GEN("FCOMP","",""); 
-				GEN("FSTSW","ax",""); 
-				GEN("SAHF","",""); 
-			}
-		}
-		
-	 }
 	 
 	 private void BF(String x,String y){		
 			
@@ -204,10 +174,47 @@ public class Assembler {
 		
 	 }
 	 
+	 
+	 private void CMP(String x,String y){
+		 String label="";
+		 label=LabelBIBF;
+		 if(ter.isSentenciaFor())
+			 label=ter.getEtiquetaSalto();
+		 
+		 if (ter.getTipo().equals("flotante")){	
+			
+			 if(!label.equals("")){
+				 	GEN("MOV AX, ","AUX_FOR","");	
+			 		GEN(label+"CMP "+argu2,",","EAX");			 		
+			 }
+			 else{				
+				 GEN(" MOV EAX, ",argu1,"");	
+				 GEN(label+"CMP "+argu2,",","EAX");					
+			 }
+		}
+		else{
+			if (ter.isSentenciaFor())
+			{
+				GEN(label+" FILD ",argu1,"");
+				GEN("MOV","_maximo,",argu2);
+				GEN("FILD","_maximo","");
+				GEN("FCOMP","",""); 
+				GEN("FSTSW","ax",""); 
+				GEN("SAHF","",""); 
+			}
+		}		
+	 }
+
 	public void GEN(String instr1,String instr2,String Instr3)
 	{
 		InstruccionesTercetos.add(instr1+" "+instr2+" "+Instr3);
 	}
+	
+	public void GEN(String instr1,String instr2,Integer Instr3)
+	{
+		InstruccionesTercetos.add(instr1+" "+instr2+" "+Instr3);
+	}
+	
 	private String getDestino(String elemTerceto){
 		
 		if (elemTerceto.contains("[")){
